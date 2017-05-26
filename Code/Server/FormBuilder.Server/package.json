@@ -1,0 +1,23 @@
+{
+  "name": "formbuilder.server",
+  "version": "0.1.0",
+  "description": "Backend for Form Builder",
+  "main": "infrastructure/server.js",
+  "scripts": {
+    "start": "node infrastructure/server.js"
+  },
+  "author": {
+    "name": "Furqan Shaikh",
+    "email": "furqan_shaikh_1999@hotmail.com"
+  },
+  "homepage": "https://github.com/fshaikh/FormBuilder",
+  "contributors": [
+    "Thejaswi Rao"
+  ],
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25",
+    "uuid": "^3.0.1"
+  }
+}

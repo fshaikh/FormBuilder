@@ -1,0 +1,8 @@
+# Dependency directories
+.vscode/
+Code/FrontEnd/FormDesigner/.vscode/
+Code/FrontEnd/FormDesigner/node_modules/
+Code/FrontEnd/FormDesigner/.editorconfig
+Code/Server/FormBuilder.Server/.vs/
+Code/Server/FormBuilder.Server/node_modules/
+Code/Server/FormBuilder.Server/obj/
