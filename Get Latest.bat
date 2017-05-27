@@ -11,4 +11,4 @@ git remote add origin https://github.com/fshaikh/FormBuilder.git
 git remote -v
 
 @ECHO *** Fetching latest changes in local repo from FormBuilder Github repo ***
-git pull origin Dev
+git pull origin master
