@@ -8,11 +8,13 @@ import { AppComponent } from './main/app.component';
 
 import {UiModule} from '../ui/ui.module';
 import { MiddleComponent } from './main/middle/middle.component';
+import { FooterComponent } from './main/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MiddleComponent
+    MiddleComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
