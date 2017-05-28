@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "docs": "npm run typedoc -- --options typedoc.json --exclude '**/*.spec.ts **/e2e/*.*' ./app/",
-    "typedoc":"typedoc"
+    "typedoc":"typedoc",
+    "i18n":"./node_modules/.bin/ng-xi18n --i18nFormat=xlf --outFile=../../../i18n/FormDesigner"
   },
   "private": true,
   "dependencies": {

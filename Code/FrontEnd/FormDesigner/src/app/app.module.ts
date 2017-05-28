@@ -3,14 +3,16 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from './main/app-routing.module';
+import { AppComponent } from './main/app.component';
 
-import {UiModule} from '../../ui/ui.module';
+import {UiModule} from '../ui/ui.module';
+import { MiddleComponent } from './main/middle/middle.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MiddleComponent
   ],
   imports: [
     BrowserModule,

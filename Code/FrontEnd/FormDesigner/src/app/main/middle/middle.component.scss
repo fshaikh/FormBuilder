@@ -1,0 +1,16 @@
+@import '../../../styles/core/_colors.scss';
+
+.middle-container{
+    background-color: $Background-Color;
+    color:$White;
+    text-align:center;
+    height:80%;
+    
+    h1{
+        font-size:50px;
+    }
+
+    h2{
+        font-size:25px;
+    }
+}
