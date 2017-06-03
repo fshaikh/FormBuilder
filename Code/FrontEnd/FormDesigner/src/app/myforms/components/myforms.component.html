@@ -1,1 +1,26 @@
-<h1>My Forms UI goes here </h1>
+<div class="myforms-container">
+    <div class="left-area">
+        <div class="action-area">
+            <fd-button [text]='getText()' [styles]="createform-btn" (notifyClick)="onCreateForm($event)"></fd-button>
+        </div>
+
+        <div class="filters-area">
+        </div>
+    </div>
+
+    <div class="main-area">
+        <div class="options-area">
+            
+        </div>
+
+        <div class="forms-area">
+            <div class="noforms-container" [hidden]="hasForms">
+                <h2 i18n="User instruction|Message shown to user when no forms are created">You dont have any forms yet</h2>
+            </div>
+
+            <ul *ngFor="let form of forms" class="form-list-container">
+                <fd-formitem [form]="form"></fd-formitem>
+            </ul>
+        </div>
+    </div>
+</div>

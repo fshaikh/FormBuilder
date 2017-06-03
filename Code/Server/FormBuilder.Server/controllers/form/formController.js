@@ -54,7 +54,8 @@ module.exports = (function () {
     // GET /api/forms/{includeMeta}
     async function getForms(req, res) {
         let includeMeta = req.params.includeMeta == '1' ? true : false;
-        let formRequest = new FormRequest.FormRequest('', '', includeMeta);
+        let formRequest = new FormRequest.FormRequest('', '', includeMeta,req.user);
+
         let response = await formService.getForms(formRequest);
 
         _handleResponse(res, response);

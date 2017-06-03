@@ -1,0 +1,36 @@
+/**
+ * Base class for all services
+ */
+
+import { Http, RequestOptionsArgs ,Headers} from "@angular/http";
+import { Observable } from "rxjs/Observable";
+
+
+
+export abstract class ServiceBase {
+    protected _baseUrl:string = 'http://localhost:4000/api';
+
+    constructor(protected _http:Http){
+        // Do nothing
+    }
+
+    protected get(url):Observable<any>{
+        let options:RequestOptionsArgs = {
+            headers:this.getStandardGetHeaders(), 
+            withCredentials:true
+        };
+        
+        return this._http.get(url,options);
+    }
+
+    protected getStandardGetHeaders():Headers{
+        let headers:Headers = new Headers();
+        headers.set("content-type","application/json");
+        headers.set("accept","application/json");
+        headers.set("Access-Control-Allow-Credentials","true");
+
+        return headers;
+    } 
+
+    
+}

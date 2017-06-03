@@ -2,7 +2,7 @@
 
 module.exports = (function () {
     const utilService = require('./utilService.js');
-    const dal = require('../DAL/databaseManager.js');
+    const formDA = require('../DAL/formDA.js');
     var ResponseBase = require('../models/ResponseBase.js');
     
     async function saveFormMeta(form) {
@@ -20,7 +20,11 @@ module.exports = (function () {
     }
 
     async function getForms(formRequest) {
-        return await dal.getForms(formRequest);
+        return await _createFormDA().getFormsByUser(formRequest);
+    }
+
+    function _createFormDA() {
+        return new formDA.FormDataAccess();
     }
 
     return {

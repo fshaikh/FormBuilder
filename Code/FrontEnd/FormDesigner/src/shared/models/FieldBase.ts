@@ -1,11 +1,10 @@
 import {FieldType} from './FieldType';
 import {IValidator} from './IValidator';
-import {RowType} from './RowType';
+import { RowType } from './RowType';
+import { ObjectBase } from "shared/models/ObjectBase";
 
 
-export class FieldBase{
-    id:string;
-    name:string;
+export class FieldBase extends ObjectBase{
     label:string;
     type:FieldType;
     required:Boolean;

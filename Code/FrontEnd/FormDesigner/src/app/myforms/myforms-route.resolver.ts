@@ -10,14 +10,20 @@ import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 
-import { IForm } from "shared/models/IForm";
+
+import { FormsService } from "shared/services/forms/forms.service";
+import { Form } from "shared/models/Form";
 
 
 @Injectable()
-export class MyFormsRouteResolver implements Resolve<IForm[]>{
+export class MyFormsRouteResolver implements Resolve<Form[]>{
 
-    constructor(){
-
+    /**
+     * Initializes a new instance of MyFormsRouteResolver
+     * @param _formsService Forms Service
+     */
+    constructor(private _formsService:FormsService){
+        // Do nothing
     }
 
     /**
@@ -25,7 +31,7 @@ export class MyFormsRouteResolver implements Resolve<IForm[]>{
      * @param route 
      * @param state 
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): IForm[]{
-        return null;
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Form[]>{
+       return  this._formsService.getForms();
     }
 }

@@ -1,0 +1,63 @@
+@import '../../../styles/core/_colors';
+
+.myforms-container{
+    min-height:750px;
+    width:98%;
+    color:$White;
+    margin:5px;
+    border-top:9px solid $Background-Color !important;
+    border:1px solid $Background-Color;
+
+    display:flex;
+    flex-direction:row;
+
+    .left-area{
+        flex-grow: 1;
+        border-right:2px solid $Background-Color;
+        display:flex;
+        flex-direction: column;
+
+        .action-area{
+            flex-grow:0.16;
+            border-bottom:2px solid $Background-Color;
+
+            /deep/ .createform-btn{
+                width:90%;
+                background-color:$Background-Color;
+                margin-left:10px;
+                margin-top:10px;
+            }
+        }
+
+        .filters-area{
+            flex-grow: 3;
+        }
+    }
+
+    .main-area{
+        flex-grow:3;
+        display:flex;
+        flex-direction: column;
+
+        .options-area{
+            flex-grow:0.5;
+            border-bottom:2px solid $Background-Color;
+        }
+
+        .forms-area{
+            flex-grow: 3;
+
+            .noforms-container{
+                margin: 0 auto;
+                text-align: center;
+                margin-top: 150px;
+                width: 450px;
+                color:$Black90;
+
+                h2{
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}

@@ -11,6 +11,7 @@ import { MiddleComponent } from './main/middle/middle.component';
 import { FooterComponent } from './main/footer/footer.component';
 import { HomeComponent } from './main/home/home.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

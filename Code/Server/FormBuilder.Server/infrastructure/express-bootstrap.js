@@ -6,6 +6,8 @@ module.exports = (function () {
     // JSON,urlencoded,raw, text
     var bodyParser = require('body-parser');
 
+    var cookieParser = require('cookie-parser');
+
     // require bootstrapper
     var bootstrapper = require('../controllers/controller-bootstrap.js');
 
@@ -14,6 +16,9 @@ module.exports = (function () {
 
     // CORS middleware
     var cors = require('../middleware/cors/cors.js');
+
+    // Authentication middleware
+    var authMiddleware = require('../middleware/auth/auth-middleware.js');
 
     var _jsonParser;
     // express router object. This object is used for configuring api routes
@@ -33,24 +38,22 @@ module.exports = (function () {
 
         // bootstrap controllers
         bootstrapper.bootstrapControllers(_app, _getOptions());
-
-        // setup response middleware
-        _setupResponseMiddleware();
     }
 
     function _setupRequestMiddleware() {
         _setupBodyParsers();
 
-        
+        // setup cookie parser
+        _app.use(cookieParser());
 
         // Setup logging
         _router.use(logger.log({ logHeader: false }));
-    }
 
-    function _setupResponseMiddleware() {
         // Setup CORS
-        //_setupCors();
-        _app.use(cors.setupCors);
+        _router.use(cors.setupCors);
+
+        // Setup Auth middleware
+        _router.use(authMiddleware.handleAuthentication);
     }
 
     function _setupBodyParsers() {
