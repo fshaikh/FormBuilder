@@ -1,4 +1,4 @@
-<li class="form-item">
+<li class="form-item" [attr.data-form-id]="form.id">
   <div class="form-item-detail">
     <span class="form-title">{{form.name}}</span>
     <div class="form-detail">
@@ -12,7 +12,7 @@
     <div class="action-item">
       <span class="fa fa-2x fa-inbox" aria-hidden="true" title="View Inbox"></span>
     </div>
-    <div class="action-item">
+    <div class="action-item" (click)="onFormDelete($event)">
       <span class="fa fa-2x fa-trash" aria-hidden="true" title="Delete Form"></span>
     </div>
   </div>

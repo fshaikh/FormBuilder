@@ -3,8 +3,11 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Form } from "shared/models/Form";
+import { DialogService } from "ui/dialog/dialog.service";
+import { FormTitleComponent } from "app/myforms/components/formtitle/formtitle.component";
+import { DialogResult } from "ui/dialog/DialogResult";
 
 @Component({
   templateUrl: './myforms.component.html',
@@ -17,7 +20,7 @@ export class MyFormsComponent implements OnInit {
   private forms:Form[];
   public hasForms:boolean;
 
-  constructor(private _route:ActivatedRoute) { }
+  constructor(private _route:ActivatedRoute,private _router:Router,private _dialogService:DialogService) { }
 
   ngOnInit() {
     this._route.data.subscribe(
@@ -46,6 +49,26 @@ export class MyFormsComponent implements OnInit {
    */
   onCreateForm(e:any){
     // Show a popup dialog asking for the form name to be entered
+    this._dialogService.open(FormTitleComponent).subscribe(
+        (response:DialogResult) => this._navigate(response)
+    );
+  }
+
+  getStyles():String{
+    return "createform-btn";
+  }
+
+  /**
+   * Navigates to Form Designer
+   * @param response DialogResult
+   */
+  private _navigate(response:DialogResult):void{
+    if(!response || !response.ActionResult){
+      return;
+    }
+
+    // navigate to Form Designer
+    this._router.navigate([`/design/edit/0/${response.Data.Title},`]);
   }
 
 }

@@ -12,6 +12,10 @@ import { FooterComponent } from './main/footer/footer.component';
 import { HomeComponent } from './main/home/home.component';
 
 
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +27,7 @@ import { HomeComponent } from './main/home/home.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+
     AppRoutingModule,
     UiModule
   ],

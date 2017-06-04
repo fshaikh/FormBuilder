@@ -1,0 +1,22 @@
+@import '../../../../styles/core/_colors';
+
+.actions-container{
+    margin-left:250px;
+
+    /deep/ .ok-btn{
+    
+                width:20%;
+                background-color:$Green1;
+                margin-left:10px;
+                margin-top:10px;
+                color:$White
+            }
+    /deep/ .cancel-btn{
+    
+                width:20%;
+                background-color:$White;
+                margin-left:10px;
+                margin-top:10px;
+                color:$Black90;
+            }
+}

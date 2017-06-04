@@ -1,0 +1,6 @@
+<p i18n="Form Title Description|Text to be shown in the dialog">Enter a short descriptive title for this form</p>
+<fd-input [placeholderText]="getTitlePlaceholder()" [value]="getValue()" #titleInput ></fd-input>
+<div class="actions-container">
+  <fd-button [text]='getCancelButtonText()' [styles]="getStyles(false)" (notifyClick)="onClose(false)"></fd-button>
+  <fd-button [text]='getOkButtonText()' [styles]="getStyles(true)" (notifyClick)="onClose(true)" ></fd-button>  
+</div>

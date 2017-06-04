@@ -23,4 +23,12 @@ export class FormListComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Event handler for delete form action
+   * @param e Event object
+   */
+  onFormDelete(e:any):void{
+    alert('form delete');
+  }
+
 }

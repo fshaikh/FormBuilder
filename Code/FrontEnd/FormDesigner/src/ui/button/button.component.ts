@@ -18,7 +18,7 @@ export class ButtonComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    console.log(this.styles);
   }
 
   /**
@@ -27,6 +27,14 @@ export class ButtonComponent implements OnInit {
    */
   onClick(e:any){
     this.notifyClick.emit('');
+  }
+
+  getStyles():String[]{
+    let styles:String[] = [];
+    styles.push(this.styles);
+    styles.push("mat-raised-button");
+
+    return styles;
   }
 
 }

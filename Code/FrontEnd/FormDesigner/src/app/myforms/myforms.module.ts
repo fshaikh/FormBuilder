@@ -6,6 +6,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {CommonModule} from '@angular/common';
+import { FormsModule } from "@angular/forms";
 
 // Feature modules
 import {SharedModule} from '../../shared/shared.module';
@@ -15,6 +16,8 @@ import { MyFormsComponent } from "app/myforms/components/myforms.component";
 import { MyFormsRouteResolver } from "app/myforms/myforms-route.resolver";
 import { UiModule } from "ui/ui.module";
 import { FormListComponent } from "app/myforms/components/formlist/formlist.component";
+import { FormTitleComponent } from "app/myforms/components/formtitle/formtitle.component";
+
 
 // Routes table. Always define specific routes first
 const routes: Routes = [
@@ -24,16 +27,21 @@ const routes: Routes = [
 @NgModule({
     declarations:[
             MyFormsComponent,
-            FormListComponent
+            FormListComponent,
+            FormTitleComponent
         ],
     imports:[
         RouterModule.forChild(routes),
         SharedModule,
         UiModule,
-        CommonModule
+        CommonModule,
+        FormsModule,
     ],
     providers:[
         MyFormsRouteResolver
+    ],
+    entryComponents:[
+        FormTitleComponent
     ]
 })
 export class MyFormsModule{

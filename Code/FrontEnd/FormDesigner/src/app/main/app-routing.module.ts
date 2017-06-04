@@ -8,9 +8,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Feature Modules
 import { MyFormsModule } from "app/myforms/myforms.module";
+import { FormDesignerModule } from "app/formdesigner/form-designer.module";
 
 // Home component
 import { HomeComponent } from "app/main/home/home.component";
+
 
 
 
@@ -24,6 +26,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     MyFormsModule,
+    FormDesignerModule,
     RouterModule.forRoot(routes)
     ],
   exports: [RouterModule]

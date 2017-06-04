@@ -10,21 +10,31 @@ import { CommonModule } from '@angular/common';
 // Angular Material modules
 import {MaterialModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FormsModule } from "@angular/forms";
 
 // UI components
-import {ButtonComponent} from 'ui/button/button.component';
+import { ButtonComponent } from 'ui/button/button.component';
+import { DialogService } from "ui/dialog/dialog.service";
+import { InputComponent } from "ui/input/input.component";
+
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   declarations: [
-    ButtonComponent
+    ButtonComponent,
+    InputComponent
+  ],
+  providers:[
+    DialogService
   ],
   exports:[
-    ButtonComponent
+    ButtonComponent,
+    InputComponent
   ]
 })
 export class UiModule { }
