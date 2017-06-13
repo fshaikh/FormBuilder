@@ -37,7 +37,9 @@ module.exports = (function () {
 
     async function saveFormMeta(req, res) {
         let form = req.body;
-        let response = await formService.saveFormMeta(form);
+        let saveFormRequest = new FormRequest.SaveFormRequest(form.id, form.name, false, req.user,form);
+
+        let response = await formService.saveFormMeta(saveFormRequest);
         _handleResponse(res, response);
     }
 

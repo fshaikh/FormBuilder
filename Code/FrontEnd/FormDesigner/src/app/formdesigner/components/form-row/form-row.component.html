@@ -1,0 +1,15 @@
+<div class="row-container" 
+    (dragover)="onDragOver($event)" 
+    (dragenter)="onDragEnter($event)"
+    (drop)="onDrop($event)" draggable="true"
+    [attr.data-id]="RowAddArgs.Id">
+    <!--<i fa [name]="rocket" [border]=true></i>-->
+    <div #fieldContainer>
+         <div class="form-instructions" *ngIf="showInstructions()">
+            <span>
+                <i class="fa fa-x fa-arrows addrow-icon" aria-hidden="true"></i>
+                Drop form elements here
+            </span>
+        </div>
+    <div>
+</div>

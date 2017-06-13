@@ -2,7 +2,7 @@
  * Component for My Forms
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Form } from "shared/models/Form";
 import { DialogService } from "ui/dialog/dialog.service";
@@ -11,7 +11,8 @@ import { DialogResult } from "ui/dialog/DialogResult";
 
 @Component({
   templateUrl: './myforms.component.html',
-  styleUrls: ['./myforms.component.scss']
+  styleUrls: ['./myforms.component.scss'],
+  encapsulation:ViewEncapsulation.None
 })
 export class MyFormsComponent implements OnInit {
   /**
@@ -68,7 +69,7 @@ export class MyFormsComponent implements OnInit {
     }
 
     // navigate to Form Designer
-    this._router.navigate([`/design/edit/0/${response.Data.Title},`]);
+    this._router.navigate([`/design/edit/0/${response.Data.Title}`]);
   }
 
 }

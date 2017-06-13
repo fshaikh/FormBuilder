@@ -1,0 +1,19 @@
+<div [formGroup]="_formGroup">
+      <div class="field-container">
+            <div class="field-label">
+                  <label [attr.for] ="MINLENGTH_NAME">Minumum Length</label>
+            </div>
+            <div class="field-control">
+                  <input type="number" [formControlName]="MINLENGTH_NAME" class="field-inner" [value]="MINLENGTH" [max]="MAX_LENGTH" [min]="MIN_LENGTH"/>
+            </div>
+      </div>
+
+      <div class="field-container">
+            <div class="field-label">
+                  <label [attr.for] ="MAXLENGTH_NAME">Maximum Length</label>
+            </div>
+            <div class="field-control">
+                  <input type="number" [formControlName]="MAXLENGTH_NAME" class="field-inner" [value]="MINLENGTH" [max]="MAX_LENGTH" [min]="MIN_LENGTH"/>
+            </div>
+      </div>
+</div>

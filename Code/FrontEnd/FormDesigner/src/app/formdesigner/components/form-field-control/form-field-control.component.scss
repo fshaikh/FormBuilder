@@ -1,0 +1,25 @@
+.fieldControl-container{
+                    border:1px solid lightcoral;
+                    margin:2px;
+                    cursor:pointer;
+                    display:flex;
+
+                    
+
+                    .field-control-label{
+                        flex-grow: 3;
+                    }
+
+                    .field-control-remove-icon{
+                        flex-grow:1;
+                        margin-right:auto;
+                    }
+
+                    .field-control-remove-icon:before{
+                        float:right;
+                    }
+                }
+
+                .fieldControl-container:hover{
+                    background-color: brown;
+                }

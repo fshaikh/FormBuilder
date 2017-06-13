@@ -1,0 +1,15 @@
+@import '../../../../styles/core/colors';
+@import '../../../../styles/core/common';
+.form-instructions{
+    width:80%;
+    height:80px;
+    border:10px dashed $Grey02;
+    border-radius:5px;
+    background-color:$Grey03;
+    @include center-div();
+
+    span{
+        text-align:center; 
+        display:block;
+    }
+}

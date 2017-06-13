@@ -1,0 +1,75 @@
+<div *ngIf="fieldControl" [formGroup]="_rootFormGroup">
+    <md-tab-group>
+        <md-tab label="General">
+            <div class="field-container hide">
+                    <div class="field-label">
+                        <label [attr.for] ="name">Name</label>
+                    </div>
+                <div class="field-control">
+                    <input type="text" formControlName="name" class="field-inner" placeholder="Enter name here"/>
+                </div>
+                
+                
+            </div>
+            
+            <div class="field-container">
+                <fd-input [controlGroup]="_rootFormGroup"
+                          [controlName]="getLabelFormControlName()"
+                          [placeholderText]="getLabelPlaceholder()"
+                          [value]="getLabelValue()"
+                          #labelInput >
+                </fd-input>
+                <div class="instruction" i18n="Field Instruction|Help text for the field property">
+                    Type your Label
+                </div>
+            </div>
+
+            <div class="field-container">
+                <fd-dropdown [controlGroup]="_rootFormGroup"
+                             [controlName]="getLayoutTypeFormControlName()"
+                             [placeholderText]="getLayoutTypeText()"
+                             [selectPairs]="getFieldLayoutValues()"
+                            >
+                </fd-dropdown>
+                <div class="instruction" i18n="Field Instruction|Help text for the field property">
+                    Select the position of the field on the form.
+                </div>
+            </div>
+
+            <div class="field-container">
+                <fd-checkbox [controlGroup]="_rootFormGroup"
+                          [controlName]="getRequiredFormControlName()"
+                          [text]="getRequiredText()"
+                          [checked]="getRequiredValue()"
+                          [useToggle]="true"
+                            >
+                </fd-checkbox>
+                <div class="instruction" i18n="Field Instruction|Help text for the field property">
+                    Prevent submission if this field is empty.
+                </div>
+            </div>
+            
+            <div class="field-container hide">
+                    <div class="field-label">
+                        <label [attr.for] ="type">Type</label>
+                    </div>
+                <div class="field-control">
+                    <input type="input" formControlName="typeValue"/>
+                    <input type="hidden" formControlName="type"/>
+                </div>
+            </div>
+           
+            <input type="hidden" formControlName="id"/>
+        </md-tab>
+
+        <md-tab label="Advanced">
+            <!-- This way of dynamic component creation introduced in Angular 4. The drawback being
+                  one cant access the component reference or have @Input/@Output limiting its usage in my app.-->
+            <!--<ng-container *ngComponentOutlet="fieldPropertyAdvancedComponent"></ng-container>-->
+
+            <!-- Dynamic Component Creation -->
+             <div #advancedFieldProperty class="view-container"></div>
+        </md-tab>
+    </md-tab-group>
+</div>
+

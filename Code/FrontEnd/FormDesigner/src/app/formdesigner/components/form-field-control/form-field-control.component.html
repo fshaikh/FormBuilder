@@ -1,0 +1,7 @@
+<div *ngIf="fieldArgs" class="fieldControl-container" [attr.data-id]="fieldArgs.field.id" 
+        (click)="onFieldSelect($event)" [class.selected]="isSelected">
+    <span class="field-control-label">{{getFieldLabel()}}</span>
+    <i class="fa fa-x fa-times field-control-remove-icon" 
+       aria-hidden="true" title="Remove"
+       (click)="onRemove($event)"> </i>
+</div>

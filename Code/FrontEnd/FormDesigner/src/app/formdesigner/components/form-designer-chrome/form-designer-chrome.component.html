@@ -1,3 +1,42 @@
-<p>
-  form-designer-chrome works!
-</p>
+<div class="form-designer-container">
+  <!--header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="logo" title="Go to My Forms" (click)="navigateToMyForms($event)">
+        <i class="fa fa-2x fa-home" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="header-center">
+      <p class="form-title" contenteditable="true">{{_form.name}}</p>
+    </div>
+    <div class="header-right">
+      <div class="action-item">
+        <span class="fa fa-2x fa-floppy-o" aria-hidden="true" title="Save Form" (click)="onFormSave($event)"></span>
+      </div>
+      <div class="action-item">
+        <span class="fa fa-2x fa-toggle-on" aria-hidden="true" title="Preview Form"></span>
+      </div>
+      <div class="action-item">
+        <span class="fa fa-2x fa-users" aria-hidden="true" title="Add Collaborators"></span>
+      </div>
+   </div>
+  </div>
+  <!-- menu -->
+  <div class="menu">
+
+  </div>
+
+  <!-- canvas -->
+  <div class="canvas">
+    <div class="control-panel">
+      <fd-form-control-panel class="form-control-panel" [Controls]="_controls" (RowAdded)="onRowAdded($event)"></fd-form-control-panel>
+    </div>
+    <div class="form-canvas">
+        <fd-form-canvas></fd-form-canvas>  
+    </div>
+    <div class="field-property-form">
+            <!--<field-property-form #fieldPropertyForm *ngIf="_showFieldPropertyForm"></field-property-form>-->
+       <fd-field-property-form ></fd-field-property-form>
+    </div>  
+  </div>
+</div>

@@ -16,6 +16,11 @@ import 'rxjs/add/operator/map';
 
 import { Form } from "shared/models/Form";
 import { ServiceBase } from "shared/services/ServiceBase";
+import { FieldBase } from "shared/models/FieldBase";
+import { FieldType } from "shared/models/FieldType";
+import { FormRequest } from "shared/models/FormRequest";
+import { ResponseBase } from "shared/models/ResponseBase";
+import { HttpHelper } from "shared/utils/HttpHelper";
 
 
 @Injectable()
@@ -57,6 +62,59 @@ export class FormsService extends ServiceBase {
         }
         return forms;
   }
+
+  /**
+   * Gets the Controls
+   */
+  public getControls():FieldBase[]{
+        let _controls:FieldBase[] = [];
+
+        // Create all supported controls and add. Is there a better way?
+        // Short text
+        _controls.push(this._getControl("shortText","Short Text",FieldType.ShortText));
+        // Long text
+        _controls.push(this._getControl("longText","Long Text",FieldType.LongText));
+        // Drop down
+        _controls.push(this._getControl("dropDown","Drop Down",FieldType.Dropdown));
+        // Radio
+        _controls.push(this._getControl("radio","Radio Buttons",FieldType.Radio));
+        // Date
+        _controls.push(this._getControl("date","Date",FieldType.Date));
+        // Checkox
+        _controls.push(this._getControl("checkbox","Checkbox",FieldType.Checkbox));
+
+        return _controls;
+    }
+
+    /**
+     * Saves form meta
+     * @param formRequest Form Request
+     */
+    public saveFormMeta(formRequest:FormRequest):Observable<ResponseBase>{
+        let url = this._baseUrl + this._formSaveUrl;
+
+        return this.post(url,formRequest.Form)
+                          .map((response:Response) => {return <ResponseBase>this._mapPostResponse(response)});
+    }
+
+    private _mapPostResponse(response:Response):ResponseBase{
+        let json = response.json();
+        let responseBase = new ResponseBase();
+        responseBase.isSuccess = json.isSuccess;
+        responseBase.message = json.message;
+
+        return responseBase;
+    }
+
+
+     private _getControl(name:string,label:string,type:FieldType):FieldBase{
+        let fieldControl = new FieldBase();
+        fieldControl.name = name;
+        fieldControl.label = label;
+        fieldControl.type = type;
+
+        return fieldControl;
+    }
 
   private handleError(error:Response):any{
         console.log(error);

@@ -7,7 +7,16 @@
         this.user = user;
     }
 
-    return {
-        FormRequest: FormRequest
+    function SaveFormRequest(id, name, includeMeta, user, meta) {
+        FormRequest.call(this, id, name, includeMeta,user);
+        this.formMeta = meta;
     }
+
+    SaveFormRequest.prototype = Object.create(FormRequest.prototype);
+    SaveFormRequest.prototype.constructor = SaveFormRequest;
+
+    return {
+        FormRequest: FormRequest,
+        SaveFormRequest: SaveFormRequest
+    };
 })();

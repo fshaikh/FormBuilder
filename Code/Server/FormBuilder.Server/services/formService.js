@@ -5,13 +5,15 @@ module.exports = (function () {
     const formDA = require('../DAL/formDA.js');
     var ResponseBase = require('../models/ResponseBase.js');
     
-    async function saveFormMeta(form) {
+    async function saveFormMeta(saveFormRequest) {
         let formId = utilService.getUniqueId();
+        let formMeta = saveFormRequest.formMeta;
 
-        form.id = formId;
+        formMeta.id = formId;
+        formMeta.userId = saveFormRequest.user.userId;
 
         // Save to database
-        let response = await dal.saveFormMeta(form);
+        let response = await _createFormDA().saveFormMeta(saveFormRequest);
         return response;
     }
 

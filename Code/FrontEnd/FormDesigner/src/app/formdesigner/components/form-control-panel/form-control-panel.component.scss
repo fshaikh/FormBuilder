@@ -1,0 +1,75 @@
+@import '../../../../styles/core/_colors';
+.action-area{
+    flex-grow:1;
+    height:80px;
+    .add-row-left{
+        width:90px;
+        height:40px;
+        background-color:$DarkGrey03;
+        color:$White;
+        margin:10px;
+        text-align: center;
+    }
+    .add-row{
+          text-decoration: none;
+          background-color:$DarkGrey03;
+          height: 50px;
+          display: block;
+          width: 50px;
+          border-radius:50%;
+          margin:5px;
+
+          .addrow-icon{
+                  color:$White;
+                   display:block;
+                   padding-left: 12px;
+                   padding-top: 10px;
+               }
+          }
+}
+
+/deep/ .mat-tab-label{
+    color:$White;
+    text-transform: uppercase;
+    background-color:$Black90;
+}
+.controls-panel{
+                    display:flex;
+                    flex-direction: column;
+                    flex-grow:3;
+                    width:100%;
+
+                    .control{
+                        flex-grow:0.5;
+                        border:1px solid $Black90;
+                        /*margin:5px;*/
+                        cursor:move;
+                        
+                        background-color: $DarkGrey02;
+                        font-size:25px;
+                        color: $White;
+
+                        .control-icon{
+                            flex-grow:1;
+                            background-color: $DarkGrey03;
+                            color: $White;
+                            display:inline-block;
+                            height:100%;
+                            padding:10px;
+                        }
+
+                        .control-label{
+                            flex-grow:3;
+                            // margin-left:25%;
+                            display:inline-block;
+                            padding:10px;
+                        }
+                    }
+
+                    .control:hover{
+                        background-color:$Background-Color;
+                    }
+                    .control:hover .control-icon{
+                        background-color:$Background-Color;
+                    }
+                }

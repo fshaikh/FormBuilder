@@ -1,0 +1,14 @@
+@import '../../../../styles/core/colors';
+
+.field-container{
+      margin:10px;
+      border-bottom: 1px solid #333a43!important;
+      padding:15px;
+      color:$White;
+    .instruction{
+        margin-top:5px;
+    }
+}
+.hide{
+    display:none;
+}

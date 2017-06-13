@@ -24,6 +24,19 @@ module.exports = (function () {
         return response;
     }
 
+    /**
+    */
+    FormDataAccess.prototype.saveFormMeta = async function (saveFormRequest) {
+        let connectStatus = await this.connect();
+        if (connectStatus) {
+            return connectStatus;
+        }
+
+        let response = await this.doInsert(saveFormRequest.formMeta, config.mongodb.formsCollection);
+        return response;
+
+    }
+
     function _getProjection(formRequest) {
         return formRequest.includeMeta ? {} : { name: 1, id: 1 };
     }

@@ -1,5 +1,8 @@
 @import '../../../styles/core/_colors';
 
+body{
+    background: #444 url(/assets/tile-black.jpg) repeat scroll 0 0 !important;
+}
 .myforms-container{
     min-height:750px;
     width:98%;
@@ -7,6 +10,7 @@
     margin:5px;
     border-top:9px solid $Background-Color !important;
     border:1px solid $Background-Color;
+    background-color:$White !important;
 
     display:flex;
     flex-direction:row;

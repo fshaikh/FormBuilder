@@ -1,0 +1,19 @@
+<div [formGroup]="_formGroup">
+      <div class="field-container">
+            <div class="field-label">
+                  <label [attr.for] ="ROWS_NAME">Rows</label>
+            </div>
+            <div class="field-control">
+                  <input type="number" [formControlName]="ROWS_NAME" class="field-inner" [value]="ROWS" [max]="MAX_ROWS" [min]="MIN_ROWS"/>
+            </div>
+      </div>
+
+      <div class="field-container">
+            <div class="field-label">
+                  <label [attr.for] ="COLUMNS_NAME">Columns</label>
+            </div>
+            <div class="field-control">
+                  <input type="number" [formControlName]="COLUMNS_NAME" class="field-inner" [value]="COLUMNS" [max]="MAX_COLUMNS" [min]="MIN_COLUMNS"/>
+            </div>
+      </div>
+</div>

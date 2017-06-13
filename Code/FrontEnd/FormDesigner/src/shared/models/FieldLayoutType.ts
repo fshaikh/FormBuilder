@@ -1,6 +1,8 @@
-import {KeyValuePair} from './KeyValuePair';
 
-export class FieldLayoutType{
+
+import { KeyValuePair } from "shared/Models/KeyValuePair";
+
+export class FieldLayoutType {
     static getFieldLayouts():KeyValuePair[]{
         let pairs:KeyValuePair[] = [];
         pairs.push(FieldLayoutType.getKeyValuePair(1,"Left"));

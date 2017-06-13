@@ -1,0 +1,15 @@
+<div [formGroup]="controlGroup" *ngIf="_usesReactive">
+  <md-select [formControlName]="controlName" [placeholder]="placeholderText">
+    <md-option *ngFor="let pair of selectPairs" [value]="pair.key">
+      {{ pair.value }}
+    </md-option>
+  </md-select>
+</div>
+
+<div *ngIf="!_usesReactive">
+  <md-select [placeholder]="placeholderText">
+    <md-option *ngFor="let pair of selectPairs" [value]="pair.key">
+      {{ pair.value }}
+    </md-option>
+  </md-select>
+</div>

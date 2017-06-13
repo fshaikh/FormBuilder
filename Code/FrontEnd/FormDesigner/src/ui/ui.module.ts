@@ -10,12 +10,17 @@ import { CommonModule } from '@angular/common';
 // Angular Material modules
 import {MaterialModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { FormsModule } from "@angular/forms";
+import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 
 // UI components
 import { ButtonComponent } from 'ui/button/button.component';
 import { DialogService } from "ui/dialog/dialog.service";
 import { InputComponent } from "ui/input/input.component";
+import { UITabsComponent } from "ui/tab/tabs.component";
+import { UITabComponent } from "ui/tab/tab.component";
+import { CheckboxComponent } from "ui/checkbox/checkbox.component";
+import { DropdownComponent } from "ui/dropdown/dropdown.component";
+
 
 
 @NgModule({
@@ -23,18 +28,27 @@ import { InputComponent } from "ui/input/input.component";
     CommonModule,
     MaterialModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     ButtonComponent,
-    InputComponent
+    InputComponent,
+    UITabsComponent,
+    UITabComponent,
+    CheckboxComponent,
+    DropdownComponent
   ],
   providers:[
     DialogService
   ],
   exports:[
     ButtonComponent,
-    InputComponent
+    InputComponent,
+    UITabsComponent,
+    UITabComponent,
+    CheckboxComponent,
+    DropdownComponent
   ]
 })
 export class UiModule { }

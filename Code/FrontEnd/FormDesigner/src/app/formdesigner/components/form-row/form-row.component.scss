@@ -1,0 +1,24 @@
+@import '../../../../styles/core/colors';
+@import '../../../../styles/core/common';
+
+.row-container{
+     border:1px solid black;
+     margin:2px;
+     height: 75px;
+     position:relative;
+
+     .form-instructions{
+        width:80%;
+        height:20px;
+        border:5px dashed $Grey02;
+        border-radius:5px;
+        @include center-div();
+        background-color:$Grey03;
+        
+
+        span{
+            text-align:center; 
+            display:block;
+        }
+    }
+}
