@@ -45,12 +45,22 @@ export class FormDesignerChromeComponent implements OnInit {
    let formMeta:any = this._formsDesignerStateService.getFormMeta(true,this._form.name);
    console.log(formMeta);
    
-  //  let formRequest:FormRequest = new FormRequest();
-  //  formRequest.Form = formMeta;
-  //  this._formsService.saveFormMeta(formRequest).subscribe(
-  //           (response:ResponseBase) => {this._handleFormSaveResponse(response);}  
-  //       );
-  }
+   let formRequest:FormRequest = new FormRequest();
+   formRequest.Form = formMeta;
+   this._formsService.saveFormMeta(formRequest).subscribe(
+            (response:ResponseBase) => {this._handleFormSaveResponse(response);}  
+        );
+}
+
+/**
+ * Event handler for Form Preview
+ * @param e 
+ */
+ onFormPreview(e:any):void{
+    this._formsDesignerStateService.saveFormState(this._form.name);
+    // navigate to Form Preview
+    this._router.navigate([`/preview/0`]);
+ }
 
   _handleFormSaveResponse(response:ResponseBase){
         alert(response.message);

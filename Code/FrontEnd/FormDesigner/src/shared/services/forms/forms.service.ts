@@ -29,6 +29,8 @@ export class FormsService extends ServiceBase {
     private _getFormsUrl:string = `/forms/0`;
     private _getFormMetaUrl:string = '/form/meta/';
 
+    private _formState:Form;
+
 
    /**
     * Initializes a new instance of FormsService
@@ -95,6 +97,18 @@ export class FormsService extends ServiceBase {
 
         return this.post(url,formRequest.Form)
                           .map((response:Response) => {return <ResponseBase>this._mapPostResponse(response)});
+    }
+
+    public saveFormState(form:Form){
+        this._formState = form;
+    }
+
+    public getFormState(formId:String): Form{
+        if(formId === "0"){
+            return this._formState;
+        }
+        // else fetch from server
+
     }
 
     private _mapPostResponse(response:Response):ResponseBase{

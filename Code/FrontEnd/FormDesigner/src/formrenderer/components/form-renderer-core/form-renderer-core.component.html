@@ -1,0 +1,17 @@
+<div class="form-rendered-container">
+  <form [formGroup] = "_rootFormGroup" (ngSubmit)="onSave()">
+      <div *ngFor="let row of _rows">
+        <div class="row-container" [ngClass]="getRowClasses(row)">
+            <div *ngFor="let field of row.fields" [ngClass]="getFieldContainerClasses(row)">
+              <fd-field-control [field] = "field" [formGroup]="_rootFormGroup">
+              
+              </fd-field-control>
+            </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <fd-button [text]='getSubmitText()' [styles]="getStyles()" (notifyClick)="onCreateForm($event)"></fd-button>
+      </div>
+  </form>
+<div>

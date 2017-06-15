@@ -1,3 +1,6 @@
+/**
+ * Dropdown Component
+ */
 import { Component, OnInit, Input } from '@angular/core';
 import { UIComponentBase } from "ui/UIComponentBase";
 import { KeyValuePair } from "shared/Models/KeyValuePair";

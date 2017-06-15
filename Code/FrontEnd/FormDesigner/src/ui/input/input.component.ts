@@ -19,6 +19,11 @@ export class InputComponent extends UIComponentBase implements OnInit {
    * Value to be shown in the input control
    */
   @Input() value:String;
+
+  /**
+   * Type of input:
+   */
+  @Input() type:String = "text";
   
 
   constructor() {

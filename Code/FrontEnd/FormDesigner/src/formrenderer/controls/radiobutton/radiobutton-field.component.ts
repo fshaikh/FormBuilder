@@ -1,0 +1,15 @@
+import {Component,OnInit,Input} from '@angular/core';
+import { UIFieldBase } from "formrenderer/controls/uifield-base";
+
+
+@Component({
+    selector:'radio',
+    templateUrl:'./radiobutton-field.component.html',
+    styleUrls:['../control-styles.scss']
+})
+export class RadiobuttonUIFieldComponent extends UIFieldBase implements OnInit{
+
+    ngOnInit():void{
+        
+    }
+}

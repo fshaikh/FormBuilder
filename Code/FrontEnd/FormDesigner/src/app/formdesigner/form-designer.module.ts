@@ -7,6 +7,7 @@ import {MdTabsModule} from '@angular/material';
 // Feature Modules
 import { UiModule } from "ui/ui.module";
 
+
 import { FormDesignerRouteResolver } from "app/formdesigner/formdesigner-route.resolver";
 import { FormDesignerChromeComponent } from "app/formdesigner/components/form-designer-chrome/form-designer-chrome.component";
 import { FormControlPanelComponent } from "app/formdesigner/components/form-control-panel/form-control-panel.component";
@@ -19,10 +20,13 @@ import { ShortTextPropertyComponent } from "app/formdesigner/components/controls
 import { DropDownPropertyComponent } from "app/formdesigner/components/controls-properties/DropDown/form-field-dropdown-property.component";
 import { CommonPropertyComponent } from "app/formdesigner/components/controls-properties/form-field-common-property.component";
 import { FormFieldPropertyComponent } from "app/formdesigner/components/form-field-property/form-field-property.component";
+import { FormPreviewComponent } from "app/formdesigner/components/form-preview/form-preview.component";
+import { FormRendererModule } from "formrenderer/form-renderer.module";
 
 // Routes table. Always define specific routes first
 const routes: Routes = [
-  {  path: 'design/edit/:id/:name',resolve:{design:FormDesignerRouteResolver},component:FormDesignerChromeComponent  }
+  {  path: 'design/edit/:id/:name',resolve:{design:FormDesignerRouteResolver},component:FormDesignerChromeComponent  },
+  {  path: 'preview/:id',component: FormPreviewComponent}
 ];
 
 @NgModule({
@@ -32,7 +36,8 @@ const routes: Routes = [
     UiModule,
     MdTabsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormRendererModule
   ],
   declarations: [
     FormDesignerChromeComponent,
@@ -44,7 +49,8 @@ const routes: Routes = [
     ShortTextPropertyComponent,
     DropDownPropertyComponent,
     CommonPropertyComponent,
-    FormFieldPropertyComponent
+    FormFieldPropertyComponent,
+    FormPreviewComponent
   ],
   entryComponents:[
         FormRowComponent,

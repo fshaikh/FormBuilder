@@ -8,6 +8,7 @@ import { Row } from "shared/models/Row";
 import { RowType } from "shared/models/RowType";
 import { FieldBase } from "shared/models/FieldBase";
 import { Tab } from "shared/models/Tab";
+import { FormsService } from "shared/services/forms/forms.service";
 
 
 
@@ -28,7 +29,7 @@ export class FormDesignerStateService{
 
     private _fieldNameIndex:number = 1;
 
-    constructor(private _idService:IdService){
+    constructor(private _idService:IdService,private _formService:FormsService){
         this._formAddRowObservable = this._formAddRowSource.asObservable();
         this._formAddFieldObservable = this._formAddFieldSource.asObservable();
         this._formFieldPropertyChangeObservable = this._formFieldPropertyChangeSource.asObservable();
@@ -62,10 +63,20 @@ export class FormDesignerStateService{
         if(row === null){
             return;
         }
+        let fieldControl:FieldBase = fieldArgs.field;
         // replace the field with the passed in value
         if(fieldArgs.field == null){
             return;
         }
+
+        // set the data transfer to field base
+        fieldControl.id = this._idService.nextId();
+        // set the name of the control to be <type><uniquenumber>. For eg: shortText11
+        let name = fieldControl.name;
+        fieldControl.name = this.getFieldName(name);
+        // set the layout type
+        console.log(row.rowType);
+        fieldControl.layoutType = row.fields.length === 0 ? RowType.Left : RowType.Right;
 
         row.fields.push(fieldArgs.field);
         // Call next on the Observable
@@ -132,6 +143,11 @@ export class FormDesignerStateService{
     public getFormMeta(toJson:boolean,formName:string):any{
         this._form.name = formName;
         return toJson ? JSON.stringify(this._form): this._form;
+    }
+
+    public saveFormState(formName:string):void{
+        this._form.name = formName;
+        this._formService.saveFormState(this._form);
     }
 
     private _initialize(){

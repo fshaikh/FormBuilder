@@ -34,10 +34,12 @@ export class FormRowComponent{
        let field =  JSON.parse(e.dataTransfer.getData(SystemConstants.JSON_MIMETYPE));
        let fieldArgs = this._getFieldArgs(field);
 
+       // notify the service to change state 
+        this._formsDesignerStateService.addField(fieldArgs);
+
        // Create the component factory passing the component.
        this._renderControlComponent(fieldArgs); 
-        // notify the service to change state 
-        this._formsDesignerStateService.addField(fieldArgs);
+        
         return true;
     }
 

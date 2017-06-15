@@ -1,0 +1,11 @@
+<div [formGroup] = "formGroup" class="field-container">
+    <div class="field-label">
+        <label [attr.for] ="field.name">{{field.label}}</label>
+    </div>
+
+   <!-- Dynamic Component Rendering using ComponentFactoryResolver-->
+   <div class="field-control">
+       <span #fieldControl class="view-container"></span>
+   </div>
+   
+</div>

@@ -45,11 +45,7 @@ export class FormControlPanelComponent{
         let fieldControl = this.Controls.find((fieldBase:FieldBase) => fieldBase.type === +controlType);
         if(fieldControl == null)
             return;
-        // set the data transfer to field base
-        fieldControl.id = this._idService.nextId();
-        // set the name of the control to be <type><uniquenumber>. For eg: shortText11
-        let name = fieldControl.name;
-        fieldControl.name = this._formsDesignerStateService.getFieldName(name);
+        
         e.dataTransfer.setData(SystemConstants.JSON_MIMETYPE,JSON.stringify(fieldControl));
     }
 
