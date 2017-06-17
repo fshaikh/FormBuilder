@@ -59,9 +59,11 @@ export class FormFieldControlComponent implements OnInit{
         // Set the selected class on the element
         this.isSelected = true;
 
-        this.fieldArgs.rowAction = RowAction.Selected;
-        // user has selected the field. inform the state service
-        this._formsDesignerStateService.fieldSelected(this.fieldArgs);
+        if(this.fieldArgs.rowAction){
+            this.fieldArgs.rowAction = RowAction.Selected;
+            // user has selected the field. inform the state service
+            this._formsDesignerStateService.fieldSelected(this.fieldArgs);
+        }
     }
 
     onFieldSelected(args:FieldControlAddEventArgs):void{

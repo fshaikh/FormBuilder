@@ -1,4 +1,12 @@
-<div [formGroup]="formGroup">
+<!--<div [formGroup]="formGroup">
     <textarea [id]="field.id" type="text" [formControlName]="field.name" class="field-inner long-text"
               [rows]="field.rows" [cols]="field.columns"></textarea>
-</div>
+</div>-->
+
+<fd-long-text [controlGroup]="formGroup"
+              type="text"
+              [controlName]="getFormControlName()"
+              [placeholderText]=""
+              [value]="getLabelValue()"
+              #labelInput >
+</fd-long-text>

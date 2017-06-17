@@ -4,6 +4,20 @@ export class DOMHelper{
         if(!target){
             return null;
         }
-        return target.attributes[attributeName].value;
+        let attr = target.attributes[attributeName];
+        if(!attr){
+            return null;
+        }
+        return attr.value;
     }
+
+    static getAttribute(target:any,attributeName:string):string{
+        let attr = target.attributes[attributeName];
+        if(!attr){
+            return null;
+        }
+        return attr.value;
+    }
+
+    
 }

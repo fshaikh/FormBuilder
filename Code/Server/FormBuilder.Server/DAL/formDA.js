@@ -24,6 +24,16 @@ module.exports = (function () {
         return response;
     }
 
+    FormDataAccess.prototype.getFormMeta = async function (formRequest) {
+        let connectStatus = await this.connect();
+        if (connectStatus) {
+            return connectStatus;
+        }
+
+        let response = await this.doGet(_getProjection(formRequest), _getIdFilter(formRequest), config.mongodb.formsCollection);
+        return response;
+    }
+
     /**
     */
     FormDataAccess.prototype.saveFormMeta = async function (saveFormRequest) {
@@ -47,6 +57,12 @@ module.exports = (function () {
                 { name: { $exists: true }},
                 { userId: user.userId}
             ]
+        };
+    }
+
+    function _getIdFilter(formRequest) {
+        return {
+            id: formRequest.id
         };
     }
 

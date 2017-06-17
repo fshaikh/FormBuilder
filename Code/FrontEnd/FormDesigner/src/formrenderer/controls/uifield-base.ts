@@ -9,4 +9,14 @@ export abstract class UIFieldBase{
     @Input() formGroup:FormGroup;
 
     protected static _styleUrls:string[] = ['../control-styles.scss'];
+
+    protected getFormControlName():String{
+        return this.field.name;
+    }
+
+    protected  getLabelValue():String{
+        let value = this.field.value;
+        return value ? value: "";
+    }
+
 }

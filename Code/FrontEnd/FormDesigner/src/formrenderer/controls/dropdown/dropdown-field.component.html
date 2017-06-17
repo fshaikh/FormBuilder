@@ -1,5 +1,12 @@
-<div [formGroup]="formGroup">
+<!--<div [formGroup]="formGroup">
     <select [id]="field.id" [formControlName]="field.name" class="field-inner">
            <option *ngFor="let option of field.values" [value]="option.key">{{option.value}}</option>
      </select>
-</div>
+</div>-->
+
+<fd-dropdown [controlGroup]="formGroup"
+             [controlName]="getFormControlName()"
+             [placeholderText]=""
+             [selectPairs]="getDropdownValues()"
+                            >
+</fd-dropdown>

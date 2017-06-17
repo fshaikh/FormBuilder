@@ -1,3 +1,10 @@
-<div [formGroup]="formGroup">
+<!--<div [formGroup]="formGroup">
     <input [id]="field.id" type="text" [formControlName]="field.name" class="field-inner"/>
-</div>
+</div>-->
+<fd-input [controlGroup]="formGroup"
+          [controlName]="getFormControlName()"
+          [styles]="getStyles()"
+          [placeholderText]=""
+          [value]="getLabelValue()"
+          #labelInput >
+</fd-input>

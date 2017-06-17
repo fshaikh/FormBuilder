@@ -18,10 +18,12 @@ module.exports = (function () {
     }
 
     async function getFormMeta(formRequest) {
-        return await dal.getFormMeta(formRequest);
+        formRequest.includeMeta = true;
+        return await _createFormDA().getFormMeta(formRequest);
     }
 
     async function getForms(formRequest) {
+        
         return await _createFormDA().getFormsByUser(formRequest);
     }
 

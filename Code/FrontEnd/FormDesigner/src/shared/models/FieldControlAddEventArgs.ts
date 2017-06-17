@@ -9,6 +9,6 @@ export class FieldControlAddEventArgs extends EventArgs{
 
     public rowId:string;
     public field:FieldBase;
-    public rowAction: RowAction;
+    public rowAction: RowAction = RowAction.Selected;
     public ignoreOp:boolean = true;
 }

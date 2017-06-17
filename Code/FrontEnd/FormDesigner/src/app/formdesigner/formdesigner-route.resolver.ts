@@ -6,9 +6,16 @@ import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Form } from "shared/models/Form";
 import { Observable } from "rxjs/Observable";
+import { FormsService } from "shared/services/forms/forms.service";
+import { FormRequest } from "shared/models/FormRequest";
 
 @Injectable()
 export class FormDesignerRouteResolver implements Resolve<Form>{
+
+    constructor(private _formService:FormsService){
+        // Do nothing
+    }
+
     /**
      * 
      * @param route 
@@ -25,7 +32,10 @@ export class FormDesignerRouteResolver implements Resolve<Form>{
                 return form;
             }
             // else call FormsService to fetch the form data
-            throw new Error('Method not implemented.');
+            let formRequest:FormRequest = new FormRequest();
+            formRequest.FetchData = false;
+            formRequest.FormId = formId;
+            return this._formService.getFormMeta(formRequest);
         }
 
 

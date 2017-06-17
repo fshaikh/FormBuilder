@@ -3,6 +3,7 @@
  */
 
 import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { UIComponentBase } from "ui/UIComponentBase";
 
 @Component({
   selector: 'fd-button',
@@ -10,16 +11,16 @@ import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter } fro
   styleUrls: ['./button.component.scss'],
   //encapsulation: ViewEncapsulation.None
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent extends UIComponentBase implements OnInit {
   @Input() text:String;
-  @Input() styles:String;
+  
   @Output() notifyClick: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() { super(); }
 
-  ngOnInit() {
-    console.log(this.styles);
-  }
+  ngOnInit(): void {
+      super.ngOnInit();
+    }
 
   /**
    * Event handler for button click event

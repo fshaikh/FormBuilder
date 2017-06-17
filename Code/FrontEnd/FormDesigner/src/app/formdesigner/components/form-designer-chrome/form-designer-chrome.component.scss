@@ -1,11 +1,14 @@
 @import '../../../../styles/core/_colors';
 
+
 body{
     background:$White !important;
+
 }
 .form-designer-container{
     display:flex;
     flex-direction: column;
+    height:90%;
 
     .header{
         flex-grow:0.4;

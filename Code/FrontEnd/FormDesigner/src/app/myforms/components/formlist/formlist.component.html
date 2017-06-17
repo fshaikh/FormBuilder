@@ -1,4 +1,4 @@
-<li class="form-item" [attr.data-form-id]="form.id">
+<li class="form-item" [attr.data-form-id]="form.id" (click)="onItemClick($event)">
   <div class="form-item-detail">
     <span class="form-title">{{form.name}}</span>
     <div class="form-detail">
@@ -6,14 +6,14 @@
     </div>
   </div>
   <div class="action-container">
-    <div class="action-item">
-      <span class="fa fa-2x fa-pencil-square-o" aria-hidden="true" title="Edit Form"></span>
+    <div class="action-item" data-action="edit">
+      <span class="fa fa-2x fa-pencil-square-o" aria-hidden="true" title="Edit Form" data-action="edit"></span>
     </div>
-    <div class="action-item">
-      <span class="fa fa-2x fa-inbox" aria-hidden="true" title="View Inbox"></span>
+    <div class="action-item" data-action="inbox">
+      <span class="fa fa-2x fa-inbox" aria-hidden="true" title="View Inbox" data-action="inbox"></span>
     </div>
-    <div class="action-item" (click)="onFormDelete($event)">
-      <span class="fa fa-2x fa-trash" aria-hidden="true" title="Delete Form"></span>
+    <div class="action-item" data-action="delete">
+      <span class="fa fa-2x fa-trash" aria-hidden="true" title="Delete Form" data-action="delete"></span>
     </div>
   </div>
 </li>

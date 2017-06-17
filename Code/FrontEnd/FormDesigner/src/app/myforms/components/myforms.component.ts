@@ -8,6 +8,7 @@ import { Form } from "shared/models/Form";
 import { DialogService } from "ui/dialog/dialog.service";
 import { FormTitleComponent } from "app/myforms/components/formtitle/formtitle.component";
 import { DialogResult } from "ui/dialog/DialogResult";
+import { FormEventArgs } from "app/myforms/Models/FormEventArgs";
 
 @Component({
   templateUrl: './myforms.component.html',
@@ -70,6 +71,11 @@ export class MyFormsComponent implements OnInit {
 
     // navigate to Form Designer
     this._router.navigate([`/design/edit/0/${response.Data.Title}`]);
+  }
+
+  handleAction(eventArgs:FormEventArgs):void{
+    // navigate to Form Designer
+    this._router.navigate([`/design/edit/${eventArgs.form.id}/${eventArgs.form.name}`]);
   }
 
 }

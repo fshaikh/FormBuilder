@@ -7,6 +7,10 @@ import { FormsService } from "shared/services/forms/forms.service";
 import { FormDesignerStateService } from "app/formdesigner/service/form-designer-state.service";
 import { FormRequest } from "shared/models/FormRequest";
 import { ResponseBase } from "shared/models/ResponseBase";
+import { Row } from "shared/models/Row";
+import { RowAddedEventArgs } from "shared/models/RowAddedEventArgs";
+import { FieldControlAddEventArgs } from "shared/models/FieldControlAddEventArgs";
+import { RowAction } from "shared/models/RowAction";
 
 
 @Component({
@@ -25,9 +29,10 @@ export class FormDesignerChromeComponent implements OnInit {
 
   ngOnInit() {
     this._form = this._route.snapshot.data['design'];
+    this._renderFormMeta(this._form);
 
     // Get the controls from the forms service
-        this._controls = this._formsService.getControls();
+    this._controls = this._formsService.getControls();
   }
 
   /**
@@ -64,6 +69,35 @@ export class FormDesignerChromeComponent implements OnInit {
 
   _handleFormSaveResponse(response:ResponseBase){
         alert(response.message);
+    }
+
+
+    private _renderFormMeta(form:Form):void{
+        if(form.id === "0"){
+          return;
+        }
+        let rows:Row[] = form.tabs[0].rows;
+        for(let row of rows){
+            let rowAddEventArgs:RowAddedEventArgs = new RowAddedEventArgs();
+            let rowId = row.id;
+            rowAddEventArgs.Id = rowId;
+
+            // add the row
+            this._formsDesignerStateService.addRow(rowAddEventArgs);
+
+            // add the fields
+            let fields:FieldBase[] = row.fields;
+            for(let field of fields){
+                let fieldControlAddEventArgs:FieldControlAddEventArgs = new FieldControlAddEventArgs();
+                fieldControlAddEventArgs.rowId = rowId;
+                fieldControlAddEventArgs.rowAction = RowAction.Added;
+                fieldControlAddEventArgs.field = field;
+                fieldControlAddEventArgs.ignoreOp = false;
+
+                this._formsDesignerStateService.addField(fieldControlAddEventArgs);
+            }
+            
+        }
     }
 
 }

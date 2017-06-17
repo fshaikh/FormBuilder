@@ -14,4 +14,12 @@ export class ShortTextUIFieldComponent extends UIFieldBase implements OnInit{
     ngOnInit():void{
         
     }
+
+    
+
+
+
+     getStyles():String{
+        return "field-inner";
+    }
 }

@@ -20,6 +20,7 @@ import { UITabsComponent } from "ui/tab/tabs.component";
 import { UITabComponent } from "ui/tab/tab.component";
 import { CheckboxComponent } from "ui/checkbox/checkbox.component";
 import { DropdownComponent } from "ui/dropdown/dropdown.component";
+import { LongTextComponent } from "ui/long-text/long-text.component";
 
 
 
@@ -37,7 +38,8 @@ import { DropdownComponent } from "ui/dropdown/dropdown.component";
     UITabsComponent,
     UITabComponent,
     CheckboxComponent,
-    DropdownComponent
+    DropdownComponent,
+    LongTextComponent
   ],
   providers:[
     DialogService
@@ -48,7 +50,8 @@ import { DropdownComponent } from "ui/dropdown/dropdown.component";
     UITabsComponent,
     UITabComponent,
     CheckboxComponent,
-    DropdownComponent
+    DropdownComponent,
+    LongTextComponent
   ]
 })
 export class UiModule { }

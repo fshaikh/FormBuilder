@@ -15,12 +15,14 @@ import { HomeComponent } from './main/home/home.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     MiddleComponent,
     FooterComponent,
     HomeComponent
+
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,7 @@
+<md-input-container [formGroup]="controlGroup" *ngIf="_usesReactive">
+  <textarea mdInput [placeholder]="placeholderText" [value]="value" [(ngModel)]="value" [formControlName]="controlName"></textarea>
+</md-input-container>
+
+<md-input-container *ngIf="!_usesReactive">
+  <textarea mdInput  [type]="type" [placeholder]="placeholderText" [value]="value" [(ngModel)]="value"></textarea>  
+</md-input-container>

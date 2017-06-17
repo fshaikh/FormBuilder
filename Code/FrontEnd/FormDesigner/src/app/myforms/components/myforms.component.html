@@ -19,7 +19,7 @@
             </div>
 
             <ul *ngFor="let form of forms" class="form-list-container">
-                <fd-formitem [form]="form"></fd-formitem>
+                <fd-formitem [form]="form" (notifyAction)="handleAction($event)"></fd-formitem>
             </ul>
         </div>
     </div>

@@ -79,6 +79,9 @@ export class FormFieldPropertyComponent{
     }
 
     private _onFieldRemove(fieldArgs:FieldControlAddEventArgs):void{
+        if(!this.fieldControl){
+            return;
+        }
         if(this.fieldControl.id !== fieldArgs.field.id){
             return;
         }

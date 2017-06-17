@@ -1,5 +1,7 @@
 import {Component,OnInit,Input} from '@angular/core';
 import { UIFieldBase } from "formrenderer/controls/uifield-base";
+import { KeyValuePair } from "shared/Models/KeyValuePair";
+import { DropdownField } from "shared/models/DropdownField";
 
 
 @Component({
@@ -11,5 +13,10 @@ export class DropdownUIFieldComponent extends UIFieldBase implements OnInit{
 
     ngOnInit():void{
         
+    }
+
+    getDropdownValues():any{
+        let dropdownField:any = this.field;
+        return dropdownField.values;
     }
 }

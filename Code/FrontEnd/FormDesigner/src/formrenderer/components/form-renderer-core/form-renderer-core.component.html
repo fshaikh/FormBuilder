@@ -1,5 +1,6 @@
 <div class="form-rendered-container">
-  <form [formGroup] = "_rootFormGroup" (ngSubmit)="onSave()">
+  <div class="form-title">{{form.name}}</div>
+  <form [formGroup] = "_rootFormGroup" (ngSubmit)="onSave()" class="form">
       <div *ngFor="let row of _rows">
         <div class="row-container" [ngClass]="getRowClasses(row)">
             <div *ngFor="let field of row.fields" [ngClass]="getFieldContainerClasses(row)">

@@ -13,6 +13,11 @@ export abstract class UIComponentBase {
    */
   @Input() controlGroup:String;
 
+  /**
+   * Styles to be applied to the ui component
+   */
+  @Input() styles:String;
+  
   protected _usesReactive:Boolean = false;
 
   protected ngOnInit(){
