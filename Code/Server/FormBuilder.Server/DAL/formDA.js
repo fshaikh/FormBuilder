@@ -47,8 +47,35 @@ module.exports = (function () {
 
     }
 
+    /**
+     * Deletes form document  from the forms collection
+     * @param deleteFormRequest - Delete Form Request
+     */
+    FormDataAccess.prototype.deleteForm = async function (deleteFormRequest) {
+        let connectStatus = await this.connect();
+        if (connectStatus) {
+            return connectStatus;
+        }
+
+        let response = await this.doDelete(_getDeleteFormFilter(deleteFormRequest), config.mongodb.formsCollection);
+        return response;
+    }
+
+    /**
+     * Updates form with the passed in payload
+     * @param updateFormRequest
+     */
+    FormDataAccess.prototype.updateForm = async function (updateFormRequest) {
+        let connectStatus = await this.connect();
+        if (connectStatus) {
+            return connectStatus;
+        }
+        let response = await this.doUpdate(_getSoftDeleteSelectionCriteria(updateFormRequest), { $set: updateFormRequest.formMeta }, config.mongodb.formsCollection);
+        return response;
+    }
+
     function _getProjection(formRequest) {
-        return formRequest.includeMeta ? {} : { name: 1, id: 1 };
+        return formRequest.includeMeta ? {} : { name: 1, id: 1,markForDeletion:1 };
     }
 
     function _getUserFilter(user) {
@@ -64,6 +91,22 @@ module.exports = (function () {
         return {
             id: formRequest.id
         };
+    }
+
+    /**
+     * Gets the filter object to be applied for a delete document operation
+     * @param deleteFormRequest - Delete Form Request containing form id
+     */
+    function _getDeleteFormFilter(deleteFormRequest) {
+        return _getIdFilter(deleteFormRequest);
+    }
+
+    /**
+     * Gets the selection criteria for a soft delete operation
+     * @param updateFormRequest
+     */
+    function _getSoftDeleteSelectionCriteria(updateFormRequest) {
+        return _getIdFilter(updateFormRequest);
     }
 
     return {

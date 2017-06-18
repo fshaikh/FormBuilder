@@ -32,6 +32,15 @@ export abstract class ServiceBase {
         return this._http.post(url,payload,options);
     }
 
+    protected delete(url,payload):Observable<any>{
+        let options:RequestOptionsArgs = {
+            headers:this.getStandardGetHeaders(), 
+            withCredentials:true
+        };
+
+        return this._http.delete(url,options);
+    }
+
     protected getStandardGetHeaders():Headers{
         let headers:Headers = new Headers();
         headers.set("content-type","application/json");

@@ -18,7 +18,7 @@ import { Form } from "shared/models/Form";
 import { ServiceBase } from "shared/services/ServiceBase";
 import { FieldBase } from "shared/models/FieldBase";
 import { FieldType } from "shared/models/FieldType";
-import { FormRequest } from "shared/models/FormRequest";
+import { FormRequest, DeleteFormRequest } from "shared/models/FormRequest";
 import { ResponseBase } from "shared/models/ResponseBase";
 import { HttpHelper } from "shared/utils/HttpHelper";
 import { Tab } from "shared/models/Tab";
@@ -35,6 +35,7 @@ export class FormsService extends ServiceBase {
     private _formSaveUrl:string = '/form/meta';
     private _getFormsUrl:string = `/forms/0`;
     private _getFormMetaUrl:string = `/form/meta/`;
+    private _deleteFormUrl:string = `/form/meta/`;
 
     private _formState:Form;
 
@@ -103,6 +104,12 @@ export class FormsService extends ServiceBase {
                           .map((response:Response) => {return <ResponseBase>this._mapPostResponse(response)});
     }
 
+    public deleteForm(deleteFormRequest:DeleteFormRequest):Observable<ResponseBase>{
+        let url = this._baseUrl + this._deleteFormUrl + deleteFormRequest.FormId + '/' + deleteFormRequest.IsSoftDelete;
+        return this.delete(url,{})
+                          .map((response:Response) => {return <ResponseBase>this._mapPostResponse(response)});
+    }
+
     public saveFormState(form:Form){
         this._formState = form;
     }
@@ -123,6 +130,7 @@ export class FormsService extends ServiceBase {
             let formObj = new Form();
             formObj.id = form.id;
             formObj.name = form.name;
+            formObj.markForDeletion = form.markForDeletion ? form.markForDeletion: false;
 
             forms.push(formObj);
         }

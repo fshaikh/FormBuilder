@@ -15,8 +15,17 @@
     SaveFormRequest.prototype = Object.create(FormRequest.prototype);
     SaveFormRequest.prototype.constructor = SaveFormRequest;
 
+    function DeleteFormRequest(id, name, includeMeta, user, isSoftDelete) {
+        FormRequest.call(this, id, name, includeMeta, user);
+        this.isSoftDelete = isSoftDelete;
+    }
+
+    DeleteFormRequest.prototype = Object.create(FormRequest.prototype);
+    DeleteFormRequest.prototype.constructor = DeleteFormRequest;
+
     return {
         FormRequest: FormRequest,
-        SaveFormRequest: SaveFormRequest
+        SaveFormRequest: SaveFormRequest,
+        DeleteFormRequest: DeleteFormRequest
     };
 })();

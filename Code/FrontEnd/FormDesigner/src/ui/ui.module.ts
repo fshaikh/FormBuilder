@@ -21,6 +21,7 @@ import { UITabComponent } from "ui/tab/tab.component";
 import { CheckboxComponent } from "ui/checkbox/checkbox.component";
 import { DropdownComponent } from "ui/dropdown/dropdown.component";
 import { LongTextComponent } from "ui/long-text/long-text.component";
+import { ConfirmationDialogComponent } from "ui/dialog/confirmation-dialog/confirmation-dialog.component";
 
 
 
@@ -39,7 +40,8 @@ import { LongTextComponent } from "ui/long-text/long-text.component";
     UITabComponent,
     CheckboxComponent,
     DropdownComponent,
-    LongTextComponent
+    LongTextComponent,
+    ConfirmationDialogComponent
   ],
   providers:[
     DialogService
@@ -51,7 +53,11 @@ import { LongTextComponent } from "ui/long-text/long-text.component";
     UITabComponent,
     CheckboxComponent,
     DropdownComponent,
-    LongTextComponent
+    LongTextComponent,
+    ConfirmationDialogComponent
+  ],
+  entryComponents:[
+    ConfirmationDialogComponent
   ]
 })
 export class UiModule { }

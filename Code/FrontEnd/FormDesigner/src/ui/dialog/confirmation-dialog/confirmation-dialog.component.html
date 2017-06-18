@@ -1,0 +1,5 @@
+<p i18n="Form Title Description|Text to be shown in the dialog">{{Request.Description}}</p>
+<div class="actions-container">
+  <fd-button [text]='Request.YesButtonText' [styles]="getStyles(false)" (notifyClick)="onClose(true)"></fd-button>
+  <fd-button [text]='Request.NoButtonText'  [styles]="getStyles(true)" (notifyClick)="onClose(false)" ></fd-button>  
+</div>

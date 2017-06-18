@@ -22,8 +22,8 @@ module.exports = (function () {
         // GET /api/forms/{includeMeta}
         router.route('/forms/:includeMeta').get(getForms);
 
-        // DELETE /api/form/meta/{id}
-        router.route('/form/meta/:id').delete(deleteFormMeta);
+        // DELETE /api/form/meta/{id}/{softDelete}
+        router.route('/form/meta/:id/:isSoftDelete').delete(deleteForm);
     }
 
     // GET /api/form/ping
@@ -40,7 +40,7 @@ module.exports = (function () {
         let saveFormRequest = new FormRequest.SaveFormRequest(form.id, form.name, false, req.user,form);
 
         let response = await formService.saveFormMeta(saveFormRequest);
-        _handleResponse(res, response);
+        _handleResponse(res, response, getCreateResponse);
     }
 
     // GET /api/form/meta/{id}
@@ -50,7 +50,7 @@ module.exports = (function () {
         let formRequest = new FormRequest.FormRequest(formId, '');
         let response = await formService.getFormMeta(formRequest);
 
-        _handleResponse(res, response);
+        _handleResponse(res, response, getSuccessResponse);
     } 
 
     // GET /api/forms/{includeMeta}
@@ -60,17 +60,28 @@ module.exports = (function () {
 
         let response = await formService.getForms(formRequest);
 
-        _handleResponse(res, response);
+        _handleResponse(res, response, getSuccessResponse);
     }
 
-    // DELETE /api/form/meta/{id}
-    async function deleteFormMeta(req, res) {
-        res.status(204).send('deleted successfully');
+    // DELETE /api/form/meta/{id}/{isSoftDelete}
+    /**
+     * Action method for delete form
+     * @param req - Request 
+     * @param res - Response
+     */
+    async function deleteForm(req, res) {
+        let formId = req.params.id;
+        let isSoftDelete = (req.params.isSoftDelete == 'true');
+        let deleteFormRequest = new FormRequest.DeleteFormRequest(formId, '', false, req.user, isSoftDelete);
+
+        let response = await formService.deleteForm(deleteFormRequest);
+
+        _handleResponse(res, response, getSuccessResponse);
     }
 
-    function _handleResponse(res, response) {
+    function _handleResponse(res, response, getSuccessResponse) {
         if (response.isSuccess) {
-            getCreateResponse(res, response);
+            getSuccessResponse(res, response);
         } else {
             getErrorResponse(res, response);
         }

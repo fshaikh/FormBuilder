@@ -17,6 +17,7 @@ import { MyFormsRouteResolver } from "app/myforms/myforms-route.resolver";
 import { UiModule } from "ui/ui.module";
 import { FormListComponent } from "app/myforms/components/formlist/formlist.component";
 import { FormTitleComponent } from "app/myforms/components/formtitle/formtitle.component";
+import { FormsByDeletionFilterPipe } from "app/myforms/pipes/myforms-bydeletion-filter.pipe";
 
 
 // Routes table. Always define specific routes first
@@ -28,7 +29,8 @@ const routes: Routes = [
     declarations:[
             MyFormsComponent,
             FormListComponent,
-            FormTitleComponent
+            FormTitleComponent,
+            FormsByDeletionFilterPipe
         ],
     imports:[
         RouterModule.forChild(routes),

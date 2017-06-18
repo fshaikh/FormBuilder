@@ -65,6 +65,44 @@ module.exports = (function () {
         }
     }
 
+    /**
+     * Removes documents from a collection
+     * @param filter - Filter to apply
+     * @param collection - Collection to remove documents from
+     */
+    DataAccessBase.prototype.doDelete = async function (filter, collection) {
+        let response = null;
+        try {
+            // since find returns a cursor, need to convert to array
+            response = await this.Database[collection].remove(filter);
+            let success = false;
+            if (response == null || !response.result.ok) {
+            } else {
+                success = true;
+            }
+            return _getResponseObject(success, {});
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    /**
+     * Update specific fields of an existing document only.Default behavior is to update only a single document
+     * @param selectionCriteria - Selection Criteria to find the single document
+     * @param updateData - Modifications to apply
+     */
+    DataAccessBase.prototype.doUpdate = async function (selectionCriteria, updateData,collection) {
+        let response = await this.Database[collection].update(selectionCriteria, updateData);
+
+        let success = false;
+        if (response == null || !response.result.ok) {
+        } else {
+            success = true;
+        }
+        return _getResponseObject(success, updateData);
+    }
+
     // Helper Functions
     function _getDbErrorResponseObject() {
         let errorResponseBase = new ResponseBase();

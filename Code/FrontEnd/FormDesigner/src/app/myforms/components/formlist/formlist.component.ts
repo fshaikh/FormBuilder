@@ -6,6 +6,10 @@ import { Form } from "shared/models/Form";
 import { DOMHelper } from "shared/utils/DOMHelper";
 import { FormEventArgs } from "app/myforms/Models/FormEventArgs";
 import { ActionType } from "app/myforms/Models/ActionType";
+import { DialogService } from "ui/dialog/dialog.service";
+import { ConfirmationDialogComponent } from "ui/dialog/confirmation-dialog/confirmation-dialog.component";
+import { DialogResult } from "ui/dialog/DialogResult";
+import { ConfirmationDialogRequest } from "ui/dialog/confirmation-dialog/ConfirmationDialogRequest";
 
 
 @Component({
@@ -27,7 +31,7 @@ export class FormListComponent implements OnInit {
   /**
    * Initializes a new instance of FormListComponent
    */
-  constructor() { }
+  constructor(private _dialogService:DialogService) { }
 
   ngOnInit() {
   }
@@ -49,6 +53,9 @@ export class FormListComponent implements OnInit {
         case "edit":
           this.onFormEdit();
           break;
+        case "delete":
+          this.onFormDelete();
+          break;
         
       }
   }
@@ -57,8 +64,14 @@ export class FormListComponent implements OnInit {
    * Event handler for delete form action
    * @param e Event object
    */
-  onFormDelete(e:any):void{
-    alert('form delete');
+  onFormDelete():void{
+    // show a confirmation dialog
+    let request:ConfirmationDialogRequest = new ConfirmationDialogRequest();
+    request.Title = "Delete Form";
+    request.Description = "Are you sure you want to delete the form?";
+    this._dialogService.openConfirmationDialog(ConfirmationDialogComponent,request).subscribe(
+        (response:DialogResult) => {this._handleFormDeleteConfirmation(response);}
+    );
   }
 
   /**
@@ -69,6 +82,23 @@ export class FormListComponent implements OnInit {
       let formEventArgs:FormEventArgs = new FormEventArgs();
       formEventArgs.form = this.form;
       formEventArgs.actionType = ActionType.Edit;
+
+
+      // emit the event. (This will be handled by the parent component). This keeps the component dumb
+      this.notifyAction.emit(formEventArgs);
+   }
+
+   _handleFormDeleteConfirmation(response:DialogResult):void{
+     // User has selected 'No'
+      if(!response.ActionResult){
+        return;
+      }
+
+      // User has selected 'Yes'
+      // create a formlistactionargs object
+      let formEventArgs:FormEventArgs = new FormEventArgs();
+      formEventArgs.form = this.form;
+      formEventArgs.actionType = ActionType.Delete;
 
 
       // emit the event. (This will be handled by the parent component). This keeps the component dumb

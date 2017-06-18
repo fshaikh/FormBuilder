@@ -3,4 +3,5 @@ export class ObjectBase{
     name:string;
     modifiedDate:Date;
     createdDate:Date;
+    markForDeletion:Boolean = false;
 }

@@ -3,3 +3,12 @@ export class FormRequest{
     public FormId:string;
     public FetchData:Boolean = false;
 }
+
+export class DeleteFormRequest extends FormRequest{
+    constructor() {
+        super();
+
+    }
+
+    public IsSoftDelete:Boolean;
+}
