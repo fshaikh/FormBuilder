@@ -4,7 +4,9 @@
     </div>-->
     <a href="#" class="add-row" (click)="onRowAdd($event)" title="Add Row">
          <i class="fa fa-2x fa-plus-circle addrow-icon" aria-hidden="true"></i>
+         <div class="ripple"></div>
     </a>
+    
 </div>
 
 <!-- TODO - Use wrapper tab component. Using directly because of issues with getting the tab wrapper component to work-->
@@ -13,7 +15,7 @@
         <div class="controls-panel" *ngFor="let control of Controls">
             <div class="control" draggable="true" (dragstart)="onDragStart($event)" [attr.data-control]="control.type">
                 <div class="control-icon">
-                    <i class="fa fa-hand-lizard-o" aria-hidden="true"></i>
+                    <i [ngClass]="getControlIcon(control)" aria-hidden="true"></i>
                 </div>
                 <div class="control-label">{{control.label}}</div>
             </div>

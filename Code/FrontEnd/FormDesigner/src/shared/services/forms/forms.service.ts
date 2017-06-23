@@ -28,6 +28,7 @@ import { RadiobuttonField } from "shared/models/RadiobuttonField";
 import { KeyValuePair } from "shared/Models/KeyValuePair";
 import { LongTextField } from "shared/models/LongTextField";
 import { IValidator } from "shared/models/IValidator";
+import { ShortTextField } from "shared/models/ShortTextField";
 
 
 @Injectable()
@@ -99,6 +100,9 @@ export class FormsService extends ServiceBase {
      */
     public saveFormMeta(formRequest:FormRequest):Observable<ResponseBase>{
         let url = this._baseUrl + this._formSaveUrl;
+        if(formRequest.FormId !== "0"){
+            url = url + "/" + formRequest.FormId;
+        }
 
         return this.post(url,formRequest.Form)
                           .map((response:Response) => {return <ResponseBase>this._mapPostResponse(response)});
@@ -144,6 +148,7 @@ export class FormsService extends ServiceBase {
         let responseBase = new ResponseBase();
         responseBase.isSuccess = json.isSuccess;
         responseBase.message = json.message;
+        responseBase.data = json.data;
 
         return responseBase;
     }
@@ -204,6 +209,9 @@ export class FormsService extends ServiceBase {
      private _createField(field:any):FieldBase{
         let fieldControl:any;
         switch(field.type){
+            case FieldType.ShortText:
+                fieldControl = this._createShortTextField(field);
+                break;
             case FieldType.Dropdown:
                 fieldControl = new DropdownField();
                 fieldControl.values = this._getDropdownValues(field);
@@ -232,6 +240,7 @@ export class FormsService extends ServiceBase {
         fieldControl.required = field.required;
         fieldControl.type = field.type;
         fieldControl.value = field.value;
+        fieldControl.layoutType = field.layoutType;
         fieldControl.readOnly = field.readOnly ? field.readOnly: false;
 
         fieldControl.validators = this._addValidators(field);
@@ -250,6 +259,18 @@ export class FormsService extends ServiceBase {
            pairs.push(pair);
         }
         return pairs;
+    }
+
+    /**
+     * Creates a short text field
+     * @param field Field json
+     */
+    private _createShortTextField(field:any):ShortTextField{
+        let shortTextField:ShortTextField = new ShortTextField();
+        shortTextField.minLength = +field.minLength;
+        shortTextField.maxLength = +field.maxLength;
+
+        return shortTextField;
     }
 
     private _createLongTextField(field:any):LongTextField{

@@ -22,6 +22,7 @@ import { CheckboxComponent } from "ui/checkbox/checkbox.component";
 import { DropdownComponent } from "ui/dropdown/dropdown.component";
 import { LongTextComponent } from "ui/long-text/long-text.component";
 import { ConfirmationDialogComponent } from "ui/dialog/confirmation-dialog/confirmation-dialog.component";
+import { NotificationBarService } from "ui/notification-bar/notification-bar.service";
 
 
 
@@ -44,7 +45,8 @@ import { ConfirmationDialogComponent } from "ui/dialog/confirmation-dialog/confi
     ConfirmationDialogComponent
   ],
   providers:[
-    DialogService
+    DialogService,
+    NotificationBarService
   ],
   exports:[
     ButtonComponent,

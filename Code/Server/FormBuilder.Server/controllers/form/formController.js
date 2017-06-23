@@ -13,8 +13,8 @@ module.exports = (function () {
         // GET /api/form/ping
         router.route('/form/ping').get(ping);
 
-        // POST /api/form/meta
-        router.route('/form/meta').post(saveFormMeta);
+        // POST /api/form/meta/{id} - id is an optional parameter
+        router.route('/form/meta/:id?').post(saveFormMeta);
 
         // GET /api/form/meta/{id}
         router.route('/form/meta/:id').get(getFormMeta);
@@ -28,16 +28,18 @@ module.exports = (function () {
 
     // GET /api/form/ping
     async function ping(req, res,next) {
-        res.status(200).send({ done: 'Hurray' });
+        res.status(200).send({ done: 'Hello from server' });
     }
 
 
-    // POST /api/form/meta
-    //@Route('GET','api/form/meta')
-
+    // POST /api/form/meta/:id?
+    //@Route('GET','api/form/meta') - Using decorator to make route declarative
     async function saveFormMeta(req, res) {
+        // Read the form json sent in the body of the POST request
         let form = req.body;
-        let saveFormRequest = new FormRequest.SaveFormRequest(form.id, form.name, false, req.user,form);
+        // Read the optional id route parameter.
+        let formId = req.params.id;
+        let saveFormRequest = new FormRequest.SaveFormRequest(formId, form.name, false, req.user,form);
 
         let response = await formService.saveFormMeta(saveFormRequest);
         _handleResponse(res, response, getCreateResponse);

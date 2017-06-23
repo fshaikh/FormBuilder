@@ -1,4 +1,8 @@
-<div *ngIf="fieldControl" [formGroup]="_rootFormGroup">
+<div *ngIf="fieldControl && show" [formGroup]="_rootFormGroup">
+    <div class="header">
+        <div class="title">Properties</div>
+        <i class="fa fa-2x fa-times remove-icon" aria-hidden="true" title="Close" (click)="hide($event)"> </i>
+    </div>
     <md-tab-group>
         <md-tab label="General">
             <div class="field-container hide">

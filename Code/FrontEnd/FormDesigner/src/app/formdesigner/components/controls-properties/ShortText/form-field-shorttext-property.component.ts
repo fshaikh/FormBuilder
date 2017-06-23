@@ -5,6 +5,7 @@ import { FormPropertyComponentBase } from '../FormPropertyComponentBase';
 import { FieldBase } from "shared/models/FieldBase";
 import { KeyValuePairGeneric } from "shared/Models/KeyValuePair";
 import FormHelper from "app/formdesigner/service/FormHelper";
+import { ShortTextField } from "shared/models/ShortTextField";
 
 @Component({
     selector:'fd-shorttext-property',
@@ -18,19 +19,22 @@ export class ShortTextPropertyComponent extends FormPropertyComponentBase{
     MINLENGTH_NAME:string = "minLength";
     MAXLENGTH_NAME:string = "maxLength";
     _formGroup:FormGroup;
+    _fieldControl:ShortTextField;
 
-    public getFormControls(fieldControl:FieldBase,formGroup:FormGroup):KeyValuePairGeneric<string,AbstractControl>[]{
+    public getFormControls(fieldControl:ShortTextField,formGroup:FormGroup):KeyValuePairGeneric<string,AbstractControl>[]{
         let map:KeyValuePairGeneric<string,AbstractControl>[] = [];
+        this._formGroup = formGroup;
+        this._fieldControl = fieldControl;
         
         // minimum length
-        let minLengthFormControl:FormControl = new FormControl(FormHelper.getFormControlState(this.MINLENGTH,false));
+        let minLengthFormControl:FormControl = new FormControl(FormHelper.getFormControlState(this._getMinValue() ,false));
         map.push(this.getFormControlPair(this.MINLENGTH_NAME,minLengthFormControl));
 
         // maximum length
-        let maxLengthFormControl:FormControl = new FormControl(FormHelper.getFormControlState(this.MINLENGTH,false));
+        let maxLengthFormControl:FormControl = new FormControl(FormHelper.getFormControlState(this._getMaxValue(),false));
         map.push(this.getFormControlPair(this.MAXLENGTH_NAME,maxLengthFormControl));
 
-        this._formGroup = formGroup;
+        
         return map;
     }
 
@@ -45,5 +49,13 @@ export class ShortTextPropertyComponent extends FormPropertyComponentBase{
                 "value":{"length":args.maxLength}
             }
         ];
+   }
+   
+   _getMinValue():number{
+    return this._fieldControl.minLength ? this._fieldControl.minLength : this.MIN_LENGTH;
+   }
+    
+   _getMaxValue():number{
+    return this._fieldControl.maxLength ? this._fieldControl.maxLength : this.MAX_LENGTH;
    }
 }

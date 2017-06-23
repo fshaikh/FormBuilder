@@ -61,6 +61,7 @@ export class FormFieldControlComponent implements OnInit{
 
         if(this.fieldArgs.rowAction){
             this.fieldArgs.rowAction = RowAction.Selected;
+            this.fieldArgs.ignoreOp = true;
             // user has selected the field. inform the state service
             this._formsDesignerStateService.fieldSelected(this.fieldArgs);
         }

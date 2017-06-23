@@ -4,6 +4,7 @@ import { RowAddedEventArgs } from "shared/models/RowAddedEventArgs";
 import { IdService } from "shared/services/id-manager/id-manager.service";
 import { FormDesignerStateService } from "app/formdesigner/service/form-designer-state.service";
 import { SystemConstants } from "shared/models/SystemConstants";
+import { IconFactory } from "shared/models/IconFactory";
 
 
 @Component({
@@ -52,4 +53,11 @@ export class FormControlPanelComponent{
     getTabLabel():string{
         return "Basic";
     }  
+
+    getControlIcon(control:FieldBase):string[]{
+         let classes:string[] = ['icon'];
+         classes.push(IconFactory.getIcon(control));
+        
+        return classes;
+    }
 }

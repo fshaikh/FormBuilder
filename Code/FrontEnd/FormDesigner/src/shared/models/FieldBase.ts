@@ -12,5 +12,9 @@ export class FieldBase extends ObjectBase{
     readOnly:Boolean = false;
     layoutType:RowType;
     validators:IValidator[]
+
+    public getIcon():string{
+        return "";
+    }
 }
 

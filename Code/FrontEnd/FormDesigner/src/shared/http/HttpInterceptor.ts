@@ -18,7 +18,6 @@ export class HttpInterceptor extends Http {
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response>{
-        console.log('request');
         // Read from the provider the auth header and set in request header and cookie
         let storageProvider = StorageProviderFactory.getStorageProvider();
         let kv:KeyValuePair = storageProvider.get('x-auth-userid');

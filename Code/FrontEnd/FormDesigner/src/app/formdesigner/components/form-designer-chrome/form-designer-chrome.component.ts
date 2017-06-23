@@ -11,6 +11,8 @@ import { Row } from "shared/models/Row";
 import { RowAddedEventArgs } from "shared/models/RowAddedEventArgs";
 import { FieldControlAddEventArgs } from "shared/models/FieldControlAddEventArgs";
 import { RowAction } from "shared/models/RowAction";
+import { NotificationBarService } from "ui/notification-bar/notification-bar.service";
+import { TextNotificationMessage } from "ui/notification-bar/NotificationMessage";
 
 
 @Component({
@@ -20,16 +22,19 @@ import { RowAction } from "shared/models/RowAction";
   encapsulation:ViewEncapsulation.Emulated
 })
 export class FormDesignerChromeComponent implements OnInit {
-  private _form:Form;
+  //private _form:Form;
   private _controls:FieldBase[] = [];
 
-  constructor(private _route:ActivatedRoute,private _router:Router,private _formsService:FormsService,private _formsDesignerStateService:FormDesignerStateService) {
+  constructor(private _route:ActivatedRoute,private _router:Router,
+              private _formsService:FormsService,private _formsDesignerStateService:FormDesignerStateService,
+              private _notificationService:NotificationBarService) {
       // Do nothing
    }
 
   ngOnInit() {
-    this._form = this._route.snapshot.data['design'];
-    this._renderFormMeta(this._form);
+    let form = this._route.snapshot.data['design'];
+    this._formsDesignerStateService._form = form;
+    this._renderFormMeta(form);
 
     // Get the controls from the forms service
     this._controls = this._formsService.getControls();
@@ -42,16 +47,19 @@ export class FormDesignerChromeComponent implements OnInit {
     this._router.navigate(['/myforms']);
   }
 
+  _getForm():Form{
+    return this._formsDesignerStateService._form;
+  }
+
   /**
    * Event handler for form save
    */
   onFormSave(e:any):void{
     // get the meta from the form designer state service
-   let formMeta:any = this._formsDesignerStateService.getFormMeta(true,this._form.name);
-   console.log(formMeta);
-   
+    let formMeta:any = this._formsDesignerStateService.getFormMeta(true);
    let formRequest:FormRequest = new FormRequest();
-   formRequest.Form = formMeta;
+   formRequest.Form = formMeta;//this._form;
+   formRequest.FormId = this._getForm().id;
    this._formsService.saveFormMeta(formRequest).subscribe(
             (response:ResponseBase) => {this._handleFormSaveResponse(response);}  
         );
@@ -62,13 +70,19 @@ export class FormDesignerChromeComponent implements OnInit {
  * @param e 
  */
  onFormPreview(e:any):void{
-    this._formsDesignerStateService.saveFormState(this._form.name);
+    this._formsDesignerStateService.saveFormState(this._getForm().name);
     // navigate to Form Preview
     this._router.navigate([`/preview/0`]);
  }
 
   _handleFormSaveResponse(response:ResponseBase){
-        alert(response.message);
+        this._formsDesignerStateService._form = response.data;
+        // show notification to user
+        let message:TextNotificationMessage = new TextNotificationMessage();
+        message.Message = "Form saved successfully";
+        message.Action = "Dismiss";
+        message.Duration = 3000;
+        this._notificationService.showTextNotificationUI(message);
     }
 
 
@@ -83,7 +97,7 @@ export class FormDesignerChromeComponent implements OnInit {
             rowAddEventArgs.Id = rowId;
 
             // add the row
-            this._formsDesignerStateService.addRow(rowAddEventArgs);
+            this._formsDesignerStateService.addRow(rowAddEventArgs,true);
 
             // add the fields
             let fields:FieldBase[] = row.fields;
@@ -94,7 +108,7 @@ export class FormDesignerChromeComponent implements OnInit {
                 fieldControlAddEventArgs.field = field;
                 fieldControlAddEventArgs.ignoreOp = false;
 
-                this._formsDesignerStateService.addField(fieldControlAddEventArgs);
+                this._formsDesignerStateService.addField(fieldControlAddEventArgs,true);
             }
             
         }

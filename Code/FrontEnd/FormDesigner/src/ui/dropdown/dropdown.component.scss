@@ -1,3 +1,13 @@
+@import "../../styles/core/colors";
+
 .dropdown{
-    color:White;
+    color:$White;
+}
+
+/deep/ .mat-select-value{
+    color:$White;
+}
+
+/deep/ .mat-select-arrow{
+    color:$White;
 }

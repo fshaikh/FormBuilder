@@ -34,15 +34,18 @@ module.exports = (function () {
         return response;
     }
 
+    
     /**
-    */
+     * Creates/Update form meta
+     * @param saveFormRequest - SaveFormRequest object containing form meta and other information
+     */
     FormDataAccess.prototype.saveFormMeta = async function (saveFormRequest) {
         let connectStatus = await this.connect();
         if (connectStatus) {
             return connectStatus;
         }
 
-        let response = await this.doInsert(saveFormRequest.formMeta, config.mongodb.formsCollection);
+        let response = await this.doUpsert({ id: saveFormRequest.id }, saveFormRequest.formMeta, config.mongodb.formsCollection);
         return response;
 
     }

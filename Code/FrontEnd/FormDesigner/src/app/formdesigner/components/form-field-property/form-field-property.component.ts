@@ -23,6 +23,7 @@ import { ControlPropertyComponentFactory } from "app/formdesigner/components/con
 })
 export class FormFieldPropertyComponent{
     fieldControl:FieldBase;
+    show:Boolean = true;
     private _rootFormGroup:FormGroup;
     private _rowId:string;
     private fieldLayoutTypes:KeyValuePair[] = [];
@@ -35,7 +36,7 @@ export class FormFieldPropertyComponent{
             return;
         }
         this._advancedFieldProperty = content;
-        this._addControlSpecificUI();
+        this._addControlSpecificUI(true);
     }
 
     /**
@@ -66,6 +67,7 @@ export class FormFieldPropertyComponent{
         // Set the field on the field property form
         this.fieldControl = args.field;
         this._rowId = args.rowId;
+        this.show = true;
         switch(args.rowAction){
             case RowAction.Added:
                 // Add form controls
@@ -131,6 +133,8 @@ export class FormFieldPropertyComponent{
         let nameFormControl:FormControl = new FormControl(FormHelper.getFormControlState(this.fieldControl.name,false));
         // Label
         let labelFormControl:FormControl = new FormControl(FormHelper.getFormControlState(this.fieldControl.label,false));
+        // Required
+        let requiredFormControl:FormControl = new FormControl(FormHelper.getFormControlState(this.fieldControl.required,false));
         // Type
         let typeFormControl:FormControl = new FormControl(FormHelper.getFormControlState(this.fieldControl.type,false));
         let typeValueFormControl:FormControl = new FormControl(FormHelper.getFormControlState(EnumUtils.getEnumString(FieldType,this.fieldControl.type),true));
@@ -138,6 +142,7 @@ export class FormFieldPropertyComponent{
         this._rootFormGroup.addControl("id",idFormControl);
         this._rootFormGroup.addControl("name",nameFormControl);
         this._rootFormGroup.addControl("label",labelFormControl); 
+        this._rootFormGroup.addControl("required",requiredFormControl);
         this._rootFormGroup.addControl("type",typeFormControl);
         this._rootFormGroup.addControl("typeValue",typeValueFormControl);
     }
@@ -154,7 +159,7 @@ export class FormFieldPropertyComponent{
         this._rootFormGroup.addControl("required",requiredFormControl);
     }
 
-    _addControlSpecificUI():void{
+    _addControlSpecificUI(detectChanges:Boolean = false):void{
         this._setAdvancedPropertyComponent();
         let formControls:KeyValuePairGeneric<string,FormControl>[] = this._advancedPropertyComponentInstance.getFormControls(this.fieldControl,this._rootFormGroup);
         formControls.forEach((element:KeyValuePairGeneric<string,AbstractControl>) => {
@@ -163,7 +168,10 @@ export class FormFieldPropertyComponent{
 
         // Not calling this explicitly was throwing "Expression has changed after it was checked""
         // http://stackoverflow.com/questions/41283293/angular-2-expression-has-changed-after-it-was-checked
-        this._changeDetectorRef.detectChanges();
+        if(detectChanges){
+            this._changeDetectorRef.detectChanges();
+        }
+        
 
         // Ang 4 Way - Cant use because of limitations. See HTML for comments
         // this.fieldPropertyAdvancedComponent = ControlPropertyComponentFactory.getFieldPropertyControl(this.fieldControl);
@@ -182,6 +190,10 @@ export class FormFieldPropertyComponent{
          let component = this._advancedFieldProperty.createComponent(resolver);
         // // Get the underlying component instance
         this._advancedPropertyComponentInstance = component.instance;
+    }
+
+    hide(e:any):void{
+        this.show = false;
     }
 
     getLabelPlaceholder():String{

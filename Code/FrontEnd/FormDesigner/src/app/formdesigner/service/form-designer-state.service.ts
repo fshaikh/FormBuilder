@@ -14,7 +14,7 @@ import { FormsService } from "shared/services/forms/forms.service";
 
 @Injectable()
 export class FormDesignerStateService{
-    private _form:Form = null;
+    public _form:Form = null;
     private _formName:string;
 
     private _formAddRowSource = new Subject<RowAddedEventArgs>();
@@ -34,8 +34,6 @@ export class FormDesignerStateService{
         this._formAddFieldObservable = this._formAddFieldSource.asObservable();
         this._formFieldPropertyChangeObservable = this._formFieldPropertyChangeSource.asObservable();
         this._formFieldRemoveObservable = this._formFieldRemoveSource.asObservable();
-
-        this._initialize();
         
     } 
 
@@ -43,42 +41,47 @@ export class FormDesignerStateService{
         return fieldName + this._fieldNameIndex++;
     }
 
-    public addRow(rowArgs:RowAddedEventArgs):void{
+    public addRow(rowArgs:RowAddedEventArgs,skipAdd:boolean = false):void{
         // Call next on the Observable
         this._formAddRowSource.next(rowArgs);
 
-        // Create a row object
-        let row:Row = new Row();
-        // Add to form
-        row.fields = [];
-        row.rowType = RowType.Left;
-        row.id = rowArgs.Id;
-
-        this._form.tabs[0].rows.push(row);
+        if(!skipAdd){
+            // Create a row object
+            let row:Row = new Row();
+            // Add to form
+            row.fields = [];
+            row.rowType = RowType.Left;
+            row.id = rowArgs.Id;
+            if(!this._form.tabs){
+                this._initialize();
+            }
+            this._form.tabs[0].rows.push(row);
+        }
     } 
 
-    public addField(fieldArgs:FieldControlAddEventArgs):void{
-        // fetch the row from the state based on passed in row id
-        let row = this.lookupRow(fieldArgs.rowId);
-        if(row === null){
-            return;
-        }
-        let fieldControl:FieldBase = fieldArgs.field;
-        // replace the field with the passed in value
-        if(fieldArgs.field == null){
-            return;
-        }
+    public addField(fieldArgs:FieldControlAddEventArgs,skipAdd:boolean = false):void{
+        if(!skipAdd){
+            // fetch the row from the state based on passed in row id
+            let row = this.lookupRow(fieldArgs.rowId);
+            if(row === null){
+                return;
+            }
+            let fieldControl:FieldBase = fieldArgs.field;
+            // replace the field with the passed in value
+            if(fieldArgs.field == null){
+                return;
+            }
 
-        // set the data transfer to field base
-        fieldControl.id = this._idService.nextId();
-        // set the name of the control to be <type><uniquenumber>. For eg: shortText11
-        let name = fieldControl.name;
-        fieldControl.name = this.getFieldName(name);
-        // set the layout type
-        console.log(row.rowType);
-        fieldControl.layoutType = row.fields.length === 0 ? RowType.Left : RowType.Right;
+            // set the data transfer to field base
+            fieldControl.id = this._idService.nextId();
+            // set the name of the control to be <type><uniquenumber>. For eg: shortText11
+            let name = fieldControl.name;
+            fieldControl.name = this.getFieldName(name);
+            // set the layout type
+            fieldControl.layoutType = row.fields.length === 0 ? RowType.Left : RowType.Right;
 
-        row.fields.push(fieldArgs.field);
+            row.fields.push(fieldArgs.field);
+        }
         // Call next on the Observable
         this._formAddFieldSource.next(fieldArgs);
     }
@@ -106,16 +109,14 @@ export class FormDesignerStateService{
             return field.id === fieldArgs.field.id;
         });
         if(field == null){
-            fields.push(field);
+            //fields.push(field);
+            return;
         }else{
             let index = this.getIndexOf(fields,field.id);
             row.fields[index] = fieldArgs.field;
         }
         // TODO: update the rows layout property value
         this._updateRowType(row,fieldArgs);
-
-        console.log(fieldArgs.field);
-
         this._formFieldPropertyChangeSource.next(fieldArgs);
     }
 
@@ -140,8 +141,8 @@ export class FormDesignerStateService{
          this._formFieldRemoveSource.next(fieldArgs);
     }
 
-    public getFormMeta(toJson:boolean,formName:string):any{
-        this._form.name = formName;
+    public getFormMeta(toJson:boolean):any{
+        //this._form.name = formName;
         return toJson ? JSON.stringify(this._form): this._form;
     }
 
@@ -151,8 +152,8 @@ export class FormDesignerStateService{
     }
 
     private _initialize(){
-        this._form = new Form();
-        this._form.id = this._idService.nextId();
+        // this._form = new Form();
+        // this._form.id = this._idService.nextId();
         this._form.tabs = [];
 
         let tab = new Tab();

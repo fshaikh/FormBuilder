@@ -16,7 +16,6 @@ export class UITabsComponent implements OnInit {
 
   ngAfterContentInit():void{
         // get all the active tabs
-        console.log(this._tabs);
     }
 
 }

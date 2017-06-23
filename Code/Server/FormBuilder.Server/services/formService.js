@@ -5,12 +5,17 @@ module.exports = (function () {
     const formDA = require('../DAL/formDA.js');
     var ResponseBase = require('../models/ResponseBase.js');
     const FormRequest = require('../models/FormRequest.js');
-    
+
+    /**
+     * Saves form meta. Both insert/update are handled by this function.
+     * @param saveFormRequest - SaveFormRequest object containing form meta and other information
+     */
     async function saveFormMeta(saveFormRequest) {
-        let formId = utilService.getUniqueId();
+        // Set the form id. If there is no form id, its a CREATE request else an UPDATE
+        saveFormRequest.id = saveFormRequest.id ? saveFormRequest.id : utilService.getUniqueId();
         let formMeta = saveFormRequest.formMeta;
 
-        formMeta.id = formId;
+        formMeta.id = saveFormRequest.id;
         formMeta.userId = saveFormRequest.user.userId;
 
         // Save to database

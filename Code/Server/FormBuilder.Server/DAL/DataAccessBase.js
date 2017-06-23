@@ -45,7 +45,30 @@ module.exports = (function () {
         } else {
             success = true;
         }
-        return _getResponseObject(success, data);
+        return _getResponseObject(success,"", data);
+    }
+
+    /**
+     * Updates a document in the specified collection if any document matches the passed in filter criteria. If no document matches the filter
+     * criteria, inserts the document.
+     * @param query - The selection criteria for the update
+     * @param data - Modifications to apply
+     * @param collection - Collection name to apply upsert operation on
+     */
+    DataAccessBase.prototype.doUpsert = async function upsert(query, data, collection) {
+        let response = await this.Database[collection].update(query,
+                                                              data,
+                                                              {
+                                                                  upsert: true, // creates a new document when no document matches the query criteria.
+                                                                  multi: false  // updates one document only
+                                                              });
+
+        let success = false;
+        if (response == null || !response.result.ok) {
+        } else {
+            success = true;
+        }
+        return _getResponseObject(success,"", data);
     }
 
     DataAccessBase.prototype.doGet = async function (projection, filter, collection) {
@@ -80,7 +103,7 @@ module.exports = (function () {
             } else {
                 success = true;
             }
-            return _getResponseObject(success, {});
+            return _getResponseObject(success,"", {});
         }
         catch (e) {
             console.log(e);
@@ -100,7 +123,7 @@ module.exports = (function () {
         } else {
             success = true;
         }
-        return _getResponseObject(success, updateData);
+        return _getResponseObject(success,"", updateData);
     }
 
     // Helper Functions
@@ -111,13 +134,7 @@ module.exports = (function () {
 
         return errorResponseBase;
     }
-    function _getResponseObject(isSuccess, data) {
-        let responseBase = new ResponseBase.ResponseBase();
-        responseBase.isSuccess = isSuccess;
-        responseBase.data = data;
 
-        return responseBase;
-    }
     function _getResponseObject(isSuccess, message, data) {
         let responseBase = new ResponseBase.ResponseBase();
         responseBase.isSuccess = isSuccess;

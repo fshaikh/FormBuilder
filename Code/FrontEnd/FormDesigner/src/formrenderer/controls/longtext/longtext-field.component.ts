@@ -11,4 +11,8 @@ export class LongTextUIFieldComponent extends UIFieldBase implements OnInit{
     ngOnInit():void{
         
     }
+
+    getStyles():String{
+        return "field-inner";
+    }
 }

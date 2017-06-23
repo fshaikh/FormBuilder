@@ -1,5 +1,18 @@
 @import '../../../../styles/core/colors';
 
+.header{
+    color:$White;
+    margin:5px;
+    .title{
+        width:85%;
+        display:inline-block;
+        font-size:2em;
+        padding:4px;
+    }
+    .remove-icon{
+        cursor:pointer;
+    }
+}
 .field-container{
       margin:10px;
       border-bottom: 1px solid #333a43!important;

@@ -11,6 +11,7 @@
         text-align: center;
     }
     .add-row{
+          position:relative;
           text-decoration: none;
           background-color:$DarkGrey03;
           height: 50px;
@@ -26,7 +27,35 @@
                    padding-top: 10px;
                }
           }
+    .ripple{
+         width: 0;
+        height: 0;
+        position: absolute;
+        top: 22px;
+        left: 25px;
+        border-radius: 50%;
+        border: 1px solid $DarkGrey03;
+        -webkit-animation: load-progress 3s infinite;  
+        animation: load-progress 3s infinite;
+        -webkit-animation-delay: 3s;
+        animation-delay: 3s;
+        opacity: 1.0;
+    }
 }
+
+@-webkit-keyframes load-progress { 100% {
+    margin-left: -80px;
+    margin-top: -80px;
+    border-width: 80px;
+    opacity: 0;
+    }}
+
+@keyframes load-progress { 100% {
+    margin-left: -80px;
+    margin-top: -80px;
+    border-width: 80px;
+    opacity: 0;
+    }}
 
 /deep/ .mat-tab-label{
     color:$White;
