@@ -10,6 +10,7 @@ module.exports = (function () {
 
     // Constructor function
     function DataAccessBase() {
+        // Do nothing
     }
 
     // Holds the Database connection
@@ -29,6 +30,9 @@ module.exports = (function () {
         return true;
     }
 
+    /**
+     * Establishes connection with a mongodb server instance. 
+     */
     DataAccessBase.prototype.connect = async function () {
         let status = await this.connectCore();
         if (!status) {
@@ -37,6 +41,11 @@ module.exports = (function () {
         return null;
     }
 
+    /**
+     * Inserts a document in the specified collection.
+     * @param data - Document to insert
+     * @param collection - Collection name to apply insert operation on
+     */
     DataAccessBase.prototype.doInsert = async function (data, collection) {
         let response = await this.Database[collection].insert(data);
 
@@ -71,6 +80,12 @@ module.exports = (function () {
         return _getResponseObject(success,"", data);
     }
 
+     /**
+     * Fetches document(s) based on the passed in projection and filter from a collection
+     * @param projection - Document properties to return
+     * @param filter - Filter criteria to apply on the collection
+     * @param collection - Collection name to apply get operation on
+     */
     DataAccessBase.prototype.doGet = async function (projection, filter, collection) {
         let response = null;
         try {

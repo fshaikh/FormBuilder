@@ -9,6 +9,10 @@ module.exports = (function () {
         _defineRoutes(options.router);
     }
 
+    /**
+     * Defines routes for the form controller
+     * @param router - Express Router object
+     */
     var _defineRoutes = function (router) {
         // GET /api/form/ping
         router.route('/form/ping').get(ping);
@@ -31,7 +35,11 @@ module.exports = (function () {
         res.status(200).send({ done: 'Hello from server' });
     }
 
-
+    /**
+     * Action method for saving form meta
+     * @param req - Request object
+     * @param res - Response object
+     */
     // POST /api/form/meta/:id?
     //@Route('GET','api/form/meta') - Using decorator to make route declarative
     async function saveFormMeta(req, res) {
@@ -45,6 +53,11 @@ module.exports = (function () {
         _handleResponse(res, response, getCreateResponse);
     }
 
+    /**
+     * Action method to get form meta based on the form id
+     * @param req - Request object
+     * @param res - Response object
+     */
     // GET /api/form/meta/{id}
     async function getFormMeta(req, res) {
         let formId = req.params.id;
@@ -55,6 +68,11 @@ module.exports = (function () {
         _handleResponse(res, response, getSuccessResponse);
     } 
 
+    /**
+     * Action method to fetch configured forms for a user. Provides option to include meta or only the forms list
+     * @param req - Request object
+     * @param res - Response object
+     */
     // GET /api/forms/{includeMeta}
     async function getForms(req, res) {
         let includeMeta = req.params.includeMeta == '1' ? true : false;

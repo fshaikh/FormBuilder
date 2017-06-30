@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o -w -dev",
-    "build": "ng build",
+    "build-dev": "ng build",
+    "build":"ng build --aot true --output-path ../../../build/FormDesigner --target -prod --env=prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

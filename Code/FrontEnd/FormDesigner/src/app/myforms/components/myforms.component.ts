@@ -23,7 +23,7 @@ export class MyFormsComponent implements OnInit {
   /**
    * List of forms
    */
-  private forms:Form[];
+  forms:Form[];
 
   constructor(private _route:ActivatedRoute,
               private _router:Router,

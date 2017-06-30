@@ -23,6 +23,8 @@ import { DropdownComponent } from "ui/dropdown/dropdown.component";
 import { LongTextComponent } from "ui/long-text/long-text.component";
 import { ConfirmationDialogComponent } from "ui/dialog/confirmation-dialog/confirmation-dialog.component";
 import { NotificationBarService } from "ui/notification-bar/notification-bar.service";
+import { RadioButtonComponent } from "ui/radio-button/radio-button.component";
+import { ProgressIndicatorComponent } from "ui/progress-indicator/progress-indicator.component";
 
 
 
@@ -42,7 +44,9 @@ import { NotificationBarService } from "ui/notification-bar/notification-bar.ser
     CheckboxComponent,
     DropdownComponent,
     LongTextComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    RadioButtonComponent,
+    ProgressIndicatorComponent
   ],
   providers:[
     DialogService,
@@ -56,7 +60,9 @@ import { NotificationBarService } from "ui/notification-bar/notification-bar.ser
     CheckboxComponent,
     DropdownComponent,
     LongTextComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    RadioButtonComponent,
+    ProgressIndicatorComponent
   ],
   entryComponents:[
     ConfirmationDialogComponent

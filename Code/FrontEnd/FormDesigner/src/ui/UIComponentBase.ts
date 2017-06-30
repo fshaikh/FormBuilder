@@ -18,9 +18,9 @@ export abstract class UIComponentBase {
    */
   @Input() styles:String;
   
-  protected _usesReactive:Boolean = false;
+  _usesReactive:Boolean = false;
 
-  protected ngOnInit(){
+  ngOnInit(){
       if(this.controlName && this.controlGroup){
         this._usesReactive = true;
       }

@@ -12,4 +12,9 @@ export class RadiobuttonUIFieldComponent extends UIFieldBase implements OnInit{
     ngOnInit():void{
         
     }
+
+    getValues():any{
+        let dropdownField:any = this.field;
+        return dropdownField.values;
+    }
 }

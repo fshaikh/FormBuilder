@@ -1,11 +1,14 @@
 # Dependency directories
 .vscode/
+build/
 Code/FrontEnd/FormDesigner/.vscode/
 Code/FrontEnd/FormDesigner/node_modules/
+Code/FrontEnd/FormDesigner/dist/
 Code/FrontEnd/FormDesigner/.editorconfig
 Code/Server/FormBuilder.Server/.vs/
 Code/Server/FormBuilder.Server/node_modules/
 Code/Server/FormBuilder.Server/obj/
+Code/Server/FormBuilder.Server/public
 Docs/FormDesigner/
 i18n/
 

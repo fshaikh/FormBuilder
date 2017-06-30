@@ -4,11 +4,12 @@
 
 import { Http, RequestOptionsArgs ,Headers} from "@angular/http";
 import { Observable } from "rxjs/Observable";
+import { environment } from '../../environments/environment';
 
 
 
 export abstract class ServiceBase {
-    protected _baseUrl:string = 'http://localhost:4000/api';
+    protected _baseUrl:string = environment.serverUrl;
 
     constructor(protected _http:Http){
         // Do nothing

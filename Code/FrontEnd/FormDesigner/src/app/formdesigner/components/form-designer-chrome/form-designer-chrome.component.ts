@@ -22,8 +22,8 @@ import { TextNotificationMessage } from "ui/notification-bar/NotificationMessage
   encapsulation:ViewEncapsulation.Emulated
 })
 export class FormDesignerChromeComponent implements OnInit {
-  //private _form:Form;
-  private _controls:FieldBase[] = [];
+  _controls:FieldBase[] = [];
+  _showLoadIndicator:Boolean = false;
 
   constructor(private _route:ActivatedRoute,private _router:Router,
               private _formsService:FormsService,private _formsDesignerStateService:FormDesignerStateService,
@@ -60,6 +60,7 @@ export class FormDesignerChromeComponent implements OnInit {
    let formRequest:FormRequest = new FormRequest();
    formRequest.Form = formMeta;//this._form;
    formRequest.FormId = this._getForm().id;
+   this._showLoadIndicator = true;
    this._formsService.saveFormMeta(formRequest).subscribe(
             (response:ResponseBase) => {this._handleFormSaveResponse(response);}  
         );
@@ -76,6 +77,7 @@ export class FormDesignerChromeComponent implements OnInit {
  }
 
   _handleFormSaveResponse(response:ResponseBase){
+        this._showLoadIndicator = false;
         this._formsDesignerStateService._form = response.data;
         // show notification to user
         let message:TextNotificationMessage = new TextNotificationMessage();
@@ -112,6 +114,10 @@ export class FormDesignerChromeComponent implements OnInit {
             }
             
         }
+    }
+
+    onRowAdded(e:any):void{
+
     }
 
 }

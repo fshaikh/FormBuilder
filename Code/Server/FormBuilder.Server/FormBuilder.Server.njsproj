@@ -60,6 +60,8 @@
     <Folder Include="middleware\logging\" />
     <Folder Include="middleware\auth\" />
     <Folder Include="models\" />
+    <Folder Include="public\" />
+    <Folder Include="public\formDesigner\" />
     <Folder Include="services\" />
     <Folder Include="typings\" />
     <Folder Include="typings\globals\" />

@@ -33,11 +33,27 @@ module.exports = (function () {
         // Create the express app
         _app = express();
 
+        // Setup Angular bootstrap
+        _setupAngularApps();
+
         // setup the middleware
         _setupRequestMiddleware();
 
         // bootstrap controllers
         bootstrapper.bootstrapControllers(_app, _getOptions());
+    }
+
+    function _setupAngularApps() {
+        // Setup the static files serving from node server. This will be processed before all routes.
+        // The way this works is: Lets say we access styles.css from the browser. It will first look for styles.css in public folder. If it
+        // finds it, file be server. If it is not found , it will then proceed to the configured routes
+
+        // Set the index.html as the default document
+        var options = {
+            index: "index.html"
+        };
+
+        _app.use('/', express.static('public/formDesigner', options));
     }
 
     function _setupRequestMiddleware() {

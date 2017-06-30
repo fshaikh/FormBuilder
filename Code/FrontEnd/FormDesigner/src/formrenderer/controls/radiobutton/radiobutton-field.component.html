@@ -1,4 +1,4 @@
-<div [formGroup]="formGroup">
+<!--<div [formGroup]="formGroup">
      <div *ngFor="let option of field.values">
          <label>
          <input type="radio" [formControlName]="field.name"
@@ -7,4 +7,10 @@
         {{option.value}}
         </label>
      </div>
-</div>
+</div>-->
+
+<fd-radio-button [controlGroup]="formGroup"
+             [controlName]="getFormControlName()"
+             [selectPairs]="getValues()"
+                            >
+</fd-radio-button>

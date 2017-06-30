@@ -11,7 +11,7 @@ import { Form } from "shared/models/Form";
   styleUrls: ['./form-preview.component.scss']
 })
 export class FormPreviewComponent implements OnInit {
-  private _form:Form;
+  _form:Form;
 
   constructor(private _formService:FormsService) {
       // Do nothing

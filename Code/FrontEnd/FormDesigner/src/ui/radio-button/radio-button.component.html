@@ -1,0 +1,8 @@
+<md-radio-group [formGroup]="controlGroup" *ngIf="_usesReactive" >
+  <md-radio-button [formControlName]="controlName" *ngFor="let pair of selectPairs" [value]="pair.key">{{pair.value}}</md-radio-button>
+</md-radio-group>
+
+<md-radio-group *ngIf="!_usesReactive">
+  <md-radio-button *ngFor="let pair of selectPairs" [value]="pair.key">{{pair.value}}</md-radio-button>
+</md-radio-group>
+
