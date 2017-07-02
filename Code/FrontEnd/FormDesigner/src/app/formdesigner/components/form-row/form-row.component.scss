@@ -7,6 +7,18 @@
      height: 8em;
      position:relative;
 
+     .action-item{
+         display:flex;
+         flex-direction: column;
+         span{
+             flex-grow:0.5;
+             text-align:right;
+             cursor:pointer;
+             padding:5px;
+             color:$Background-Color;
+         }
+     }
+
      .form-instructions{
         width:80%;
         height:20px;

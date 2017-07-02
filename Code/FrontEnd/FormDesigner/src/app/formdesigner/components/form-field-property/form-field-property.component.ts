@@ -55,6 +55,10 @@ export class FormFieldPropertyComponent{
 
         this._formsDesignerStateService._formFieldRemoveObservable.subscribe(
                 (args:FieldControlAddEventArgs) => this._onFieldRemove(args));
+        
+        this._formsDesignerStateService._formRowRemoveObservable.subscribe(
+            (args:any) => this.hide(null)
+        );  
 
         this.fieldLayoutTypes = FieldLayoutType.getFieldLayouts();
     }

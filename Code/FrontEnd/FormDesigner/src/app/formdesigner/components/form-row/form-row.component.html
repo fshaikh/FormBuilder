@@ -3,13 +3,17 @@
     (dragenter)="onDragEnter($event)"
     (drop)="onDrop($event)" draggable="true"
     [attr.data-id]="RowAddArgs.Id">
-    <!--<i fa [name]="rocket" [border]=true></i>-->
-    <div #fieldContainer>
-         <div class="form-instructions" *ngIf="showInstructions()">
-            <span>
-                <i class="fa fa-x fa-arrows addrow-icon" aria-hidden="true"></i>
-                Drop form elements here
-            </span>
+
+        <div class="action-item" data-action="delete">
+            <span class="fa fa-x fa-trash" aria-hidden="true" title="Delete Row" (click)="deleteRow()"></span>
         </div>
-    <div>
-</div>
+   
+        <div #fieldContainer>
+            <div class="form-instructions" *ngIf="showInstructions()">
+                <span>
+                    <i class="fa fa-x fa-arrows addrow-icon" aria-hidden="true"></i>
+                    Drop form elements here
+                </span>
+            </div>
+        </div>
+    </div>

@@ -7,6 +7,10 @@ import { Row } from "shared/models/Row";
 import { RowType } from "shared/models/RowType";
 import { FormDesignerStateService } from "app/formdesigner/service/form-designer-state.service";
 import { FormFieldControlComponent } from "app/formdesigner/components/form-field-control/form-field-control.component";
+import { ConfirmationDialogRequest } from "ui/dialog/confirmation-dialog/ConfirmationDialogRequest";
+import { DialogService } from "ui/dialog/dialog.service";
+import { ConfirmationDialogComponent } from "ui/dialog/confirmation-dialog/confirmation-dialog.component";
+import { DialogResult } from "ui/dialog/DialogResult";
 
 
 
@@ -19,7 +23,9 @@ export class FormRowComponent{
     public RowAddArgs:RowAddedEventArgs;
     @ViewChild('fieldContainer',{read:ViewContainerRef}) _rowContainer:ViewContainerRef;
 
-    constructor(private _componentFactoryResolver:ComponentFactoryResolver,private _formsDesignerStateService:FormDesignerStateService) {
+    constructor(private _componentFactoryResolver:ComponentFactoryResolver,
+                private _formsDesignerStateService:FormDesignerStateService,
+                private _dialogService:DialogService) {
         this._formsDesignerStateService._formFieldRemoveObservable.subscribe((args:FieldControlAddEventArgs) => this._onFieldRemove(args));
 
         this._formsDesignerStateService._formAddFieldObservable.subscribe(
@@ -143,4 +149,29 @@ export class FormRowComponent{
         }
         return false;
     }
+
+    /**
+     * Event handler for delete row
+     */
+    deleteRow():void{
+        // Show confirmation
+        // show a confirmation dialog
+        let request:ConfirmationDialogRequest = new ConfirmationDialogRequest();
+        request.Title = "Delete Row";
+        request.Description = "Are you sure you want to delete the row?";
+        this._dialogService.openConfirmationDialog(ConfirmationDialogComponent,request).subscribe(
+            (response:DialogResult) => {this._handleRowDeleteConfirmation(response);}
+        );
+    }
+
+    _handleRowDeleteConfirmation(response:DialogResult):void{
+     // User has selected 'No'
+      if(!response.ActionResult){
+        return;
+      }
+
+      // User has selected 'Yes', delete row
+
+      this._formsDesignerStateService.removeRow(this.RowAddArgs);
+   }
 }

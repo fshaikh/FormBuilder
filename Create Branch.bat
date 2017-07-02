@@ -2,7 +2,7 @@
 git branch
 
 @ECHO *** Create branch <branch name> ***
-git branch <BRANCH_NAME>
+git branch <BRANCH_NAME> <Base_BRANCH>
 
 @ECHO *** Switch to new branch ***
 git checkout <BRANCH_NAME>

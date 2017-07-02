@@ -21,11 +21,13 @@ export class FormDesignerStateService{
     private _formAddFieldSource = new Subject<FieldControlAddEventArgs>();
     private _formFieldPropertyChangeSource = new Subject<FieldControlAddEventArgs>();
     private _formFieldRemoveSource = new Subject<FieldControlAddEventArgs>();
+    private _formRowRemoveSource = new Subject<RowAddedEventArgs>();
 
     public _formAddRowObservable:Observable<RowAddedEventArgs> = null;
     public _formAddFieldObservable:Observable<FieldControlAddEventArgs> = null;
     public _formFieldPropertyChangeObservable:Observable<FieldControlAddEventArgs> = null;
     public _formFieldRemoveObservable:Observable<FieldControlAddEventArgs> = null;
+    public _formRowRemoveObservable:Observable<RowAddedEventArgs> = null;
 
     private _fieldNameIndex:number = 1;
 
@@ -34,7 +36,7 @@ export class FormDesignerStateService{
         this._formAddFieldObservable = this._formAddFieldSource.asObservable();
         this._formFieldPropertyChangeObservable = this._formFieldPropertyChangeSource.asObservable();
         this._formFieldRemoveObservable = this._formFieldRemoveSource.asObservable();
-        
+        this._formRowRemoveObservable = this._formRowRemoveSource.asObservable();
     } 
 
     public getFieldName(fieldName:string):string{
@@ -139,6 +141,27 @@ export class FormDesignerStateService{
 
          // Notify the subscribers
          this._formFieldRemoveSource.next(fieldArgs);
+    }
+
+    /**
+     * Removes row from the form. Notifies subscribers
+     * @param rowArgs Ros event args
+     */
+    public removeRow(rowArgs:RowAddedEventArgs):void{
+        // First check if the row is present
+        let row:Row = this.lookupRow(rowArgs.Id);
+        if(row == null){
+            return;
+        }
+        // Notify subscribers that the row is being removed
+        this._formRowRemoveSource.next(rowArgs);
+        // Remove the row and fields from the form state object
+        let rows:Row[] = this._form.tabs[0].rows;
+        let index:number = rows.findIndex((row:Row) => row.id === rowArgs.Id);
+        if(index === -1){
+            return;
+        }
+        rows.splice(index,1);
     }
 
     public getFormMeta(toJson:boolean):any{
