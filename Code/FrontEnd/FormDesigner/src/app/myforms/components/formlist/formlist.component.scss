@@ -9,6 +9,8 @@
     background-color:$Grey03;
     display:flex;
     flex-direction: row;
+    border:1px solid $DarkGrey;
+    border-radius:0.5em;
 
     .form-item-detail{
           flex-grow:3;

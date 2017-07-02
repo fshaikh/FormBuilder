@@ -35,6 +35,27 @@
 
         .filters-area{
             flex-grow: 3;
+            .options-area{
+                padding:0px;
+                list-style: none;
+                .option-item{
+                    width:98%;
+                    min-height:2.2em;
+                    cursor:pointer;
+                    margin:10px;
+                    
+                    a{
+                        text-decoration: none;
+                        color:$Black;
+                        padding:10px;
+                        font-size:1.5em;
+                        text-align: center;
+                    }
+                }
+                .option-item:hover{
+                    background-color: $Grey02;
+                }
+            }
         }
     }
 
@@ -50,6 +71,10 @@
 
         .forms-area{
             flex-grow: 3;
+
+            .form-list-container{
+                padding:10px;
+            }
 
             .noforms-container{
                 margin: 0 auto;

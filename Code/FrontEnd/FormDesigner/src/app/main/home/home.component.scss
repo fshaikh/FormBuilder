@@ -1,3 +1,15 @@
-section{
-    height:80%;
+.main-body{
+    height:90%;
+    display:flex;
+    flex-direction: column;
+
+    section{
+        height:80%;
+        flex-grow:3;
+    }
+    .footer{
+        flex-grow:0.5;
+        min-height:10em;
+    }
 }
+

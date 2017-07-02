@@ -18,7 +18,13 @@ module.exports = (function () {
 
     // Establishes connection to MongoDb and creates the underlying database object with collections
     DataAccessBase.prototype.connectCore = async function () {
-        let mongoDb = await mongodb.MongoClient.connect(config.mongodb.url);
+        let mongoDb;
+        try {
+            mongoDb = await mongodb.MongoClient.connect(config.mongodb.url);
+        }
+        catch (e) {
+            console.log(`Error in MongoDb Connection: ${e}`);
+        }
         if (mongoDb == null) {
             return false;
         }

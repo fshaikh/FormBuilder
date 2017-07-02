@@ -1,18 +1,20 @@
 .fieldControl-container{
-                    border:1px solid lightcoral;
-                    margin:2px;
+                    border:1px solid black;
+                    margin:10px;
                     cursor:pointer;
                     display:flex;
-
+                    height:2em;
                     
 
                     .field-control-label{
                         flex-grow: 3;
+                        padding:0.5em
                     }
 
                     .field-control-remove-icon{
-                        flex-grow:1;
+                        flex-grow:0.1;
                         margin-right:auto;
+                        padding:0.5em;
                     }
 
                     .field-control-remove-icon:before{

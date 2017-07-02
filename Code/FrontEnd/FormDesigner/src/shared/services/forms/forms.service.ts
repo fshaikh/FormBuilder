@@ -56,7 +56,7 @@ export class FormsService extends ServiceBase {
     
     return this.get(url)
                .map((response:Response) => {return <Form[]>this._getFormsResponse(response)})
-               .catch(this.handleError);
+               .catch((response:Response) => {return this.handleError(response)});
   }
 
   /**

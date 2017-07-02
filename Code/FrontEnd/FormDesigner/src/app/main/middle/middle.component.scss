@@ -1,10 +1,48 @@
 @import '../../../styles/core/_colors.scss';
 
 .middle-container{
-    background-color: $Background-Color;
-    color:$White;
+    background-color: $White;
+    color:$Black;
     text-align:center;
     height:100%;
+
+    .content{
+        background-color: $Grey02;
+        width:100%;
+        height:30em;
+
+        .content-title{
+            padding:40px;
+            font-size:2em;
+        }
+
+        .description{
+            display:flex;
+            flex-direction: row;
+            height:100%;
+            margin-top:30px;
+
+            .step{
+                display:inline-block;
+                flex-grow:1;
+                height:100%;
+
+                .step-title{
+                    margin-top:30px;
+                    color:$Background-Color;
+                    font-size:2em;
+
+                }
+
+                .step-desc{
+                    font-size:1.5em;
+                    width:50%;
+                    margin:0 auto;
+                }
+            }
+
+        }
+    }
     
     h1{
         font-size:50px;
@@ -12,5 +50,6 @@
 
     h2{
         font-size:25px;
+        margin:10px;
     }
 }
