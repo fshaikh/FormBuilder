@@ -2,7 +2,7 @@
  * Component for My Forms
  */
 
-import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, trigger, state, style, transition, animate } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Form } from "shared/models/Form";
 import { DialogService } from "ui/dialog/dialog.service";
@@ -13,31 +13,42 @@ import { ActionType } from "app/myforms/Models/ActionType";
 import { FormsService } from "shared/services/forms/forms.service";
 import { DeleteFormRequest } from "shared/models/FormRequest";
 import { ResponseBase } from "shared/models/ResponseBase";
+import { RouteTransition } from "ui/animations/RouteAnimation";
+import { RouteableComponent } from "ui/animations/RouteableComponent";
+
 
 @Component({
   templateUrl: './myforms.component.html',
   styleUrls: ['./myforms.component.scss'],
-  encapsulation:ViewEncapsulation.None
+  encapsulation:ViewEncapsulation.None,
+  animations:[
+    RouteableComponent.getAnimation()
+  ]
 })
-export class MyFormsComponent implements OnInit {
+export class MyFormsComponent extends RouteableComponent implements OnInit {
   /**
    * List of forms
    */
   forms:Form[];
+  //state:string = 'in';
 
   constructor(private _route:ActivatedRoute,
               private _router:Router,
               private _dialogService:DialogService,
               private _formService:FormsService,
-              private _changeDetectorRef:ChangeDetectorRef) { }
+              private _changeDetectorRef: ChangeDetectorRef) {
+                super();
+                
+               }
 
   ngOnInit() {
+    super.ngOnInit();
     this._route.data.subscribe(
         data => { this._handleForms(data);}
           
     );
     this.forms = this._route.snapshot.data['myforms'];
-   
+    
   }
 
   hasForms():Boolean{

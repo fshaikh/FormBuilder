@@ -14,16 +14,32 @@ import FormHelper from "app/formdesigner/service/FormHelper";
 import { EnumUtils } from "shared/utils/EnumUtils";
 import { FieldType } from "shared/models/FieldType";
 import { ControlPropertyComponentFactory } from "app/formdesigner/components/controls-properties/ControlPropertyComponentFactory";
+import { trigger, state, style, transition, animate } from "@angular/animations";
 
 
 @Component({
     selector:'fd-field-property-form',
     templateUrl:'./form-field-property.component.html',
-    styleUrls:['./form-field-property.component.scss']
+    styleUrls:['./form-field-property.component.scss'],
+    animations:[
+        trigger('toggleVisibility',[
+            // state('true' , style({ transform: 'translate3d(0, 0, 0)' })),
+      //state('false', style({ transform: 'translate3d(100%, 0, 0)'  })),
+      state('true',style({transform:'translateX(10px)',opacity:'1'})),
+      state('false',style({transform:'translateX(0px)',opacity:'0'})),
+      transition('true => false',[
+        style({transform:'translateX(0px)',opacity:'1'}),
+        animate('1000ms ease-out')
+      ])
+    //   transition('true => false', animate('400ms ease-in-out')),
+    //   transition('false => true', animate('400ms ease-in-out'))
+        ])
+    ]
 })
 export class FormFieldPropertyComponent{
     fieldControl:FieldBase;
-    show:Boolean = true;
+    show:string = 'true';
+    
     private _rootFormGroup:FormGroup;
     private _rowId:string;
     private fieldLayoutTypes:KeyValuePair[] = [];
@@ -37,6 +53,11 @@ export class FormFieldPropertyComponent{
         }
         this._advancedFieldProperty = content;
         this._addControlSpecificUI(true);
+    }
+
+    getShow():string{
+       // return this.fieldControl && this.show === 'true' ? 'true' : 'false';
+       return this.show;
     }
 
     /**
@@ -71,7 +92,7 @@ export class FormFieldPropertyComponent{
         // Set the field on the field property form
         this.fieldControl = args.field;
         this._rowId = args.rowId;
-        this.show = true;
+        this.show = "true";
         switch(args.rowAction){
             case RowAction.Added:
                 // Add form controls
@@ -197,7 +218,7 @@ export class FormFieldPropertyComponent{
     }
 
     hide(e:any):void{
-        this.show = false;
+        this.show = "false";
     }
 
     getLabelPlaceholder():String{

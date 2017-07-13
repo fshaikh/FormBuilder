@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {CommonModule} from '@angular/common';
 import { FormsModule } from "@angular/forms";
 
+
 // Feature modules
 import {SharedModule} from '../../shared/shared.module';
 
@@ -37,7 +38,7 @@ const routes: Routes = [
         SharedModule,
         UiModule,
         CommonModule,
-        FormsModule,
+        FormsModule
     ],
     providers:[
         MyFormsRouteResolver

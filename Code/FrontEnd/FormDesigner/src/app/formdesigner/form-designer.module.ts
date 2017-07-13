@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from "@angular/router";
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
 import {MdTabsModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // Feature Modules
 import { UiModule } from "ui/ui.module";
@@ -36,6 +37,7 @@ const routes: Routes = [
     UiModule,
     MdTabsModule,
     FormsModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     FormRendererModule
   ],

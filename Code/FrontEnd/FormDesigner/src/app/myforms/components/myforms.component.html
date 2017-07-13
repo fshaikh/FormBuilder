@@ -1,4 +1,4 @@
-<div class="myforms-container">
+<div class="myforms-container" [@routeTransition]="state">
     <div class="left-area">
         <div class="action-area">
             <fd-button [text]='getText()' [styles]="getStyles()" (notifyClick)="onCreateForm($event)"></fd-button>

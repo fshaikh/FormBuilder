@@ -13,21 +13,27 @@ import { FieldControlAddEventArgs } from "shared/models/FieldControlAddEventArgs
 import { RowAction } from "shared/models/RowAction";
 import { NotificationBarService } from "ui/notification-bar/notification-bar.service";
 import { TextNotificationMessage } from "ui/notification-bar/NotificationMessage";
+import { RouteableComponent } from "ui/animations/RouteableComponent";
+
 
 
 @Component({
   selector: 'fd-form-designer-chrome',
   templateUrl: './form-designer-chrome.component.html',
   styleUrls: ['./form-designer-chrome.component.scss'],
-  encapsulation:ViewEncapsulation.Emulated
+  encapsulation:ViewEncapsulation.Emulated,
+  animations:[
+    RouteableComponent.getAnimation()
+  ]
 })
-export class FormDesignerChromeComponent implements OnInit {
+export class FormDesignerChromeComponent extends RouteableComponent implements OnInit {
   _controls:FieldBase[] = [];
   _showLoadIndicator:Boolean = false;
 
   constructor(private _route:ActivatedRoute,private _router:Router,
               private _formsService:FormsService,private _formsDesignerStateService:FormDesignerStateService,
-              private _notificationService:NotificationBarService) {
+              private _notificationService: NotificationBarService) {
+                super();
       // Do nothing
    }
 

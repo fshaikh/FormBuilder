@@ -22,8 +22,12 @@
                     .field-control-remove-icon:before{
                         float:right;
                     }
-                }
+}
 
-                .fieldControl-container:hover{
-                    background-color: $Grey02;
-                }
+.fieldControl-container:hover{
+        background-color: $Grey02;
+}
+
+.selected{
+    background-color: lightskyblue;
+}
