@@ -2,8 +2,10 @@ import {Component,OnInit} from '@angular/core';
 import {FormControl,FormGroup,AbstractControl,FormArray} from '@angular/forms';
 import { FormPropertyComponentBase } from '../FormPropertyComponentBase';
 import { FieldBase } from "shared/models/FieldBase";
-import { KeyValuePairGeneric } from "shared/Models/KeyValuePair";
+import { KeyValuePairGeneric, KeyValuePair } from "shared/Models/KeyValuePair";
 import FormHelper from "app/formdesigner/service/FormHelper";
+import { DropdownField } from "shared/models/DropdownField";
+import { FieldType } from "shared/models/FieldType";
 
 @Component({
     selector:'fddropdown-property',
@@ -15,11 +17,19 @@ export class DropDownPropertyComponent extends FormPropertyComponentBase{
     FORMARRAY_NAME:string = "values";
     KEY_NAME:string = "key";
     VALUE_NAME:string = "value";
+    kvPairs:KeyValuePair[] = [];
 
-    public getFormControls(fieldControl:FieldBase,formGroup:FormGroup):KeyValuePairGeneric<string,AbstractControl>[]{
+    public getFormControls(fieldControl:DropdownField,formGroup:FormGroup):KeyValuePairGeneric<string,AbstractControl>[]{
         let map:KeyValuePairGeneric<string,AbstractControl>[] = [];
         
-        this.formArray = new FormArray([this._buildKeyValuePairFormGroup()]);
+        this.kvPairs = fieldControl.values;
+        let length = this.kvPairs.length;
+        let formControls = [];
+        for (let index = 0; index < length; index++) {
+            let element = this.kvPairs[index];
+            formControls.push(this._buildKeyValuePairFormGroup(element));
+        }
+        this.formArray = new FormArray(formControls);
         map.push(this.getFormControlPair(this.FORMARRAY_NAME,this.formArray));
 
         this._formGroup = formGroup;
@@ -28,27 +38,49 @@ export class DropDownPropertyComponent extends FormPropertyComponentBase{
     }
 
     public processModel(args:any):void{
-        // Do nothing
+        if(args.type !== FieldType.Dropdown){
+            return;
+        }
+        args.values = this.kvPairs;
     }
 
     onAdd(e:any):void{
-        this.formArray.push(this._buildKeyValuePairFormGroup());
+        let kvPair:KeyValuePair = new KeyValuePair();
+        kvPair.key = "";
+        kvPair.value = "";
+        this.formArray.push(this._buildKeyValuePairFormGroup(kvPair));
     }
 
     onRemove(index:number):void{
         this.formArray.removeAt(index);
     }
 
-    _buildKeyValuePairFormGroup():FormGroup{
+    getFormControlKey(kvPair:FormGroup,index:number):any{
+        let value:any = kvPair.getRawValue();
+        let i:number = 0;
+       for (var key in value) {
+           if (value.hasOwnProperty(key)) {
+               var element = value[key];
+               if(i === index){
+                   return element;
+               }
+               i++;
+           }
+       }
+    }
+
+
+
+    _buildKeyValuePairFormGroup(keyValuePair:KeyValuePair):FormGroup{
         let dropDownPairFormGroup:FormGroup = new FormGroup({});
 
         // Key Form Control
-        let keyFormControl:FormControl = new FormControl(FormHelper.getFormControlState('',false));
-        dropDownPairFormGroup.addControl(this.KEY_NAME,keyFormControl);
+        let keyFormControl:FormControl = new FormControl(FormHelper.getFormControlState(keyValuePair.key,false));
+        dropDownPairFormGroup.addControl(keyValuePair.key,keyFormControl);
         
         // Value Form Control
-        let valueFormControl:FormControl = new FormControl(FormHelper.getFormControlState('',false));
-        dropDownPairFormGroup.addControl(this.VALUE_NAME,valueFormControl);
+        let valueFormControl:FormControl = new FormControl(FormHelper.getFormControlState(keyValuePair.value,false));
+        dropDownPairFormGroup.addControl(keyValuePair.value,valueFormControl);
 
         return dropDownPairFormGroup;
     }

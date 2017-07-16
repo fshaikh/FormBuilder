@@ -6,18 +6,15 @@ module.exports = (function () {
     // require config module
     var config = require('../infrastructure/config.js');
     var ResponseBase = require('../models/ResponseBase.js');
-
+    // Holds the Database connection
+    var _database = null;
 
     // Constructor function
     function DataAccessBase() {
         // Do nothing
     }
 
-    // Holds the Database connection
-    DataAccessBase.prototype.Database = {};
-
-    // Establishes connection to MongoDb and creates the underlying database object with collections
-    DataAccessBase.prototype.connectCore = async function () {
+    async function connectDb() {
         let mongoDb;
         try {
             mongoDb = await mongodb.MongoClient.connect(config.mongodb.url);
@@ -28,7 +25,7 @@ module.exports = (function () {
         if (mongoDb == null) {
             return false;
         }
-        this.Database = {
+        _database = {
             db: mongoDb,
             forms: mongoDb.collection(config.mongodb.formsCollection),
             users: mongoDb.collection(config.mongodb.usersCollection)
@@ -37,23 +34,12 @@ module.exports = (function () {
     }
 
     /**
-     * Establishes connection with a mongodb server instance. 
-     */
-    DataAccessBase.prototype.connect = async function () {
-        let status = await this.connectCore();
-        if (!status) {
-            return _getDbErrorResponseObject();
-        }
-        return null;
-    }
-
-    /**
      * Inserts a document in the specified collection.
      * @param data - Document to insert
      * @param collection - Collection name to apply insert operation on
      */
     DataAccessBase.prototype.doInsert = async function (data, collection) {
-        let response = await this.Database[collection].insert(data);
+        let response = await _database[collection].insert(data);
 
         let success = false;
         if (response == null || !response.result.ok) {
@@ -71,7 +57,7 @@ module.exports = (function () {
      * @param collection - Collection name to apply upsert operation on
      */
     DataAccessBase.prototype.doUpsert = async function upsert(query, data, collection) {
-        let response = await this.Database[collection].update(query,
+        let response = await _database[collection].update(query,
                                                               data,
                                                               {
                                                                   upsert: true, // creates a new document when no document matches the query criteria.
@@ -96,7 +82,7 @@ module.exports = (function () {
         let response = null;
         try {
             // since find returns a cursor, need to convert to array
-            response = await this.Database[collection].find(filter, projection).toArray();
+            response = await _database[collection].find(filter, projection).toArray();
             let success = false;
             if (response == null) {
             } else {
@@ -118,7 +104,7 @@ module.exports = (function () {
         let response = null;
         try {
             // since find returns a cursor, need to convert to array
-            response = await this.Database[collection].remove(filter);
+            response = await _database[collection].remove(filter);
             let success = false;
             if (response == null || !response.result.ok) {
             } else {
@@ -137,7 +123,7 @@ module.exports = (function () {
      * @param updateData - Modifications to apply
      */
     DataAccessBase.prototype.doUpdate = async function (selectionCriteria, updateData,collection) {
-        let response = await this.Database[collection].update(selectionCriteria, updateData);
+        let response = await _database[collection].update(selectionCriteria, updateData);
 
         let success = false;
         if (response == null || !response.result.ok) {
@@ -166,6 +152,7 @@ module.exports = (function () {
     }
 
     return {
-        DataAccessBase: DataAccessBase
+        DataAccessBase: DataAccessBase,
+        ConnectDb: connectDb
     };
 })();

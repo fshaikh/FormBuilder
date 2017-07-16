@@ -37,13 +37,15 @@
     <Compile Include="DAL\formDA.js" />
     <Compile Include="DAL\userDA.js" />
     <Compile Include="infrastructure\config.js" />
-    <Compile Include="infrastructure\express-bootstrap.js" />
+    <Compile Include="infrastructure\app-bootstrap.js" />
     <Compile Include="infrastructure\server.js" />
     <Compile Include="middleware\auth\auth-middleware.js" />
     <Compile Include="middleware\cors\cors.js" />
     <Compile Include="middleware\logging\logger.js" />
     <Compile Include="models\FormRequest.js" />
+    <Compile Include="models\MemorySnapshot.js" />
     <Compile Include="models\ResponseBase.js" />
+    <Compile Include="services\diagnosticService.js" />
     <Compile Include="services\formService.js" />
     <Compile Include="services\userService.js" />
     <Compile Include="services\utilService.js" />

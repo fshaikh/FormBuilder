@@ -38,7 +38,7 @@ import { trigger, state, style, transition, animate } from "@angular/animations"
 })
 export class FormFieldPropertyComponent{
     fieldControl:FieldBase;
-    show:string = 'true';
+    @Input() show:string = 'true';
     
     private _rootFormGroup:FormGroup;
     private _rowId:string;
@@ -137,8 +137,11 @@ export class FormFieldPropertyComponent{
     }
 
     onFieldPropertyChange(formData:any):void{
-        // process the form data before dispatching 
-        this._advancedPropertyComponentInstance.processModel(formData);
+        if(this._advancedPropertyComponentInstance){
+            // process the form data before dispatching 
+            this._advancedPropertyComponentInstance.processModel(formData);
+        }
+        
         let args:FieldControlAddEventArgs = new FieldControlAddEventArgs();
         args.field = formData;
         args.rowId = this._rowId;

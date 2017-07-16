@@ -15,21 +15,11 @@ module.exports = (function () {
     FormDataAccess.prototype.constructor = FormDataAccess;
 
     FormDataAccess.prototype.getFormsByUser = async function (formRequest) {
-        let connectStatus = await this.connect();
-        if (connectStatus) {
-            return connectStatus;
-        }
-
         let response = await this.doGet(_getProjection(formRequest), _getUserFilter(formRequest.user), config.mongodb.formsCollection);
         return response;
     }
 
     FormDataAccess.prototype.getFormMeta = async function (formRequest) {
-        let connectStatus = await this.connect();
-        if (connectStatus) {
-            return connectStatus;
-        }
-
         let response = await this.doGet(_getProjection(formRequest), _getIdFilter(formRequest), config.mongodb.formsCollection);
         return response;
     }
@@ -40,11 +30,6 @@ module.exports = (function () {
      * @param saveFormRequest - SaveFormRequest object containing form meta and other information
      */
     FormDataAccess.prototype.saveFormMeta = async function (saveFormRequest) {
-        let connectStatus = await this.connect();
-        if (connectStatus) {
-            return connectStatus;
-        }
-
         let response = await this.doUpsert({ id: saveFormRequest.id }, saveFormRequest.formMeta, config.mongodb.formsCollection);
         return response;
 
@@ -55,11 +40,6 @@ module.exports = (function () {
      * @param deleteFormRequest - Delete Form Request
      */
     FormDataAccess.prototype.deleteForm = async function (deleteFormRequest) {
-        let connectStatus = await this.connect();
-        if (connectStatus) {
-            return connectStatus;
-        }
-
         let response = await this.doDelete(_getDeleteFormFilter(deleteFormRequest), config.mongodb.formsCollection);
         return response;
     }
@@ -69,10 +49,6 @@ module.exports = (function () {
      * @param updateFormRequest
      */
     FormDataAccess.prototype.updateForm = async function (updateFormRequest) {
-        let connectStatus = await this.connect();
-        if (connectStatus) {
-            return connectStatus;
-        }
         let response = await this.doUpdate(_getSoftDeleteSelectionCriteria(updateFormRequest), { $set: updateFormRequest.formMeta }, config.mongodb.formsCollection);
         return response;
     }

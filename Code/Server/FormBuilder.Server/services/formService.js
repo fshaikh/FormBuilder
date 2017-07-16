@@ -28,9 +28,14 @@ module.exports = (function () {
         return await _createFormDA().getFormMeta(formRequest);
     }
 
+    /**
+     * Get forms for a user
+     * @param formRequest - Form Request
+     */
     async function getForms(formRequest) {
-        
-        return await _createFormDA().getFormsByUser(formRequest);
+        let response;
+        response = await _createFormDA().getFormsByUser(formRequest);
+        return response;
     }
 
     /**

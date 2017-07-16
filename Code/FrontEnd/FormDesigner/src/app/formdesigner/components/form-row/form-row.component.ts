@@ -69,7 +69,15 @@ export class FormRowComponent{
         for(let index = 0;index<length;index++){
             // TODO: Need to find a better way of finding the child view. This looks too leaky
             let view:any = this._rowContainer.get(index);
-            let id:string = view.rootNodes[0].firstElementChild.attributes[2].value;
+            let element = view.rootNodes[0].firstElementChild;//;
+            if(!element){
+                continue;
+            }
+            let dataIdAttr = element.attributes[2];
+            if(!dataIdAttr){
+                continue;
+            }
+            let id:string = dataIdAttr.value;
             if(id === args.field.id){
                 viewIndex = index;
                 break;

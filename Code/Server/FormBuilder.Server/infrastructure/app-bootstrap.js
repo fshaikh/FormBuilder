@@ -20,6 +20,9 @@ module.exports = (function () {
     // Authentication middleware
     var authMiddleware = require('../middleware/auth/auth-middleware.js');
 
+    // Db
+    var dbManager = require('../DAL/DataAccessBase');
+
     var _jsonParser;
     // express router object. This object is used for configuring api routes
     var _router = express.Router();
@@ -29,7 +32,7 @@ module.exports = (function () {
 
     _init();
 
-    function _init() {
+    async function _init() {
         // Create the express app
         _app = express();
 
@@ -41,6 +44,9 @@ module.exports = (function () {
 
         // bootstrap controllers
         bootstrapper.bootstrapControllers(_app, _getOptions());
+
+        // setup db connection
+        let status = await dbManager.ConnectDb();
     }
 
     function _setupAngularApps() {

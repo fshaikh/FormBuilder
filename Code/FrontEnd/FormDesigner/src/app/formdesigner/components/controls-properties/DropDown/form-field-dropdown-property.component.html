@@ -3,9 +3,9 @@
     <div [formArrayName]="FORMARRAY_NAME" *ngFor="let kvPair of formArray.controls; let i=index" class="dropdown-property">
         <div [formGroupName]="i" class="field-container">
                  <label [attr.for] ="KEY_NAME">Key</label>
-                 <input type="text" [formControlName]="KEY_NAME" class="field-inner" placeholder="Enter key here"/>
+                 <input type="text" [formControlName]="getFormControlKey(kvPair,0)" class="field-inner" placeholder="Enter key here"/>
                  <label [attr.for] ="VALUE_NAME">Value</label>
-                 <input type="text" [formControlName]="VALUE_NAME" class="field-inner" placeholder="Enter value here"/>
+                 <input type="text" [formControlName]="getFormControlKey(kvPair,1)" class="field-inner" placeholder="Enter value here"/>
                  <i class="fa fa-2x fa-times" aria-hidden="true" title="Remove" (click)="onRemove(i)"> </i>
         </div>
     </div>

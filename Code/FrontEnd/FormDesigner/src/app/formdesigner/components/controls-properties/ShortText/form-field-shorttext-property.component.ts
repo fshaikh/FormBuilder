@@ -6,6 +6,7 @@ import { FieldBase } from "shared/models/FieldBase";
 import { KeyValuePairGeneric } from "shared/Models/KeyValuePair";
 import FormHelper from "app/formdesigner/service/FormHelper";
 import { ShortTextField } from "shared/models/ShortTextField";
+import { FieldType } from "shared/models/FieldType";
 
 @Component({
     selector:'fd-shorttext-property',
@@ -39,6 +40,9 @@ export class ShortTextPropertyComponent extends FormPropertyComponentBase{
     }
 
     public processModel(args: any): void {
+        if(args.type !== FieldType.ShortText){
+            return;
+        }
         args.validators = [
             {
                 "name":this.MINLENGTH_NAME,

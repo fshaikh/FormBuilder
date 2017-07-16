@@ -15,11 +15,6 @@ module.exports = (function () {
     UserDataAccess.prototype.constructor = UserDataAccess;
 
     UserDataAccess.prototype.addUser = async function (user) {
-        let connectStatus = await this.connect();
-        if (connectStatus) {
-            return connectStatus;
-        }
-
         return await this.doInsert(user, config.mongodb.usersCollection);
     }
 
