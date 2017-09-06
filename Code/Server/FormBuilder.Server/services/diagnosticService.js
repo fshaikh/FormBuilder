@@ -5,6 +5,11 @@
 
 module.exports = (function () {
     var MemorySnapshot = require('../models/MemorySnapshot').MemorySnapshot;
+
+    function hookMemProfiler() {
+        
+    }
+
     function getMemorySnapshot() {
         let metrics = process.memoryUsage();
         let snapshot = new MemorySnapshot();

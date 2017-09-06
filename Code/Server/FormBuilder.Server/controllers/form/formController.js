@@ -75,7 +75,7 @@ module.exports = (function () {
      */
     // GET /api/forms/{includeMeta}
     async function getForms(req, res) {
-        
+        console.log(`Get Forms by : ${process.pid} received`);
         let includeMeta = req.params.includeMeta == '1' ? true : false;
         let formRequest = new FormRequest.FormRequest('', '', includeMeta,req.user);
 
@@ -83,7 +83,7 @@ module.exports = (function () {
 
         _handleResponse(res, response, getSuccessResponse);
 
-        require('../../services/diagnosticService').getMemorySnapshot();
+        //require('../../services/diagnosticService').getMemorySnapshot();
     }
 
     // DELETE /api/form/meta/{id}/{isSoftDelete}

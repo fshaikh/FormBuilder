@@ -4,7 +4,7 @@
   "description": "Backend for Form Builder",
   "main": "infrastructure/server.js",
   "scripts": {
-    "start": "node infrastructure/server.js"
+    "start": "node infrastructure/cluster.js"
   },
   "author": {
     "name": "Furqan Shaikh",

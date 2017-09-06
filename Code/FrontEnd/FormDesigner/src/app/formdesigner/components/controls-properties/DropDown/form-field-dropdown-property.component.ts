@@ -21,8 +21,8 @@ export class DropDownPropertyComponent extends FormPropertyComponentBase{
 
     public getFormControls(fieldControl:DropdownField,formGroup:FormGroup):KeyValuePairGeneric<string,AbstractControl>[]{
         let map:KeyValuePairGeneric<string,AbstractControl>[] = [];
-        
-        this.kvPairs = fieldControl.values;
+
+        this.kvPairs = fieldControl.values ? fieldControl.values : [];
         let length = this.kvPairs.length;
         let formControls = [];
         for (let index = 0; index < length; index++) {
