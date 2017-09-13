@@ -4,7 +4,7 @@
   "description": "Backend for Form Builder",
   "main": "infrastructure/server.js",
   "scripts": {
-    "start": "node infrastructure/cluster.js"
+    "start": "node infrastructure/server.js"
   },
   "author": {
     "name": "Furqan Shaikh",
@@ -20,5 +20,9 @@
     "express": "^4.15.2",
     "mongodb": "^2.2.25",
     "uuid": "^3.0.1"
+  },
+  "engines":{
+    "node":"8.3.0",
+    "npm":"4.2.0"
   }
 }
