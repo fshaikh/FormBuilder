@@ -15,6 +15,8 @@ module.exports = (function () {
                     console.log(`${header} : ${headers[header]}`);
                 }
             }
+
+            
             
             // call the next middleware 
             next();

@@ -32,6 +32,7 @@ module.exports = (function () {
 
     // GET /api/form/ping
     async function ping(req, res,next) {
+        console.log(process.env);
         res.status(200).send({ done: 'Hello from server' });
     }
 

@@ -6,6 +6,7 @@ module.exports = (function () {
     // require config module
     var config = require('../infrastructure/config.js');
     var ResponseBase = require('../models/ResponseBase.js');
+    var utilService = require('../services/utilService');
     // Holds the Database connection
     var _database = null;
 
@@ -17,7 +18,8 @@ module.exports = (function () {
     async function connectDb() {
         let mongoDb;
         try {
-            mongoDb = await mongodb.MongoClient.connect(config.mongodb.url);
+            mongoDb = await mongodb.MongoClient.connect(utilService.getMongoUrl());
+            console.log(`Successfully connected to mongo service`);
         }
         catch (e) {
             console.log(`Error in MongoDb Connection: ${e}`);

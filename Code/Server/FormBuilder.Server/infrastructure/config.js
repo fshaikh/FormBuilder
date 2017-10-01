@@ -11,9 +11,7 @@
     config.mongodb = {};
     config.mongodb.host = "mongodb://127.0.0.1";
     config.mongodb.database = "cmsDb";
-    //config.mongodb.url = config.mongodb.host + "/" + config.mongodb.database;
-    //config.mongodb.url = 'mongodb://fshaikh:fur1234@cluster0-shard-00-00-xnyl4.mongodb.net:27017,cluster0-shard-00-01-xnyl4.mongodb.net:27017,cluster0-shard-00-02-xnyl4.mongodb.net:27017/cmsDb?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
-    config.mongodb.url = 'mongodb://fbadmin:fur1234@ds143449.mlab.com:43449/CloudFoundry_u75mjljp_9c55j8bv';
+    config.mongodb.url = config.mongodb.host + "/" + config.mongodb.database;
     config.mongodb.formsCollection = "forms";
     config.mongodb.usersCollection = "users";
 
