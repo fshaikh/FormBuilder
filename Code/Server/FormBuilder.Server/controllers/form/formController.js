@@ -3,6 +3,7 @@
 module.exports = (function () {
     const formService = require('../../services/formService.js');
     const FormRequest = require('../../models/FormRequest.js');
+    const controllerHelper = require('../controllerHelper');
     
     var _init = function (app, options) {
         // add controller initialisation here
@@ -48,10 +49,11 @@ module.exports = (function () {
         let form = req.body;
         // Read the optional id route parameter.
         let formId = req.params.id;
-        let saveFormRequest = new FormRequest.SaveFormRequest(formId, form.name, false, req.user,form);
+        let saveFormRequest = new FormRequest.SaveFormRequest(formId, form.name, false, req.user, form);
+        console.log(req.user);
 
         let response = await formService.saveFormMeta(saveFormRequest);
-        _handleResponse(res, response, getCreateResponse);
+        controllerHelper.handleResponse(res, response, controllerHelper.getCreateResponse);
     }
 
     /**
@@ -66,7 +68,7 @@ module.exports = (function () {
         let formRequest = new FormRequest.FormRequest(formId, '');
         let response = await formService.getFormMeta(formRequest);
 
-        _handleResponse(res, response, getSuccessResponse);
+        controllerHelper.handleResponse(res, response, controllerHelper.getSuccessResponse);
     } 
 
     /**
@@ -82,7 +84,7 @@ module.exports = (function () {
 
         let response = await formService.getForms(formRequest);
 
-        _handleResponse(res, response, getSuccessResponse);
+        controllerHelper.handleResponse(res, response, controllerHelper.getSuccessResponse, controllerHelper.getErrorResponse);
 
         //require('../../services/diagnosticService').getMemorySnapshot();
     }
@@ -100,28 +102,10 @@ module.exports = (function () {
 
         let response = await formService.deleteForm(deleteFormRequest);
 
-        _handleResponse(res, response, getSuccessResponse);
+        controllerHelper.handleResponse(res, response, controllerHelper.getSuccessResponse);
     }
 
-    function _handleResponse(res, response, getSuccessResponse) {
-        if (response.isSuccess) {
-            getSuccessResponse(res, response);
-        } else {
-            getErrorResponse(res, response);
-        }
-    }
-
-    function getCreateResponse(res,payload) {
-        res.status(201).send(payload);
-    }
-
-    function getSuccessResponse(res, payload) {
-        res.status(200).send(payload);
-    }
-
-    function getErrorResponse(res, response) {
-        res.status(500).send(response);
-    }
+    
 
 
     return {

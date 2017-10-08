@@ -42,6 +42,12 @@ module.exports = (function () {
         // setup the middleware
         _setupRequestMiddleware();
 
+        // Setup auth
+        bootstrapper.setupAuth(_app, _getOptions());
+
+        // Setup auth middleware
+        _setupAuthMiddleware();
+
         // bootstrap controllers
         bootstrapper.bootstrapControllers(_app, _getOptions());
 
@@ -73,7 +79,9 @@ module.exports = (function () {
 
         // Setup CORS
         _router.use(cors.setupCors);
+    }
 
+    function _setupAuthMiddleware(){
         // Setup Auth middleware
         _router.use(authMiddleware.handleAuthentication);
     }

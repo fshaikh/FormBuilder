@@ -2,41 +2,30 @@
 
 
 module.exports = (function () {
-    // HTTP Header used for sending user id
-    var AUTH_HEADER = 'x-auth-userid';
-
+    var AUTH_TOKEN_HEADER = 'x-auth-token';
     const userService = require('../../services/userService.js');
+    const authFactory = require('./auth-factory');
 
-    async function handleAuth(req, res, next) {
-        // a. Reads the userid (request.cookie or request.headers)
-        let userId = _getCookie(req, AUTH_HEADER);
-
-        req.user = await userService.getUser(userId);
-        // Sets the response.header/response.cookie
-        _setHeader(res, AUTH_HEADER, req.user.userId);
-        _setCookie(res, AUTH_HEADER, req.user.userId);
- 
-        next();
+    async function handleAuthentication(req, res, next) {
+        if (req.method === 'OPTIONS') {
+            res.status(200).send();
+            return;
+        }
+        // Server supports 2 types of authentication:
+        // 1. Guest Authentication
+        //       User is not present in the system. This is for users to try the application without creating account. In this case, we check the cookie
+        // 2.   
+        //      User has registered with username/password. Every API request must pass the auth token in the header (x-auth-token)
+        var response = await authFactory.getAuthenticationProvider(req)(req, res);
+        if (response.isSuccess) {
+            req.user = response.data;
+            next();
+        } else {
+            res.status(401).send(response);
+        }
     }
-
-    function _getCookie(req, name) {
-        return req.cookies[AUTH_HEADER];
-    }
-    function _getHeader(req,header) {
-        // Read using either cookie or header. Current implementation uses header
-        return req.headers[header];
-    }
-
-    function _setHeader(res, header, value) {
-        res.header(AUTH_HEADER, value);
-    }
-
-    function _setCookie(res, header, value) {
-        res.cookie(AUTH_HEADER, value);//, { httpOnly: true ,secure:true});
-    }
-
     return {
-        handleAuthentication: handleAuth
+        handleAuthentication: handleAuthentication
     };
 
 })();

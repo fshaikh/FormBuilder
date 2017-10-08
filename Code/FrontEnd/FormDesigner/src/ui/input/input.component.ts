@@ -18,7 +18,7 @@ export class InputComponent extends UIComponentBase implements OnInit {
   /**
    * Value to be shown in the input control
    */
-  @Input() value:String;
+  @Input() value:String = '';
 
   /**
    * Type of input:
@@ -33,6 +33,7 @@ export class InputComponent extends UIComponentBase implements OnInit {
 
   ngOnInit(): void {
       super.ngOnInit();
+      console.log(this.type);
     }
 
   getStyles():String[]{

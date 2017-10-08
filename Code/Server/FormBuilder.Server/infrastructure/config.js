@@ -15,6 +15,12 @@
     config.mongodb.formsCollection = "forms";
     config.mongodb.usersCollection = "users";
 
+    // Token-based Authentication related configuration
+    config.token = {};
+    config.token.tokenProvider = "jwt";
+    config.token.expiryMinutes = 24 * 60; // Expires in 24 hours
+    config.token.signAlgorithm = 'HS256';
+
     return config;
 })();
 

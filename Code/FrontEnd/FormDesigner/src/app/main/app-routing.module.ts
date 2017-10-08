@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Feature Modules
 import { MyFormsModule } from "app/myforms/myforms.module";
+import {AuthModule} from "app/auth/auth.module";
 import { FormDesignerModule } from "app/formdesigner/form-designer.module";
 
 // Home component
@@ -26,6 +27,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     MyFormsModule,
+    AuthModule,
     FormDesignerModule,
     RouterModule.forRoot(routes)
     ],

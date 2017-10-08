@@ -16,7 +16,7 @@ module.exports = (function () {
         let formMeta = saveFormRequest.formMeta;
 
         formMeta.id = saveFormRequest.id;
-        formMeta.userId = saveFormRequest.user.userId;
+        formMeta.userId = saveFormRequest.user.id;
 
         // Save to database
         let response = await _createFormDA().saveFormMeta(saveFormRequest);

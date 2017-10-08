@@ -61,7 +61,7 @@ module.exports = (function () {
         return {
             $and: [
                 { name: { $exists: true }},
-                { userId: user.userId}
+                { userId: user.id}
             ]
         };
     }

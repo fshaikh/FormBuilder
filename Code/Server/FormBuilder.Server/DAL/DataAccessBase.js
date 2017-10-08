@@ -98,6 +98,30 @@ module.exports = (function () {
     }
 
     /**
+     * Returns one document that satisfies the specified query criteria on the collection or view.
+     * If multiple documents satisfy the query, this method returns the first document
+     * @param projection - Document properties to return
+     * @param filter - Filter criteria to apply on the collection
+     * @param collection - Collection name to apply get operation on
+     */
+    DataAccessBase.prototype.findOne = async function(projection, filter, collection){
+        let response = null;
+        try {
+            // returns a single document, if found
+            response = await _database[collection].findOne(filter, projection);
+            let success = false;
+            if (response == null) {
+            } else {
+                success = true;
+            }
+            return _getResponseObject(success, '', response);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    /**
      * Removes documents from a collection
      * @param filter - Filter to apply
      * @param collection - Collection to remove documents from

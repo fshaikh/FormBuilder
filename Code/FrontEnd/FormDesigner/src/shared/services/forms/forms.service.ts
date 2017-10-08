@@ -29,6 +29,7 @@ import { KeyValuePair } from "shared/Models/KeyValuePair";
 import { LongTextField } from "shared/models/LongTextField";
 import { IValidator } from "shared/models/IValidator";
 import { ShortTextField } from "shared/models/ShortTextField";
+import { AuthStateService } from "shared/services/auth/auth-state-service";
 
 
 @Injectable()
@@ -44,8 +45,8 @@ export class FormsService extends ServiceBase {
    /**
     * Initializes a new instance of FormsService
     */
-  constructor(http:Http) {
-    super(http);
+  constructor(http:Http,authStateService: AuthStateService ) {
+    super(http,authStateService);
    }
 
   /**
@@ -105,13 +106,13 @@ export class FormsService extends ServiceBase {
         }
 
         return this.post(url,formRequest.Form)
-                          .map((response:Response) => {return <ResponseBase>this._mapPostResponse(response)});
+                          .map((response:Response) => {return <ResponseBase>this.mapPostResponse(response)});
     }
 
     public deleteForm(deleteFormRequest:DeleteFormRequest):Observable<ResponseBase>{
         let url = this._baseUrl + this._deleteFormUrl + deleteFormRequest.FormId + '/' + deleteFormRequest.IsSoftDelete;
         return this.delete(url,{})
-                          .map((response:Response) => {return <ResponseBase>this._mapPostResponse(response)});
+                          .map((response:Response) => {return <ResponseBase>this.mapPostResponse(response)});
     }
 
     public saveFormState(form:Form){
@@ -142,17 +143,6 @@ export class FormsService extends ServiceBase {
   }
 
     
-
-    private _mapPostResponse(response:Response):ResponseBase{
-        let json = response.json();
-        let responseBase = new ResponseBase();
-        responseBase.isSuccess = json.isSuccess;
-        responseBase.message = json.message;
-        responseBase.data = json.data;
-
-        return responseBase;
-    }
-
     private _handleFormMetaResponse(response:Response):Form{
         let json = response.json().data[0];
         let form = new Form();

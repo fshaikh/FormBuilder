@@ -1,0 +1,16 @@
+<form [formGroup]="_loginFormGroup">
+  <fieldset>
+    <div class="form-container">
+      <fd-input [placeholderText]="getUsernamePlaceholder()" [controlGroup]="_loginFormGroup"
+                          [controlName]="getUserFormControlName()"></fd-input>
+    </div>
+    <div class="form-container">
+      <fd-input [placeholderText]="getPasswordPlaceholder()" [type]="getPasswordType()"
+                [controlGroup]="_loginFormGroup"
+                [controlName]="getPasswordFormControlName()" ></fd-input>
+    </div>
+    <div class="actions-container">
+      <fd-button [text]='getLoginButtonText()' [styles]="getStyles()" (notifyClick)="onLogin()" ></fd-button>  
+    </div>
+  </fieldset>
+</form> 

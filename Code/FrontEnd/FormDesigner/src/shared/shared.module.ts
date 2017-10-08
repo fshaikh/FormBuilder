@@ -7,12 +7,16 @@ import { Http, RequestOptions, ConnectionBackend } from '@angular/http';
 
 import { IdService } from './services/id-manager/id-manager.service';
 import { FormsService } from "shared/services/forms/forms.service";
+import { AuthService } from "shared/services/auth/auth.service";
+import { AuthStateService } from "shared/services/auth/auth-state-service";
 // import { HttpInterceptor } from "shared/http/HttpInterceptor";
 
 @NgModule({
     providers:[
         IdService,
-        FormsService
+        FormsService,
+        AuthService,
+        AuthStateService
     //     {
     //         provide:'http',
     //         useFactory:(backend: ConnectionBackend, options: RequestOptions) => {
