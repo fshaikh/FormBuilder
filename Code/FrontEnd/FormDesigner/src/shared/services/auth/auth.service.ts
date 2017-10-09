@@ -36,6 +36,29 @@ export class AuthService extends ServiceBase {
                           .map((response:Response) => {return this._handleLoginResponse(response)});
    }
 
+   /**
+    * Performs log off for the authenticated user
+    */
+   doLogOff():void{
+    // if the user is already logged out, dont do anything
+    if(!this._authStateService.isAuthenticated){
+      return;
+    }
+    // clear the user auth state
+    this._authStateService.clearAuth();
+
+    // TODO: send log off signal to server. Will be required when using External
+    // Auth Provider to log off the user from the external provider
+  }
+
+  public getCurrentUser():User{
+    return this._authStateService.getCurrentUser();
+  }
+
+  public isAuthenticated():boolean{
+    return this._authStateService.isAuthenticated();
+  }
+
    _handleLoginResponse(response:Response):ResponseBase{
      var responseBase:ResponseBase = <ResponseBase>this.mapPostResponse(response);
      var jsonData:any = responseBase.data;

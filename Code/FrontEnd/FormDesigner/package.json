@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve -o -w -dev",
     "build-dev": "ng build",
+    "build-noaot":"ng build --aot false --output-path ../../../build/FormDesigner --target -prod --env=prod",
     "build":"ng build --aot true --output-path ../../../build/FormDesigner --target -prod --env=prod",
     "build-sm":"ng build --aot true --output-path ../../../build/FormDesigner --target -prod --env=prod -sm",
     "test": "ng test",

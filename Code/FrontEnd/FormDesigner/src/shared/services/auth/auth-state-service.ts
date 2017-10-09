@@ -19,6 +19,12 @@ export class AuthStateService{
        return this._currentUser;
    }
 
+   public clearAuth():void{
+     this._currentUser.authToken = null;
+     this._currentUser = null;
+
+   }
+
    public isAuthenticated():boolean{
      return this._currentUser == null ? false: true;
    }

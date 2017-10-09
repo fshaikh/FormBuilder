@@ -4,7 +4,7 @@
        <li><a [routerLink]="['/myforms']" title="Navigate to My Forms">My Forms</a></li>
        <li *ngIf="showLogin()"><a [routerLink]="['/login']">Log In</a></li>
        <li *ngIf="showLogin()"><a [routerLink]="['/signup']">Sign Up</a></li>
-       <li *ngIf="!showLogin()"><a [routerLink]="['/signup']">Log Off</a></li>
+       <li *ngIf="!showLogin()"><a href="#" (click)="onLogOff($event)" title="Log Off">Log Off</a></li>
        <li><a>Welcome {{getUser()}}</a></li>
     </ul>
     

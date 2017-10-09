@@ -41,6 +41,8 @@ module.exports = (function(){
         return savedAuthInfo;
     }
 
+    
+
     /**
      * Creates a new user account.
      * @param user

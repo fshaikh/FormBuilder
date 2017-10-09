@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from "@angular/router";
-import { AuthStateService } from "shared/services/auth/auth-state-service";
+import { AuthService } from 'shared/services/auth/auth.service';
 
 @Component({
   selector: 'fd-root',
@@ -10,7 +10,7 @@ import { AuthStateService } from "shared/services/auth/auth-state-service";
 export class AppComponent {
   title = 'fd works!';
 
-  constructor(private _router:Router,private _authStateService:AuthStateService){
+  constructor(private _router:Router,private _authService:AuthService){
     this._router.events.subscribe((event:any) => {
       if (event instanceof NavigationStart) {
             console.log('navigation start');
@@ -30,11 +30,19 @@ export class AppComponent {
   }
 
   showLogin():boolean{
-        return !this._authStateService.isAuthenticated();
-    }
+     return !this._authService.isAuthenticated();
+  }
 
-    getUser():String{
-      var user = this._authStateService.getCurrentUser();
+  getUser():String{
+      var user = this._authService.getCurrentUser();
       return  user!= null ? user.userName : "Guest";
-    }
+  }
+
+  /**
+   * Logs off the authenticated user
+   * @param e 
+   */
+  onLogOff(e:any):void{
+    this._authService.doLogOff();
+  }
 }

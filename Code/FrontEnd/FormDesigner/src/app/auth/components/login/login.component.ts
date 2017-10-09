@@ -3,7 +3,7 @@ import { AuthService } from "shared/services/auth/auth.service";
 import { UserAuthInfo } from "shared/models/auth/UserAuthInfo";
 import { ResponseBase } from "shared/models/ResponseBase";
 import { Router } from "@angular/router";
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'fd-login',
@@ -11,9 +11,9 @@ import { FormGroup, FormControl } from "@angular/forms";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  private _loginFormGroup:FormGroup;
-  private userName:FormControl = new FormControl();
-  private password:FormControl = new FormControl();
+  public _loginFormGroup:FormGroup;
+  public userName:FormControl = new FormControl();
+  public password:FormControl = new FormControl();
   
   constructor(private authService:AuthService,private _router:Router) { }
 
@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
       userName:this.userName,
       password:this.password
     });
+    this.userName.setValidators(Validators.required);
+    this.password.setValidators(Validators.required);
   }
 
   /**
