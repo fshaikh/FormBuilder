@@ -33,7 +33,7 @@ module.exports = (function () {
 
     // GET /api/form/ping
     async function ping(req, res,next) {
-        console.log(process.env);
+        console.log(require('../../services/cryptoService').getHash('P@ssw0rd'));
         res.status(200).send({ done: 'Hello from server' });
     }
 

@@ -21,6 +21,10 @@
     config.token.expiryMinutes = 24 * 60; // Expires in 24 hours
     config.token.signAlgorithm = 'HS256';
 
+    // Password protection related configuration
+    config.auth = {};
+    config.auth.hashAlgo = 'sha256';
+
     return config;
 })();
 

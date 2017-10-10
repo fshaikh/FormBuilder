@@ -4,18 +4,24 @@ import { UserAuthInfo } from "shared/models/auth/UserAuthInfo";
 import { ResponseBase } from "shared/models/ResponseBase";
 import { Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { RouteableComponent } from 'ui/animations/RouteableComponent';
 
 @Component({
   selector: 'fd-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations:[
+    RouteableComponent.getAnimation()
+  ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends RouteableComponent implements OnInit {
   public _loginFormGroup:FormGroup;
   public userName:FormControl = new FormControl();
   public password:FormControl = new FormControl();
   
-  constructor(private authService:AuthService,private _router:Router) { }
+  constructor(private authService:AuthService,private _router:Router) {
+    super();
+   }
 
   ngOnInit() {
     this._loginFormGroup = new FormGroup({

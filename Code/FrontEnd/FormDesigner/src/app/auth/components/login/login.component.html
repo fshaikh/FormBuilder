@@ -1,4 +1,4 @@
-<form [formGroup]="_loginFormGroup">
+<form [formGroup]="_loginFormGroup" [@routeTransition]="state">
   <fieldset>
     <div class="form-container">
       <fd-input [placeholderText]="getUsernamePlaceholder()" [controlGroup]="_loginFormGroup"

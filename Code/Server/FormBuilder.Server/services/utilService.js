@@ -22,8 +22,46 @@ module.exports = (function () {
         }
     }
 
+    /**
+     * Converts the input buffer to base64-encoded string
+     * @param {*Buffer} buffer 
+     */
+    function toBase64String(buffer){
+        // convert to base64-encoded string format
+        return buffer.toString('base64',0,buffer.length);
+    }
+
+    /**
+     * Converts base64-encoded string to Buffer
+     * @param inputStr
+     */
+    function fromBase64String(inputStr) {
+        return Buffer.from(inputStr, 'base64');
+    }
+
+    /**
+     * Converts 
+     */
+    function toBytes(input){
+        return new Buffer(input);
+    }
+
+    /**
+     * Combines the buffers passed in the arguments list. This is a variadic function
+     */
+    function combineBuffer(...buffers){
+        var totalLength = buffers.reduce((total, current) => {
+            return total.length + current.length;
+        });
+        return Buffer.concat(buffers,totalLength);
+    }
+
     return {
         getUniqueId: getUniqueId,
-        getMongoUrl: getMongoUrl
+        getMongoUrl: getMongoUrl,
+        toBase64String: toBase64String,
+        fromBase64String: fromBase64String,
+        toBytes: toBytes,
+        combineBuffer: combineBuffer
     };
 })();

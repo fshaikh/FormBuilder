@@ -32,7 +32,6 @@ module.exports = (function(){
     async function doLogin(req,res){
         let authInfo = req.body;
         var response = await authService.doLogin(authInfo);
-        console.log(response);
         controllerHelper.handleResponse(res, response, controllerHelper.getSuccessResponse,controllerHelper.getUnauthorisedResponse);
     }
 
@@ -44,6 +43,7 @@ module.exports = (function(){
     // POST api/auth/register
     async function doRegister(req, res) {
         let userInfo = req.body;
+
         var response = await authService.registerUser(userInfo);
         controllerHelper.handleResponse(res, response, controllerHelper.getCreateResponse, controllerHelper.getErrorResponse);
     }

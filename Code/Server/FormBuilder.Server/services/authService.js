@@ -7,6 +7,7 @@ module.exports = (function(){
     var tokenProviderFactory = require('./tokenProviderFactory');
     var utilService = require('./utilService');
     var User = require('../models/User').User;
+    var cryptoService = require('./cryptoService');
     
     /**
      * Validates the login for the passed user
@@ -54,16 +55,13 @@ module.exports = (function(){
         // 2. Check if password meets minimum security requirements.
 
         // 3. Create a system id for the new user
-        var newUser = new User();
-        newUser.id = utilService.getUniqueId();
-        newUser.userName = user.userName;
-        newUser.password = user.password;
-        newUser.isGuestAuth = false;
+        var newUser = await _getNewUser(user);
 
         // 4. Call DA to save the user
         response = await _createUserDA().addUser(newUser);
-        // Remove the password
-        delete response.data.password;
+        
+        // 5. Process the output before sending
+        _processOutput(response.data);
         
         // 5. Return success/error response
         return response;
@@ -76,18 +74,30 @@ module.exports = (function(){
         return new UserDataAccess();
     }
 
+    async function _getNewUser(user){
+        var newUser = new User();
+        newUser.id = utilService.getUniqueId();
+        newUser.userName = user.userName;
+        await _setPassword(newUser,user);
+        newUser.isGuestAuth = false;
+
+        return newUser;
+    }
+
     /**
      * Validates if the passwords are same
      * @param savedAuthInfo
      * @param authInfo
      */
-    function _validatePassword(savedAuthInfo,authInfo){
-        return savedAuthInfo.password === authInfo.password ? true : false;
+    function _validatePassword(savedAuthInfo, authInfo){
+        var salt = utilService.fromBase64String(savedAuthInfo.salt);
+        var savedHashedPassword = utilService.toBase64String(_getSaltedPassword(salt, authInfo.password));
+        return savedHashedPassword === savedAuthInfo.hashedPassword ? true : false;
     }
 
     function _getTokenPayload(payload){
         var tokenPayload = Object.assign(payload);
-        delete tokenPayload.password;
+        _processOutput(tokenPayload);
         return tokenPayload;
     }
 
@@ -103,6 +113,48 @@ module.exports = (function(){
 
         return await tokenProvider.getToken(payload);
     }
+
+    /**
+     * 
+     * @param {*User} newUser -  New user
+     * @param {*User} user - Passed in user object
+     */
+    async function _setPassword(newUser, user){
+        var salt = await _getSalt();
+        newUser.salt = utilService.toBase64String(salt);
+        newUser.hashedPassword = utilService.toBase64String(_getSaltedPassword(salt,user.password));
+    }
+
+    /**
+     * Gets the hashed password given the salt and password
+     */
+    function _getSaltedPassword(salt,passwordStr){
+        // 1. Get Buffer for the password string
+        var password = utilService.toBytes(passwordStr);
+        // 2. Combine the password + salt
+        var saltedPassword = utilService.combineBuffer(password,salt);
+        // 3. Get the hash of the password + salt
+        var saltedPasswordHash = cryptoService.getHash(saltedPassword);
+        return saltedPasswordHash;
+    }
+
+    /**
+     * Gets the user salt
+     */
+    async function _getSalt(){
+        // 1. Get the salt. This must be unique for each user
+        return await cryptoService.generateCSRN(256);
+    }
+    
+    function _processOutput(response) {
+        // Remove the password fields
+        delete response.password;
+        delete response.salt;
+        delete response.hashedPassword;
+    }
+    
+    
+    
 
     return{
         doLogin: doLogin,
