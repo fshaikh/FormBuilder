@@ -1,12 +1,27 @@
 @import '../../../../styles/core/_colors';
+@import '../../../../styles/core/common';
 
-.actions-container{
+.login-container{
+    border:1px solid black;
+    border-radius:5px;
+    width:50%;
+    height:30%;
+    @include center-div(30%,30%,30%,30%);
 
-    /deep/ .ok-btn{
-                width:20%;
-                background-color:$Green1;
-                margin-left:10px;
-                margin-top:10px;
-                color:$White
-            }
+    .form-container{
+        width:50%;
+       margin:0 auto;
+       padding:5px;
+    }
+    .actions-container{
+        margin:0 auto;
+        padding:5px;
+            /deep/ .ok-btn{
+                        width:30%;
+                        background-color:$Green1;
+                        margin-left:30px;
+                        margin-top:10px;
+                        color:$White
+                    }
+        }
 }

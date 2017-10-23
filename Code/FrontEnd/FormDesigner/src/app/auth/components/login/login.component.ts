@@ -15,6 +15,7 @@ import { RouteableComponent } from 'ui/animations/RouteableComponent';
   ]
 })
 export class LoginComponent extends RouteableComponent implements OnInit {
+  
   public _loginFormGroup:FormGroup;
   public userName:FormControl = new FormControl();
   public password:FormControl = new FormControl();

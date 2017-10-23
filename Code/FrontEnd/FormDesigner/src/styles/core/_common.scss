@@ -1,8 +1,8 @@
-@mixin center-div(){
+@mixin center-div($top:50%,$left:50%,$xtranslate:50%,$ytranslate:50%){
     position:absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
+    top:$top;
+    left:$left;
+    transform: translate($xtranslate,$ytranslate);
 }
 
 @mixin overlay(){

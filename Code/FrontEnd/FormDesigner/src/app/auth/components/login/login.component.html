@@ -1,5 +1,5 @@
-<form [formGroup]="_loginFormGroup" [@routeTransition]="state">
-  <fieldset>
+<div [formGroup]="_loginFormGroup" [@routeTransition]="state" class="login-container">
+  <!-- <fieldset> -->
     <div class="form-container">
       <fd-input [placeholderText]="getUsernamePlaceholder()" [controlGroup]="_loginFormGroup"
                           [controlName]="getUserFormControlName()"></fd-input>
@@ -12,5 +12,5 @@
     <div class="actions-container">
       <fd-button [text]='getLoginButtonText()' [styles]="getStyles()" (notifyClick)="onLogin()" ></fd-button>  
     </div>
-  </fieldset>
-</form> 
+  <!-- </fieldset> -->
+</div> 
