@@ -3,8 +3,8 @@
         <div class="title">Properties</div>
         <i class="fa fa-2x fa-times remove-icon" aria-hidden="true" title="Close" (click)="hide($event)"> </i>
     </div>
-    <md-tab-group>
-        <md-tab label="General">
+    <mat-tab-group>
+        <mat-tab label="General">
             <div class="field-container hide">
                     <div class="field-label">
                         <label [attr.for] ="name">Name</label>
@@ -64,16 +64,16 @@
             </div>
            
             <input type="hidden" formControlName="id"/>
-        </md-tab>
+        </mat-tab>
 
-        <md-tab label="Advanced">
+        <mat-tab label="Advanced">
             <!-- This way of dynamic component creation introduced in Angular 4. The drawback being
                   one cant access the component reference or have @Input/@Output limiting its usage in my app.-->
             <!--<ng-container *ngComponentOutlet="fieldPropertyAdvancedComponent"></ng-container>-->
 
             <!-- Dynamic Component Creation -->
              <div #advancedFieldProperty class="view-container"></div>
-        </md-tab>
-    </md-tab-group>
+        </mat-tab>
+    </mat-tab-group>
 </div>
 

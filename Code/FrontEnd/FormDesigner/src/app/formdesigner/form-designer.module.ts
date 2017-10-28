@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from "@angular/router";
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
-import {MdTabsModule} from '@angular/material';
+ import {MatTabsModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // Feature Modules
@@ -35,7 +35,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     UiModule,
-    MdTabsModule,
+    //MdTabsModule,
+    MatTabsModule,
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

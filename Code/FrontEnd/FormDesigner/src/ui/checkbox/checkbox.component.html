@@ -1,9 +1,9 @@
 <div [formGroup]="controlGroup" *ngIf="_usesReactive">
-  <md-checkbox [formControlName]="controlName" [checked]="checked" [(ngModel)]="checked" *ngIf="!useToggle">{{text}}</md-checkbox>
-  <md-slide-toggle [formControlName]="controlName" [checked]="checked" [(ngModel)]="checked" *ngIf="useToggle">{{text}}</md-slide-toggle>
+  <mat-checkbox [formControlName]="controlName" [checked]="checked" [(ngModel)]="checked" *ngIf="!useToggle">{{text}}</mat-checkbox>
+  <mat-slide-toggle [formControlName]="controlName" [checked]="checked" [(ngModel)]="checked" *ngIf="useToggle">{{text}}</mat-slide-toggle>
 </div>
 
 <div *ngIf="!_usesReactive">
-  <md-checkbox [checked]="checked" [(ngModel)]="checked" *ngIf="!useToggle">{{text}}</md-checkbox>
-  <md-slide-toggle [checked]="checked" [(ngModel)]="checked" *ngIf="useToggle">{{text}}</md-slide-toggle>
+  <mat-checkbox [checked]="checked" [(ngModel)]="checked" *ngIf="!useToggle">{{text}}</mat-checkbox>
+  <mat-slide-toggle [checked]="checked" [(ngModel)]="checked" *ngIf="useToggle">{{text}}</mat-slide-toggle>
 </div>

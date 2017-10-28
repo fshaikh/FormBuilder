@@ -8,9 +8,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Angular Material modules
-import {MaterialModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule,ReactiveFormsModule } from "@angular/forms";
+
+import {MatButtonModule, MatCheckboxModule, MatSlideToggleModule,
+        MatSelectModule,MatInputModule,MatRadioModule,MatDialogModule,MatSnackBarModule} from '@angular/material';
 
 // UI components
 import { ButtonComponent } from 'ui/button/button.component';
@@ -32,10 +34,17 @@ import { RouteableComponent } from "ui/animations/RouteableComponent";
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+    MatInputModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   declarations: [
     ButtonComponent,

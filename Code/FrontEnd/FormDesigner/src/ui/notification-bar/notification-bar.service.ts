@@ -2,7 +2,7 @@
  * Represents UI Notification Bar. Encapsulates MdSnackBar
  */
 import { Injectable } from '@angular/core';
-import { MdSnackBar } from "@angular/material";
+import { MatSnackBar } from "@angular/material";
 import { NotificationMessageBase, TextNotificationMessage, ComponentNotificationMessage } from "ui/notification-bar/NotificationMessage";
 
 @Injectable()
@@ -12,7 +12,7 @@ export class NotificationBarService {
    * Initializes a new instance of NotificationBarService
    * @param _snackBar Snack Bar
    */
-  constructor(private _snackBar: MdSnackBar) {
+  constructor(private _snackBar: MatSnackBar) {
       // Do nothing
   }
 

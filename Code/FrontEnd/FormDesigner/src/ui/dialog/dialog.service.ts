@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Observable } from "rxjs/Observable";
 import { DialogResult } from "ui/dialog/DialogResult";
 import { ConfirmationDialogRequest } from "ui/dialog/confirmation-dialog/ConfirmationDialogRequest";
@@ -8,7 +8,7 @@ import { ConfirmationDialogRequest } from "ui/dialog/confirmation-dialog/Confirm
 export class DialogService {
   private _dialogRef;
 
-  constructor(private _mdDialog: MdDialog) {
+  constructor(private _mdDialog: MatDialog) {
       // Do nothing
   }
 

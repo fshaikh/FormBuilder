@@ -10,8 +10,8 @@
 </div>
 
 <!-- TODO - Use wrapper tab component. Using directly because of issues with getting the tab wrapper component to work-->
-<md-tab-group>
-    <md-tab label="Basic" class="tab">
+<mat-tab-group>
+    <mat-tab label="Basic" class="tab">
         <div class="controls-panel" *ngFor="let control of Controls">
             <div class="control" draggable="true" (dragstart)="onDragStart($event)" [attr.data-control]="control.type">
                 <div class="control-icon">
@@ -20,13 +20,13 @@
                 <div class="control-label">{{control.label}}</div>
             </div>
         </div>
-    </md-tab>
-    <md-tab label="Widgets">
+    </mat-tab>
+    <mat-tab label="Widgets">
         <div>
             Coming Soon!!!
         </div>
-    </md-tab>
-</md-tab-group>
+    </mat-tab>
+</mat-tab-group>
 
 
 <!--<fd-tabs>

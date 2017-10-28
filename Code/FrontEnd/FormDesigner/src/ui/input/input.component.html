@@ -1,7 +1,11 @@
 <md-input-container [formGroup]="controlGroup" *ngIf="_usesReactive" >
-  <input mdInput [type]="type" [placeholder]="placeholderText" [value]="value" [(ngModel)]="value" [formControlName]="controlName">
+  <mat-form-field >
+      <input matInput [type]="type" [placeholder]="placeholderText" [value]="value" [(ngModel)]="value" [formControlName]="controlName">
+  </mat-form-field>
 </md-input-container>
 
 <md-input-container *ngIf="!_usesReactive">
-  <input mdInput  [type]="type" [placeholder]="placeholderText" [value]="value" [(ngModel)]="value">
+  <mat-form-field >
+      <input matInput  [type]="type" [placeholder]="placeholderText" [value]="value" [(ngModel)]="value">
+  </mat-form-field>
 </md-input-container>
