@@ -3,6 +3,7 @@
 module.exports = (function(){
     const controllerHelper = require('../controllerHelper');
     var authService = require('../../services/authService');
+    var UserExistsRequest = require('../../models/UserExistsRequest').UserExistsRequest;
 
     var _init = function (app, options) {
         // add controller initialisation here
@@ -21,6 +22,9 @@ module.exports = (function(){
         router.route('/auth/register').post(doRegister);
 
         // POST api/auth/logoff
+
+        // GET api/auth/user/{type}/{value}
+        router.route('/auth/user/:type/:value').get(isUserExists);
     }
 
     /**
@@ -48,9 +52,26 @@ module.exports = (function(){
         controllerHelper.handleResponse(res, response, controllerHelper.getCreateResponse, controllerHelper.getErrorResponse);
     }
 
+    /**
+     * Action method for checking if user exists based on typed values
+     * @param req - Request object
+     * @param res - Response object
+     */
+    // GET api/auth/user/{type}/{value}
+    async function isUserExists(req,res){
+        let type = req.params.type;
+        let value = req.params.value;
+
+        let request = new UserExistsRequest(type,value);
+
+        var response = await authService.isUserExists(request);
+        controllerHelper.handleResponse(res, response, controllerHelper.getSuccessResponse, controllerHelper.getNotFoundResponse);
+    }
+
     return{
         init:_init,
         doLogin: doLogin,
-        doRegister: doRegister
+        doRegister: doRegister,
+        isUserExists: isUserExists
     }
 })();

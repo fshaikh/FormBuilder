@@ -68,6 +68,14 @@ module.exports = (function(){
     }
 
     /**
+     * Determines if a user exists based on the typed value.
+     * @param req - Request object
+     */
+    async function isUserExists(request){
+        
+    }
+
+    /**
      * Creates User DA object
      */
     function _createUserDA() {
@@ -158,6 +166,7 @@ module.exports = (function(){
 
     return{
         doLogin: doLogin,
-        registerUser: registerUser
+        registerUser: registerUser,
+        isUserExists : isUserExists
     };
 })();

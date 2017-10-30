@@ -23,11 +23,16 @@ module.exports = (function(){
         res.status(401).send('User not authorised')
     }
 
+    function getNotFoundResponse(res,response){
+        res.status(404).send(response);
+    }
+
     return{
         handleResponse:handleResponse,
         getCreateResponse: getCreateResponse,
         getSuccessResponse: getSuccessResponse,
         getErrorResponse: getErrorResponse,
-        getUnauthorisedResponse:getUnauthorisedResponse
+        getUnauthorisedResponse:getUnauthorisedResponse,
+        getNotFoundResponse : getNotFoundResponse
     }
 })();
