@@ -1,9 +1,10 @@
 ﻿// DAL for Users collection
 
 module.exports = (function () {
-    let DABase = require('./DataAccessBase.js');
+    var DABase = require('./DataAccessBase.js');
     // require config module
-    const config = require('../infrastructure/config.js');
+    var config = require('../infrastructure/config.js');
+    var TypeEnum = require('../models/TypeEnum').TypeEnum; 
 
     // constructor for User DAL
     function UserDataAccess() {
@@ -21,10 +22,10 @@ module.exports = (function () {
     }
 
     /**
-     * Determines if the username exists
+     * Determines if the user exists
      */
-    UserDataAccess.prototype.isUserExist = async function(authInfo){
-        let response = await this.findOne({}, _getUsernameFilter(authInfo), _getCollection());
+    UserDataAccess.prototype.isUserExist = async function(request){
+        let response = await this.findOne({}, _getUserFilter(request), _getCollection());
         return response;
     }
 
@@ -36,13 +37,28 @@ module.exports = (function () {
         return { userName: 1, password: 1};
     }
 
-    function _getUsernameFilter(authInfo) {
-        return {
-            $and: [
-                { userName: { $exists: true }},
-                { userName: authInfo.userName}
-            ]
-        };
+    /**
+     * Returns the filter to be used for searching for a user
+     * @param {*UserExistsRequest} request 
+     */
+    function _getUserFilter(request) {
+        switch(request.type){
+            case TypeEnum.Username:
+                return {
+                    $and: [
+                        { userName: { $exists: true }},
+                        { userName: request.value}
+                    ]
+                };
+            case TypeEnum.Email:
+                return {
+                    $and: [
+                        { email: { $exists: true }},
+                        { email: request.value}
+                    ]
+                };
+        }
+        
     }
 
     return {

@@ -32,7 +32,28 @@ module.exports = (function () {
             forms: mongoDb.collection(config.mongodb.formsCollection),
             users: mongoDb.collection(config.mongodb.usersCollection)
         };
+
+        // Create indexes
+        // Users Collection: userName and email
+        await createIndex('userName',config.mongodb.usersCollection,{unique:true});
+        await createIndex('email',config.mongodb.usersCollection);
         return true;
+    }
+
+    /**
+     * Creates index on a given collection
+     * @param {*} name - Field name
+     * @param {*} collection - Collection. Indexes are created on collection
+     * @param {*} options - Options containing other information like: type, constraints, collation, etc
+     */
+    async function createIndex(name,collection,options){
+        try{
+            await _database[collection].createIndex(name,options);
+            console.log(`Successfully provisioned index ${name } on : ${collection}`);
+        }
+        catch(e){
+            console.log(`Error in Provisioning Indexes: ${e}`);
+        }
     }
 
     /**

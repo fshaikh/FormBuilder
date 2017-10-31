@@ -8,6 +8,9 @@ module.exports = (function(){
     var utilService = require('./utilService');
     var User = require('../models/User').User;
     var cryptoService = require('./cryptoService');
+    var UserExistsRequest = require('../models/UserExistsRequest').UserExistsRequest;
+    var TypeEnum = require('../models/TypeEnum').TypeEnum;
+    var UserExistsResponse = require('../models/UserExistsResponse').UserExistsResponse;
     
     /**
      * Validates the login for the passed user
@@ -17,7 +20,8 @@ module.exports = (function(){
         var responseBase = new ResponseBase();
 
         // call DA to check if the user exists
-        var savedAuthInfo = await _createUserDA().isUserExist(authInfo);
+        var request = new UserExistsRequest(TypeEnum.Username,authInfo.userName);
+        var savedAuthInfo = await _createUserDA().isUserExist(request);
         // If user does not exist, return error response : UserNotFound
         if(savedAuthInfo.data == null){
             responseBase.isSuccess = false;
@@ -41,8 +45,6 @@ module.exports = (function(){
 
         return savedAuthInfo;
     }
-
-    
 
     /**
      * Creates a new user account.
@@ -72,7 +74,12 @@ module.exports = (function(){
      * @param req - Request object
      */
     async function isUserExists(request){
-        
+        var response = new UserExistsResponse();
+        var request = new UserExistsRequest(TypeEnum.Username,request.value);
+        var savedAuthInfo = await _createUserDA().isUserExist(request);
+        // If user does not exist, return error response : UserNotFound
+        response.isSuccess = savedAuthInfo.data == null ? true : false;
+        return response;
     }
 
     /**
