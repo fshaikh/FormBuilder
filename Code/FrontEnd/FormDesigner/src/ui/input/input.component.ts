@@ -33,7 +33,6 @@ export class InputComponent extends UIComponentBase implements OnInit {
 
   ngOnInit(): void {
       super.ngOnInit();
-      console.log(this.type);
     }
 
   getStyles():String[]{

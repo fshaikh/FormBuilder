@@ -7,7 +7,6 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { RouteableComponent } from 'ui/animations/RouteableComponent';
 
 @Component({
-  selector: 'fd-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   animations:[
@@ -15,7 +14,6 @@ import { RouteableComponent } from 'ui/animations/RouteableComponent';
   ]
 })
 export class LoginComponent extends RouteableComponent implements OnInit {
-  
   public _loginFormGroup:FormGroup;
   public userName:FormControl = new FormControl();
   public password:FormControl = new FormControl();

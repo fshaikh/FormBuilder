@@ -1,0 +1,22 @@
+<div [formGroup]="_signupFormGroup" class="login-container">
+  <!-- <fieldset> -->
+    <div class="form-container">
+      <fd-input [placeholderText]="getUsernamePlaceholder()" [controlGroup]="_signupFormGroup"
+                          [controlName]="getUserFormControlName()"></fd-input>
+    </div>
+    <div class="form-container">
+      <fd-input [placeholderText]="getPasswordPlaceholder()" [type]="getPasswordType()"
+                [controlGroup]="_signupFormGroup"
+                [controlName]="getPasswordFormControlName()" ></fd-input>
+    </div>
+    <div class="form-container">
+      <fd-input [placeholderText]="getEmailPlaceholder()" [type]="getEmailType()"
+                [controlGroup]="_signupFormGroup"
+                [controlName]="getEmailFormControlName()" ></fd-input>
+    </div>
+    <div class="actions-container">
+      <fd-button [text]='getSignupButtonText()' [styles]="getStyles()" (notifyClick)="onRegister()" ></fd-button>  
+    </div>
+  <!-- </fieldset> -->
+</div> 
+
