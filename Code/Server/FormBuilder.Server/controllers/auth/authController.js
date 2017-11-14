@@ -65,7 +65,7 @@ module.exports = (function(){
         let request = new UserExistsRequest(type,value);
 
         var response = await authService.isUserExists(request);
-        controllerHelper.handleResponse(res, response, controllerHelper.getSuccessResponse, controllerHelper.getNotFoundResponse);
+        controllerHelper.handleResponse(res, response, controllerHelper.getSuccessResponse, controllerHelper.getErrorResponse);
     }
 
     return{

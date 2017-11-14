@@ -13,4 +13,5 @@ Code/Server/FormBuilder.Server/public
 Code/Server/FormBuilder.Server/.profile
 Docs/FormDesigner/
 i18n/
+*.dat
 

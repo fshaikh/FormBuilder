@@ -6,6 +6,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from '@angular/common';  
 
 // Feature Modules
 import { UiModule } from "ui/ui.module";
@@ -24,7 +25,8 @@ const routes: Routes = [
     imports:[
         RouterModule.forChild(routes),
         UiModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CommonModule
     ],
     declarations: [
         LoginComponent,

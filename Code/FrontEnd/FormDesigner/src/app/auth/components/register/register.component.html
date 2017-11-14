@@ -3,6 +3,7 @@
     <div class="form-container">
       <fd-input [placeholderText]="getUsernamePlaceholder()" [controlGroup]="_signupFormGroup"
                           [controlName]="getUserFormControlName()"></fd-input>
+      <span class="error" *ngIf="showUserNameExistsMessage()">User name already exists. Choose a different name.</span>
     </div>
     <div class="form-container">
       <fd-input [placeholderText]="getPasswordPlaceholder()" [type]="getPasswordType()"

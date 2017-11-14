@@ -13,7 +13,9 @@ import { AuthStateService } from "shared/services/auth/auth-state-service";
 
 @NgModule({
     providers:[
-        IdService,
+        // This is a provider recipe. First parameter is a token property and
+        // 2nd one is a recipe (used to create service instance)
+        { provide:IdService, useClass:IdService},
         FormsService,
         AuthService,
         AuthStateService

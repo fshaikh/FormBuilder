@@ -3,7 +3,7 @@ import { AuthService } from "shared/services/auth/auth.service";
 import { UserAuthInfo } from "shared/models/auth/UserAuthInfo";
 import { ResponseBase } from "shared/models/ResponseBase";
 import { Router } from "@angular/router";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators,FormBuilder } from "@angular/forms";
 import { RouteableComponent } from 'ui/animations/RouteableComponent';
 
 @Component({
@@ -14,21 +14,27 @@ import { RouteableComponent } from 'ui/animations/RouteableComponent';
   ]
 })
 export class LoginComponent extends RouteableComponent implements OnInit {
+  // Root form group
   public _loginFormGroup:FormGroup;
-  public userName:FormControl = new FormControl();
-  public password:FormControl = new FormControl();
   
-  constructor(private authService:AuthService,private _router:Router) {
+  /**
+   * Initializes a new instance of LoginComponent
+   * @param authService - AuthService
+   * @param _router      - Router to navigate to routes from login ui
+   * @param _formBuilder - FormBuilder to build reactive form
+   */
+  constructor(private authService:AuthService,
+              private _router:Router,
+              private _formBuilder:FormBuilder) {
     super();
    }
 
   ngOnInit() {
-    this._loginFormGroup = new FormGroup({
-      userName:this.userName,
-      password:this.password
+    // Construct the form group using FormBuilder
+    this._loginFormGroup = this._formBuilder.group({
+      userName:['',[Validators.required]],
+      password:['',[Validators.required]]
     });
-    this.userName.setValidators(Validators.required);
-    this.password.setValidators(Validators.required);
   }
 
   /**
@@ -36,8 +42,9 @@ export class LoginComponent extends RouteableComponent implements OnInit {
    */
   onLogin():void{
     var userAuthInfo = new UserAuthInfo();
-    userAuthInfo.userName = this.userName.value;
-    userAuthInfo.password = this.password.value;
+    var value = this._loginFormGroup.value;
+    userAuthInfo.userName = value.userName;
+    userAuthInfo.password = value.password;
 
     this.authService.doLogin(userAuthInfo).subscribe(
       (value:ResponseBase) => {this._router.navigate(['/myforms'])},

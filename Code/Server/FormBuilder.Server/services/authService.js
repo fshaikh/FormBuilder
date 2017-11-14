@@ -74,11 +74,19 @@ module.exports = (function(){
      * @param req - Request object
      */
     async function isUserExists(request){
-        var response = new UserExistsResponse();
+        var response = new ResponseBase();
         var request = new UserExistsRequest(TypeEnum.Username,request.value);
-        var savedAuthInfo = await _createUserDA().isUserExist(request);
-        // If user does not exist, return error response : UserNotFound
-        response.isSuccess = savedAuthInfo.data == null ? true : false;
+        try{
+            var savedAuthInfo = await _createUserDA().isUserExist(request);
+            // If user does not exist, return error response : UserNotFound
+            response.data = {exists:savedAuthInfo.data == null ? false : true};
+            response.isSuccess = true;
+        }catch(e){
+            console.error(`authService::isUserExists. Exception: ${e}`);
+            response.isSuccess = false;
+            response.message = 'Error in server';
+        }
+        
         return response;
     }
 

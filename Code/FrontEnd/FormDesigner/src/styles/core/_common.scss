@@ -1,3 +1,5 @@
+@import './colors';
+
 @mixin center-div($top:50%,$left:50%,$xtranslate:50%,$ytranslate:50%){
     position:absolute;
     top:$top;
@@ -14,4 +16,8 @@
     background:#606060;
     opacity:0.5;
     z-index:100;
+}
+
+.error{
+    color:$RedError
 }

@@ -1,10 +1,14 @@
+import { UserTypeEnum } from './../../../../shared/models/auth/UserTypeEnum';
+import { UserExistsRequest } from 'shared/models/auth/UserExistsRequest';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "shared/services/auth/auth.service";
 import { UserAuthInfo,ExtendedUserAuthInfo } from "shared/models/auth/UserAuthInfo";
 import { ResponseBase } from "shared/models/ResponseBase";
 import { Router } from "@angular/router";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import { RouteableComponent } from 'ui/animations/RouteableComponent';
+import { UserExistsResponse } from 'shared/models/auth/UserExistsResponse';
+import { userExistsValidator } from 'app/auth/Validators/UsernameExistsValidator';
 
 @Component({
   templateUrl: './register.component.html',
@@ -12,27 +16,21 @@ import { RouteableComponent } from 'ui/animations/RouteableComponent';
 })
 export class RegisterComponent implements OnInit {
   public _signupFormGroup:FormGroup;
-  userName:FormControl = new FormControl();
-  password:FormControl = new FormControl();
-  email:FormControl = new FormControl();
-
   /**
    * Initalizes a new instance of RegisterComponent
    */
-  constructor(private _authService:AuthService,private _router:Router) {
+  constructor(private _authService:AuthService,private _router:Router,private _formBuilder:FormBuilder) {
       
    }
 
   ngOnInit() {
-    this._signupFormGroup = new FormGroup({
-      userName:this.userName,
-      password: this.password,
-      email: this.email
+    var request = new UserExistsRequest();
+    request.Type = UserTypeEnum.Username;
+    this._signupFormGroup = this._formBuilder.group({
+      userName:['',[Validators.required],[userExistsValidator(request,this._authService)]],
+      password:['',[Validators.required]],
+      email:['',[Validators.required]]
     });
-
-    this.userName.setValidators(Validators.required);
-    this.password.setValidators(Validators.required);
-    this.email.setValidators(Validators.required);
   }
 
   /**
@@ -40,14 +38,18 @@ export class RegisterComponent implements OnInit {
    */
   onRegister():void{
     var authInfo = new ExtendedUserAuthInfo();
-    authInfo.userName = this.userName.value;
-    authInfo.password = this.password.value;
-    authInfo.email = this.email.value;
+    var value = this._signupFormGroup.value;
+    authInfo.userName = value.userName;
+    authInfo.password = value.password;
+    authInfo.email = value.email;
 
-    this._authService.doRegister(authInfo).subscribe(
-      (response:ResponseBase) => {this._router.navigate['/login']},
-      (error:any) => this.handleSignupError(error)
-    );
+    // this._authService.doRegister(authInfo).subscribe(
+    //   (response:ResponseBase) => {this._router.navigate['/login']},
+    //   (error:any) => this.handleSignupError(error)
+    // );
+
+   // console.log(this._signupFormGroup.valid);
+    console.log(this._signupFormGroup.get('userName').valid);
   }
 
   private handleSignupError(error:any){
@@ -92,6 +94,11 @@ export class RegisterComponent implements OnInit {
 
   getStyles(type:Boolean):String{
     return "ok-btn";
+  }
+
+  public showUserNameExistsMessage():boolean{
+    var errors = this._signupFormGroup.get('userName').errors;
+    return errors == null ? false: errors.exists ? true:false;
   }
 
 }

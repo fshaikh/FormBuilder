@@ -14,12 +14,15 @@ import { Observable } from "rxjs/Observable";
 import { ResponseBase } from "shared/models/ResponseBase";
 import { User } from "shared/models/auth/User";
 import { AuthStateService } from "shared/services/auth/auth-state-service";
+import {UserExistsRequest} from 'shared/models/auth/UserExistsRequest';
+import { UserExistsResponse } from 'shared/models/auth/UserExistsResponse';
 
 
 @Injectable()
 export class AuthService extends ServiceBase {
    private _loginUrl = '/auth/login';
    private _signupUrl = '/auth/register';
+   private _userExistsUrl = '/auth/user/';
   /**
     * Initializes a new instance of FormsService
     */
@@ -31,7 +34,7 @@ export class AuthService extends ServiceBase {
     * Performs login for a user
     * @param authInfo - Auth info object containing username and password
     */
-   doLogin(authInfo:UserAuthInfo):Observable<ResponseBase>{
+   public doLogin(authInfo:UserAuthInfo):Observable<ResponseBase>{
      let url = this._baseUrl + this._loginUrl;
      return this.post(url,authInfo)
                           .map((response:Response) => {return this._handleLoginResponse(response)});
@@ -40,7 +43,7 @@ export class AuthService extends ServiceBase {
    /**
     * Performs signup for a new user
     */
-   doRegister(authInfo:ExtendedUserAuthInfo):Observable<ResponseBase>{
+   public doRegister(authInfo:ExtendedUserAuthInfo):Observable<ResponseBase>{
       let url = this._baseUrl + this._signupUrl;
       return this.post(url,authInfo)
                   .map((response:Response) => {return this._handleSignupResponse(response)});
@@ -49,7 +52,7 @@ export class AuthService extends ServiceBase {
    /**
     * Performs log off for the authenticated user
     */
-   doLogOff():void{
+   public doLogOff():void{
     // if the user is already logged out, dont do anything
     if(!this._authStateService.isAuthenticated){
       return;
@@ -59,6 +62,16 @@ export class AuthService extends ServiceBase {
 
     // TODO: send log off signal to server. Will be required when using External
     // Auth Provider to log off the user from the external provider
+  }
+
+  /**
+   * 
+   */
+  public isUserExists(request:UserExistsRequest):Observable<UserExistsResponse>{
+    let url = this._baseUrl + this._userExistsUrl +  request.Type + '/' + request.Value;
+    return this.get(url)
+               .map((response:Response) => this._handleUserExistsResponse(response));
+
   }
 
   public getCurrentUser():User{
@@ -83,4 +96,17 @@ export class AuthService extends ServiceBase {
    _handleSignupResponse(response:Response):ResponseBase{
       return <ResponseBase>this.mapPostResponse(response);
    }
+
+   _handleUserExistsResponse(response:Response):UserExistsResponse{
+      var responseBase = <ResponseBase>this.mapPostResponse(response);
+      var userExistsResponse = new UserExistsResponse();
+      userExistsResponse.Exists = responseBase.data.exists;
+
+      return userExistsResponse;
+   }
+
+   private handleError(error:Response):any{
+        console.log(error);
+        return Observable.throw(error.json().error || 'Server error');
+    }
 }
